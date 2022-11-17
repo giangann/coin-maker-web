@@ -17,6 +17,14 @@ export const GridWithBackground = styled(Grid)({
   backgroundColor: backgroundColor['primary'],
 })
 
+export const FooterTitleText = styled(Typography)(({ theme }) => ({
+  color: 'white',
+  fontSize: 32,
+  fontWeight: 600,
+  letterSpacing: 6,
+  opacity: 0.7,
+}))
+
 export const WhiteTypograpy = styled(Typography)({
   color: 'white',
 })

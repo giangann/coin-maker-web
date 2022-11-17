@@ -1,4 +1,4 @@
-import { Grid, Hidden, Stack } from '@mui/material'
+import { Box, Grid, Hidden, Stack } from '@mui/material'
 import axios from 'axios'
 import { useUpdateAtom } from 'jotai/utils'
 import React, { useState } from 'react'
@@ -46,8 +46,14 @@ export const Layout = () => {
       columnSpacing={6}
     >
       {/* Header */}
-      <Grid item xs={12}>
-        <Header triggerSidebar={triggerSidebar} />
+      <Grid
+        sx={{ paddingTop: '0px !important', position: 'sticky', top: '0', zIndex: 11 }}
+        item
+        xs={12}
+      >
+        <Box>
+          <Header triggerSidebar={triggerSidebar} />
+        </Box>
       </Grid>
       <Hidden smUp>
         <Grid item xs={12}>
@@ -58,7 +64,9 @@ export const Layout = () => {
       {/* Sidebar / Drawer */}
       <Hidden smDown>
         <GridWithBackground item xs={0} sm={2}>
-          <Sidebar />
+          <Box sx={{ position: 'sticky', top: '90px' }}>
+            <Sidebar />
+          </Box>
         </GridWithBackground>
       </Hidden>
 
@@ -75,8 +83,16 @@ export const Layout = () => {
       </Hidden>
 
       {/* Main */}
-      <Grid sx={{ minHeight: 'calc(100vh - 74px)' }} item xs={12} sm={10} pr={{ xs: 1, sm: 6 }}>
-        <Outlet />
+      <Grid
+        sx={{ minHeight: 'calc(100vh - 74px)', mt: 4, px: { xs: 'unset', sm: '0px !important' } }}
+        item
+        xs={12}
+        sm={10}
+        pr={{ xs: 1, sm: 6 }}
+      >
+        <Box px={{ xs: 1, sm: 6 }}>
+          <Outlet />
+        </Box>
         <Footer />
       </Grid>
     </Grid>

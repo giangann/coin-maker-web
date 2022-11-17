@@ -58,5 +58,8 @@
     "donated": "Donated",
     "donate_confirm_title": "Confirm donate ?",
     "donate_confirm_content": "Give away is never take return, are you sure give 1 point for "
+  },
+  "product": {
+    "exchange_tool": "Exchange Tool"
   }
 }
