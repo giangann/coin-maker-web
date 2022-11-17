@@ -28,13 +28,13 @@
   "tag": "Tag",
   "audits": "Audits",
   "volume": "Volume",
-  "post": "Post",
   "cancel": "Cancel",
   "submit": "Submit",
   "reply": "Reply",
   "bullish": "Bullish",
   "bearish": "Bearish",
   "no_data": "No data",
+  "title": "Title",
   "chat_together": "Chat together",
   "sidebar": {
     "all_kind_of_currency": "All kind of currency",
@@ -50,5 +50,13 @@
   },
   "home": {
     "top_coin": "Top Cryptocurrency by Volume"
+  },
+  "post": {
+    "name": "Post",
+    "curr_score": "Your current score is: ",
+    "donate": "Donate",
+    "donated": "Donated",
+    "donate_confirm_title": "Confirm donate ?",
+    "donate_confirm_content": "Give away is never take return, are you sure give 1 point for "
   }
 }

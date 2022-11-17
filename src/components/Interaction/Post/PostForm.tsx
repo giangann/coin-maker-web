@@ -143,7 +143,7 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
             onClick={handleSubmit}
             size={isMobile ? 'small' : 'medium'}
           >
-            {t('post')}
+            {t('post.name')}
           </Button>
         </Box>
       </Stack>

@@ -6,6 +6,8 @@ import { BsFillChatRightTextFill } from 'react-icons/bs'
 import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 
+import { GiftIcon } from '@/components'
+import { Chip } from '@/components/Chip'
 import { InforUser, ListComment } from '@/components/Interaction'
 import { STATUS_LIKE, TAG_POST } from '@/constants'
 import { useAuth } from '@/libs/hooks'
@@ -21,6 +23,8 @@ import { Text } from '../styled'
 interface IPostProps extends IPost {
   user: UserType
   is_liked: boolean
+  handleOpenPostGiftDialog: () => void
+  handleChoosePost?: (post: any) => void
 }
 
 export const Post: React.FC<IPostProps> = ({
@@ -33,6 +37,9 @@ export const Post: React.FC<IPostProps> = ({
   count_comment,
   user,
   is_liked,
+  is_donated,
+  handleOpenPostGiftDialog,
+  handleChoosePost,
   ...props
 }) => {
   const { t } = useTranslation()
@@ -82,6 +89,16 @@ export const Post: React.FC<IPostProps> = ({
     } catch (error) {
       toast.error(t('delete_error'))
     }
+  }
+
+  const handlePostGift = async () => {
+    const post = {
+      user: user,
+      postId: post_id,
+    }
+
+    handleChoosePost?.(post)
+    handleOpenPostGiftDialog()
   }
 
   const handleToggleListComment = () => {
@@ -148,6 +165,17 @@ export const Post: React.FC<IPostProps> = ({
             <AlignGrid gap="4px" sx={{ cursor: 'pointer' }} onClick={handleDelete}>
               <BiTrash color={grey['secondary']} />
             </AlignGrid>
+          ) : null}
+
+          {userStorage?.id !== user_id ? (
+            <Chip
+              sx={{ backgroundColor: is_donated ? 'inherit' : 'none' }}
+              startIcon={<GiftIcon />}
+              content={is_donated ? t('post.donated') : t('post.donate')}
+              isOutline
+              hasHover
+              handleClick={!is_donated ? handlePostGift : () => {}}
+            />
           ) : null}
 
           {/* {userStorage?.id === user_id ? (

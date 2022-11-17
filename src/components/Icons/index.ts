@@ -1,6 +1,7 @@
 export * from './ArrowIcon'
 export * from './Common'
 export * from './Filter'
+export * from './Gift'
 export * from './Link'
 export * from './Search'
 export * from './Star'

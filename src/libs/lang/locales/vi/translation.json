@@ -28,12 +28,12 @@
   "audits": "Kiểm toán",
   "volume": "Khối lượng",
   "cancel": "Huỷ bỏ",
-  "post": "Đăng",
   "submit": "Submit",
   "reply": "Phản hồi",
   "bullish": "Tăng",
   "bearish": "Giảm",
   "no_data": "Không có dữ liệu",
+  "title": " Tiêu đề",
   "chat_together": "Trò chuyện cùng nhau",
   "sidebar": {
     "all_kind_of_currency": "Các loại tiền điện tử",
@@ -49,5 +49,13 @@
   },
   "home": {
     "top_coin": "Top các loại tiền điện tử theo khối lượng"
+  },
+  "post": {
+    "name": "Đăng",
+    "curr_score":"Số điểm hiện tại của bạn là: ",
+    "donate": "Tặng điểm",
+    "donated": "Đã tặng điểm",
+    "donate_confirm_title": "Xác nhận tặng điểm",
+    "donate_confirm_content": "Cho đi là không nhận lại, bạn có chắc chắn sẽ tặng 1 điểm cho "
   }
 }

@@ -23,4 +23,5 @@ export interface IPost {
 
   user: UserType
   is_liked: boolean
+  is_donated: boolean
 }

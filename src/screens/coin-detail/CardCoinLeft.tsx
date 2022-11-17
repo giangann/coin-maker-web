@@ -1,15 +1,16 @@
+// @ts-nocheck
 import { Box, Tooltip } from '@mui/material'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
-import { ArrowDropUpIcon, Card, Chip, StarFill, StarOutline } from '@/components'
+import { ArrowDropDownIcon, ArrowDropUpIcon, Card, Chip, StarFill, StarOutline } from '@/components'
 import { useAuth } from '@/libs/hooks'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { ICoin } from '@/libs/types'
 import { filterEmptySrting, numberWithCommas } from '@/libs/utils'
-import { backgroundColor, BoxFlexAlignCenter, BoxFlexCenter, BoxHeader, green } from '@/styles'
+import { backgroundColor, BoxFlexAlignCenter, BoxFlexCenter, BoxHeader, green, red } from '@/styles'
 
 import { TextPrice, Title } from './Coin'
 
@@ -121,12 +122,19 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
             <Chip
               content={
                 <BoxFlexCenter>
-                  0.2% fix cung
-                  <ArrowDropUpIcon height="20px" width="20px" />
+                  {coin?.market_data.price_change_percentage_24h}%{/* @ts-ignore */}
+                  {coin?.market_data?.price_change_percentage_24h < 0 ? (
+                    <ArrowDropDownIcon height="20px" width="20px" />
+                  ) : (
+                    <ArrowDropUpIcon height="20px" width="20px" />
+                  )}
                 </BoxFlexCenter>
               }
               sx={{
-                backgroundColor: green['primary'],
+                backgroundColor:
+                  coin?.market_data?.price_change_percentage_24h > 0
+                    ? green['primary']
+                    : red['primary'],
                 marginLeft: '24px',
                 fontSize: '14px',
                 fontWeight: 600,
