@@ -37,6 +37,7 @@ export const Post: React.FC<IPostProps> = ({
   count_comment,
   user,
   is_liked,
+  image,
   is_donated,
   handleOpenPostGiftDialog,
   handleChoosePost,
@@ -124,7 +125,7 @@ export const Post: React.FC<IPostProps> = ({
             user_avatar={user?.avatar_url || ''}
             time={formatTimeDiff(props.updated_at)}
           />
-          {tag != null && (
+          {tag != TAG_POST['UNSET'] && (
             <BoxTag
               startIcon={
                 tag === TAG_POST['BULLISH'] ? (
@@ -138,6 +139,12 @@ export const Post: React.FC<IPostProps> = ({
           )}
         </AlignGrid>
         <Typography>{content}</Typography>
+
+        {image && (
+          <Box mt={content ? '12px' : '0px'}>
+            <img src={image} alt="post" style={{ width: '100%', maxWidth: 375 }} />
+          </Box>
+        )}
 
         <AlignGrid gap="12px" mt="8px" ml="24px">
           <AlignGrid
