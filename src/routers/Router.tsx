@@ -13,7 +13,7 @@ export const Router = () => {
       <Route path="/login" element={<Login />} />
 
       <Route path="/" element={<Layout />}>
-        <Route pathw="/currencies/:coin_id" element={<Coin />} />
+        <Route path="/currencies/:coin_id" element={<Coin />} />
         <Route path="/chart" element={<ChartCoin idCoin="Qwsogvtv82FCd" />} />
         <Route path="/watch-list" element={<WatchList />} />
         <Route path="/convert-tool" element={<Converter />} />

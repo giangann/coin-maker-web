@@ -60,6 +60,9 @@
     "donate_confirm_content": "Give away is never take return, are you sure give 1 point for "
   },
   "product": {
-    "exchange_tool": "Exchange Tool"
+    "exchange_tool": "Exchange Tool",
+    "converter_title": "Cryptocurrency Converter",
+    "type_number": "Type crypto number",
+    "currency_type": "Currency"
   }
 }

@@ -23,6 +23,10 @@ export const FooterTitleText = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: 6,
   opacity: 0.7,
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 24,
+  },
 }))
 
 export const WhiteTypograpy = styled(Typography)({

@@ -59,6 +59,9 @@
     "donate_confirm_content": "Cho đi là không nhận lại, bạn có chắc chắn sẽ tặng 1 điểm cho "
   },
   "product": {
-    "exchange_tool": "Bộ chuyển đổi"
+    "exchange_tool": "Bộ chuyển đổi",
+    "converter_title": "Máy tính chuyển đổi tiền tệ",
+    "type_number": "Nhập số lượng tiền",
+    "currency_type": "Tiền tệ"
   }
 }

@@ -1,7 +1,8 @@
 import { Box, Grid, Hidden, Stack } from '@mui/material'
 import axios from 'axios'
+import { useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { Outlet } from 'react-router-dom'
 
@@ -14,7 +15,9 @@ import {
   Sidebar,
   SubHeader,
 } from '@/components/Layouts'
+import { exchangeRatesAtom } from '@/libs/atoms'
 import { changeCurrencyAtom } from '@/libs/atoms'
+import { IExchangeRates } from '@/libs/types'
 import { backgroundColor, GridWithBackground } from '@/styles'
 
 export const Layout = () => {
@@ -37,6 +40,21 @@ export const Layout = () => {
       vnd: res.data.usd.vnd,
     })
   })
+
+  const [exchangeRates, setExchangeRates] = useAtom(exchangeRatesAtom)
+
+  useQuery<{ [key: string]: IExchangeRates }>(
+    [
+      `https://api.coingecko.com/api/v3/exchange_rates
+    `,
+    ],
+    {
+      onSuccess: (data) => {
+        console.log(data.rates)
+        setExchangeRates(data.rates as any)
+      },
+    },
+  )
 
   return (
     <Grid

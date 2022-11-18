@@ -10,9 +10,12 @@ import { ICoinLaravel } from '@/libs/types'
 
 import { SearchDropDown } from './SearchDropDown'
 
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+export const StyledInputBase = styled(InputBase, {
+  shouldForwardProp: (props) => props !== 'backgroundColor',
+})<{ backgroundColor?: string }>(({ theme, backgroundColor, fullWidth }) => ({
   color: 'inherit',
-  width: '100%',
+  width: fullWidth ? '100%' : '50%',
+  backgroundColor: backgroundColor ?? 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -87,9 +90,9 @@ export const Search = () => {
           ref={inputRef}
           value={searchText}
           onChange={handleSearchTextChange}
+          fullWidth
         />
 
-        {/* <DropDown data={[1, 2] as any} button={<IconButton>button</IconButton>} /> */}
         <SearchDropDown
           searchResult={searchResult}
           open={openDropDown}
