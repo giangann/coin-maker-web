@@ -6,7 +6,7 @@ import { Card } from '@/components'
 import { CustomLink, WhiteTypograpy } from '@/styles'
 
 export const SiteMap = () => {
-  const { data, isLoading } = useQuery(['coin'])
+  const { data, isLoading } = useQuery(['coin/all'])
   const { t } = useTranslation()
   return (
     <Card title={t('list_currencies.title')} hasMore={false}>
