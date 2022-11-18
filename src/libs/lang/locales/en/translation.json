@@ -71,5 +71,9 @@
   },
   "list_currencies": {
     "title": "List of all currencies in site map"
+  },
+  "login": {
+    "login_form_content": "For convinience to login and authorize your account, please sign in with your google account! ",
+    "sign_in_with_google": "Sign in with google"
   }
 }

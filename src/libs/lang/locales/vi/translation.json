@@ -71,5 +71,9 @@
   },
   "list_currencies": {
     "title": "Danh sách tất cả các tiền điện tử trên site-map"
+  },
+  "login": {
+    "login_form_content": "Để thuận tiện cho việc đăng nhập và xác thực tài khoản, vui lòng đăng nhập bằng tài khoản google của bạn!",
+    "sign_in_with_google": "Đăng nhập bằng tài khoản google"
   }
 }

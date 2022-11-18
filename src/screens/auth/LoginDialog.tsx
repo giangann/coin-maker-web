@@ -1,11 +1,11 @@
-import { Dialog, DialogContent, DialogTitle, Grid, styled } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Grid, styled, Typography } from '@mui/material'
 import { gapi } from 'gapi-script'
 import { useAtom } from 'jotai'
 import React, { useState } from 'react'
 import GoogleButton from 'react-google-button'
 import { GoogleLogin } from 'react-google-login'
+import { useTranslation } from 'react-i18next'
 
-import { SearchContainer, StyledInputBase } from '@/components'
 import { loginWithGG } from '@/libs/apis'
 import { userAtomWithStorage, userProfileImage } from '@/libs/atoms/authAtom'
 import { backgroundColor, WhiteTypograpy } from '@/styles'
@@ -18,7 +18,7 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
   const [password, setPassword] = useState('')
   const [userStorage, setUserStorage] = useAtom(userAtomWithStorage)
   const [profileImage, setProfileImage] = useAtom(userProfileImage)
-
+  const { t } = useTranslation()
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value)
   }
@@ -58,27 +58,12 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <CustomDialogTitle>
-        <WhiteTypograpy>Đăng nhập </WhiteTypograpy>
+        <WhiteTypograpy>{t('sign_in')} </WhiteTypograpy>
       </CustomDialogTitle>
       <DialogContent>
         <Grid container>
-          <Grid item xs={12}>
-            <SearchContainer>
-              <StyledInputBase
-                placeholder="Tài khoản"
-                onChange={handleUsernameChange}
-                value={username}
-              />
-            </SearchContainer>
-          </Grid>
-          <Grid item xs={12}>
-            <SearchContainer>
-              <StyledInputBase
-                placeholder="Tài khoản"
-                onChange={handleUsernameChange}
-                value={username}
-              />
-            </SearchContainer>
+          <Grid item xs={12} py={2}>
+            <Typography sx={{ color: 'black' }}>{t('login.login_form_content')}</Typography>
           </Grid>
           <Grid item xs={6}>
             {/* <BootstrapButton sx={{ margin: 0 }}>
@@ -87,7 +72,7 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
               </BootstrapButton> */}
             <GoogleLogin
               clientId="892961628161-ttu2f42daldnurgoednpa6fss17u0pr4.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
+              buttonText={t('login.sign_in_with_google')}
               onSuccess={onSuccess}
               onFailure={onFailure}
               cookiePolicy={'single_host_origin'}
@@ -98,7 +83,7 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
                   disabled={renderProps.disabled}
                   style={{ width: '100%' }}
                 >
-                  Sign in with Google
+                  {t('login.sign_in_with_google')}
                 </GoogleButton>
               )}
             />

@@ -38,6 +38,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
 
   const handleLogout = () => {
     setUserStorage(null)
+    localStorage.setItem('user-token', 'null')
     setProfileImage(null)
   }
 
