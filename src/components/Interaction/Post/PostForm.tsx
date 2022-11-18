@@ -2,7 +2,8 @@ import { Box, Stack, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
+import { BsCaretDownFill, BsCaretUpFill, BsFileEarmarkImage } from 'react-icons/bs'
+import { TiDelete } from 'react-icons/ti'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/Button'
@@ -18,6 +19,7 @@ import {
   BoxFlexCenterSpaceBetween,
   text as textColor,
 } from '@/styles'
+import { grey } from '@/styles/colors'
 
 interface IPostForm {
   coin_id: string
@@ -32,6 +34,7 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [tagPost, setTagPost] = useState<number>(TAG_POST['UNSET'])
+  const [files, setFiles] = useState<File>()
 
   const handleTextChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setText(e.target.value)
@@ -43,23 +46,30 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
       return
     }
 
-    if (text.trim().length === 0) {
-      toast.error(t('Please enter your post'))
+    if (text.trim().length === 0 && !files?.type) {
+      toast.error(t('post.require_post'))
       return
     }
 
     try {
-      const res = await request.post('/post', {
-        coin_id,
-        content: text,
-        image: 'no image',
-        tag: tagPost === TAG_POST['UNSET'] ? null : tagPost,
-      })
+      const formData = new FormData()
+      formData.append('coin_id', coin_id)
+      formData.append('content', text)
+      formData.append(
+        'tag',
+        (tagPost === TAG_POST['UNSET'] ? TAG_POST['UNSET'] : tagPost).toString(),
+      )
+      if (files) {
+        formData.append('image', files)
+      }
+
+      const res = await request.post('/post', formData)
 
       if (res.status === 200) {
         toast.success('success')
         setText('')
         setTagPost(TAG_POST['UNSET'])
+        setFiles(undefined)
         queryClient.fetchQuery([`post/get-by-coin-id/${coin_id}?user_id=${userStorage?.id}`], {
           staleTime: 2000,
         })
@@ -136,7 +146,47 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
           value={text}
           placeholder="Write your review of Bitcoin"
         />
+        {files ? (
+          <Box position="relative" width="max-content">
+            <img
+              style={{ minWidth: 200, maxWidth: 400, marginTop: '16px' }}
+              src={files.type ? URL.createObjectURL(files) : ''}
+              alt="preview"
+            />
+            <TiDelete
+              size="28px"
+              color={grey['primary']}
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '2px',
+                cursor: 'pointer',
+                zIndex: 1,
+              }}
+              onClick={() => setFiles(undefined)}
+            />
+          </Box>
+        ) : null}
         <Box sx={{ textAlign: 'right' }}>
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ width: 'max-content', marginTop: '12px', marginRight: '12px' }}
+            size={isMobile ? 'small' : 'medium'}
+            startIcon={<BsFileEarmarkImage size="14px" />}
+          >
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              onChange={(e) => {
+                const listFile = e.target.files as FileList
+                const file = listFile[0]
+                setFiles(file)
+              }}
+            />
+            {t('image')}
+          </Button>
           <Button
             variant="contained"
             sx={{ width: 'max-content', marginTop: '12px' }}
