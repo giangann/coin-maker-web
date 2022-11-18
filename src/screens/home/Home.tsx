@@ -13,7 +13,7 @@ import { colorCoinGraph, CustomLink, strokeColor } from '@/styles'
 import { CoinGraph } from './coinGraph/CoinGraph'
 // import viberateLogo from '@/viberate_logo.png'
 
-type ColType = {
+export type ColType = {
   id: string
   market_cap_rank: number
   name: string

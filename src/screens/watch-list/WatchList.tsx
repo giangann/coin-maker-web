@@ -54,7 +54,7 @@ export const WatchList = () => {
         accessor: 'name',
         width: 200,
         sticky: 'left',
-        Cell: ({ row }) => {
+        Cell: ({ row }: any) => {
           return (
             <CustomLink to={`/currencies/${row.original.id || ''}`}>{row.original.name}</CustomLink>
           )
@@ -64,42 +64,42 @@ export const WatchList = () => {
         Header: t('price'),
         accessor: 'current_price',
         width: 200,
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return `$${numberWithCommas(value)}`
         },
       },
       {
         Header: '1h %',
         accessor: 'price_change_percentage_1h_in_currency',
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return <TextChangePercent num={value} />
         },
       },
       {
         Header: '24h %',
         accessor: 'price_change_percentage_24h_in_currency',
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return <TextChangePercent num={value} />
         },
       },
       {
         Header: '7d %',
         accessor: 'price_change_percentage_7d_in_currency',
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return <TextChangePercent num={value} />
         },
       },
       {
         Header: t('market_cap'),
         accessor: 'market_cap',
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return `$${numberWithCommas(value)}`
         },
       },
       {
         Header: t('circulating_supply'),
         accessor: 'circulating_supply',
-        Cell: ({ value }) => {
+        Cell: ({ value }: any) => {
           return `$${numberWithCommas(value)}`
         },
       },

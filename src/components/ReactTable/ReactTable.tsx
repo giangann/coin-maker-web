@@ -157,7 +157,7 @@ function ReactTable<T extends object>(props: TableProperties<T>): ReactElement {
   // }, [handleChangePagination, pageIndex, pageSize])
   return (
     <>
-      {isLoading && !data.lenght ? (
+      {isLoading && !data.length ? (
         <TableSkeleton />
       ) : !loading && !data.length ? (
         <EmptyTable />
