@@ -1,8 +1,9 @@
 import { Button, Grid, Menu, MenuItem } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
-import { AlignGrid, backgroundColor, strokeColor } from '@/styles'
+import { AlignGrid, backgroundColor, strokeColor, WhiteTypograpy } from '@/styles'
 
 import { Search } from './Search'
 
@@ -16,14 +17,16 @@ export const SubHeader = () => {
 
   const headerList = [
     {
-      name: t('watch_list'),
-      link: '#',
+      name: t('watch_list.name'),
+      link: '/watch-list',
     },
     {
       name: t('menu'),
       link: '#',
     },
   ]
+
+  const navigate = useNavigate()
   const handleClickSubHeaderMenu = (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
@@ -47,7 +50,7 @@ export const SubHeader = () => {
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClickSubHeaderMenu}
         >
-          Menu
+          <WhiteTypograpy sx={{ textTransform: 'none', fontWeight: 700 }}>Menu</WhiteTypograpy>
         </Button>
         <Menu
           anchorEl={anchorEl}
@@ -55,10 +58,17 @@ export const SubHeader = () => {
           onClose={handleClose}
           MenuListProps={{
             'aria-labelledby': 'basic-button',
+            sx: { border: '1px solid white', backgroundColor: backgroundColor['main'] },
           }}
         >
           {headerList.map((item, index) => (
-            <MenuItem key={index} onClick={(e: any) => handleClickSubHeaderMenu(e)}>
+            <MenuItem
+              key={index}
+              onClick={() => {
+                handleClose()
+                navigate(item.link)
+              }}
+            >
               {item.name}
             </MenuItem>
           ))}

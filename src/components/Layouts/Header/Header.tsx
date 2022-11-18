@@ -87,9 +87,11 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
                   {t('watch_list.name')}
                 </Typography>
               </Button>
-              <Typography sx={{ ...whiteColorStyle, ...responsiveTextStyle }} component="span">
-                {t('menu')}
-              </Typography>
+              <Button>
+                <Typography sx={{ ...whiteColorStyle, ...responsiveTextStyle }} component="span">
+                  {t('menu')}
+                </Typography>
+              </Button>
             </Stack>
           </Grid>
           <Grid item xs={4}>
