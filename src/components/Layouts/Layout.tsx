@@ -2,7 +2,7 @@ import { Box, Grid, Hidden, Stack } from '@mui/material'
 import axios from 'axios'
 import { useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Outlet } from 'react-router-dom'
 
