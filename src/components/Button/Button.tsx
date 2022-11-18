@@ -1,11 +1,14 @@
 import { Button as ButtonMUI, ButtonProps } from '@mui/material'
 import React from 'react'
 
-type TButton = {} & ButtonProps
+type TButton = {
+  component?: 'string' | React.ElementType
+} & ButtonProps
 
-export const Button: React.FC<TButton> = ({ children, ...ButtonProps }) => {
+export const Button: React.FC<TButton> = ({ children, component = '', ...ButtonProps }) => {
   return (
-    <ButtonMUI {...ButtonProps} sx={{ ...ButtonProps['sx'] }}>
+    // @ts-ignore
+    <ButtonMUI {...ButtonProps} sx={{ ...ButtonProps['sx'] }} component={component}>
       {children}
     </ButtonMUI>
   )
