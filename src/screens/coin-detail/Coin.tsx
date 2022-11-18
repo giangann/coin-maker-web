@@ -38,19 +38,19 @@ export const Coin = () => {
     ],
     {
       onSuccess(data) {
-        console.log('uudd', data.uuid)
+        // console.log('uudd', data.uuid)
         setUuidCoin(data.uuid)
         setIsCoinInWatchList(data.is_in_watch_list)
       },
     },
   )
 
-  console.log('coin db data', coinDbData)
+  // console.log('coin db data', coinDbData)
 
   useQuery<ICoin>([`https://api.coingecko.com/api/v3/coins/${coin_id}`], {
     onSuccess: (data) => {
       setCoin(data)
-      console.log(data)
+      // console.log(data)
     },
   })
 
