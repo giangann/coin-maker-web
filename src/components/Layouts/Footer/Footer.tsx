@@ -11,12 +11,14 @@ export const Footer = () => {
         left: 0,
         width: '100%',
         borderTop: '1px solid #797c87',
-        px: { xs: 4, sm: 8 },
+        px: { xs: 0, sm: 8 },
         py: 4,
         mt: 4,
       }}
     >
-      <FooterTitleText>@ 2022 RubyCoin</FooterTitleText>
+      <FooterTitleText sx={{ margin: 'auto', textAlign: { xs: 'center', sm: 'unset' } }}>
+        @ 2022 RubyCoin
+      </FooterTitleText>
     </BoxFlexCenter>
   )
 }

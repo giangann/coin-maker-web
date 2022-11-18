@@ -28,6 +28,7 @@ export const Page = ({ title, children, sxCustom, ...props }: PageProps) => {
             fontWeight: 700,
             fontSize: { xs: '1rem', md: '1.5rem' },
             color: '#fff',
+            mb: { xs: 2, sm: 'unset' },
           }}
           color="grey.900"
         >

@@ -164,9 +164,15 @@ function ReactTable<T extends object>(props: TableProperties<T>): ReactElement {
       ) : (
         <Styles>
           <div
-            style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 4 }}
+            style={{
+              marginBottom: '8px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: 8,
+            }}
           >
-            <span style={{ fontWeight: 500, fontSize: '14px', color: '#fff' }}>
+            <span style={{ fontWeight: 500, fontSize: 14, color: '#fff', opacity: 0.6 }}>
               {t('table.rows_per_page')}{' '}
             </span>
             <select
