@@ -59,15 +59,24 @@ export const Search = () => {
   const [searchText, setSearchText] = useState('')
   const [searchResult, setSearchResult] = useState<ICoinLaravel[] | null>(null)
   const inputRef = useRef(null)
+  const typingTimeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null)
+
   const handleSearchTextChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value)
-    const res = await request.get('coin/search', {
-      params: {
-        keyword: e.target.value,
-      },
-    })
-    setSearchResult(res.data)
-    setOpenDropDown(true)
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current)
+    }
+
+    typingTimeoutRef.current = setTimeout(async () => {
+      const res = await request.get('coin/search', {
+        params: {
+          keyword: e.target.value,
+        },
+      })
+      setSearchResult(res.data)
+      setOpenDropDown(true)
+    }, 500)
   }
 
   // handle off:
