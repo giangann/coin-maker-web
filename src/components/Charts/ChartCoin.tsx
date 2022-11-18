@@ -86,27 +86,52 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
 
   return isPriceResponseSuccess && isCoinDataSuccess ? (
     <Box>
-      <Stack direction="row" justifyContent="space-between" flexWrap={{ xs: 'wrap', sm: 'wrap' }}>
-        <Box width={380}>
-          <TabsStyled value={tab} numberOfTab={3} onChange={(e, value) => setTab(value)}>
+      <Box
+        sx={{
+          flexDirection: { xs: 'column', md: 'row' },
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ maxWidth: '100%' }}>
+          <TabsStyled
+            sx={{ width: '100%' }}
+            value={tab}
+            numberOfTab={3}
+            onChange={(e, value) => setTab(value)}
+            allowScrollButtonsMobile
+          >
             <TabStyled label="Price" />
             <TabStyled label="Market Cap" />
             <TabStyled label="Candle Chart" />
           </TabsStyled>
         </Box>
 
-        <Stack direction="row" mt={{ xs: 2, sm: 2, md: 0 }}>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          sx={{ mt: 2, width: { xs: '100%', sm: '70%', md: '40%', lg: '30%' } }}
+        >
           {optionTimeFilter.map((option) => (
-            <Button
-              key={option}
-              sx={{ bgcolor: option === timeOption ? 'white' : '#0C1023' }}
-              onClick={() => setTimeOption(option)}
-            >
-              {option}
-            </Button>
+            <Box sx={{ width: `${100 / 6}%` }} key={option}>
+              <Button
+                sx={{
+                  bgcolor: option === timeOption ? 'white' : '#0C1023',
+                  paddingX: { xs: '0px !important', sm: 'unset' },
+                  width: `100%`,
+                  '&.MuiButton-root': {
+                    minWidth: '48px !important',
+                  },
+                }}
+                onClick={() => setTimeOption(option)}
+              >
+                {option}
+              </Button>
+            </Box>
           ))}
         </Stack>
-      </Stack>
+      </Box>
       <TabPanel value={tab} index={Tab.Price}>
         <BarLineChart height={600} data={priceData} isPriceOption />
       </TabPanel>

@@ -8,6 +8,7 @@ export const Footer = () => {
       sx={{
         position: 'absolute',
         bottom: 0,
+        left: 0,
         width: '100%',
         borderTop: '1px solid #797c87',
         px: { xs: 4, sm: 8 },

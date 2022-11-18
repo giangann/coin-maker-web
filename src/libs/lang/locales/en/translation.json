@@ -7,7 +7,7 @@
     "name": "Watch List",
     "title": "Your watch list of Cryptocurrency"
   },
-
+  "search": "Search",
   "menu": "Menu",
   "price": "Price",
   "name": "Name",
@@ -64,5 +64,12 @@
     "converter_title": "Cryptocurrency Converter",
     "type_number": "Type crypto number",
     "currency_type": "Currency"
+  },
+  "language": {
+    "vietnamese": "Vietnamese",
+    "english": "English"
+  },
+  "list_currencies": {
+    "title": "List of all currencies in site map"
   }
 }

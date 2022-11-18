@@ -16,7 +16,7 @@ export const sidebarList = [
   {
     name: i18n.t('sidebar.all_kind_of_currency'),
     icon: <DashboardCustomizeOutlinedIcon sx={{ color: 'white' }} />,
-    link: '#',
+    link: '/site-map',
   },
   {
     name: i18n.t('sidebar.exchange'),

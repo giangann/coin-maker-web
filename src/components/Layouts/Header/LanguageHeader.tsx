@@ -7,15 +7,16 @@ import { useTranslation } from 'react-i18next'
 
 import FlagEn from '@/assets/svgs/en.svg'
 import FlagVn from '@/assets/svgs/vn.svg'
+import i18n from '@/libs/lang/translations/i18n'
 
 const LANGUAGES = [
   {
-    name: 'Tiếng Việt',
+    name: i18n.t('language.vietnamese'),
     symbol: 'vi',
     flag: FlagVn,
   },
   {
-    name: 'English',
+    name: i18n.t('language.english'),
     symbol: 'en',
     flag: FlagEn,
   },

@@ -110,9 +110,6 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
                   </Typography>
                 </Button>
               )}
-              <Typography sx={{ ...whiteColorStyle, ...responsiveTextStyle }} component="span">
-                {t('sign_up')}
-              </Typography>
               <LanguageHeader />
               <CurrencyHeader />
               <Avatar
