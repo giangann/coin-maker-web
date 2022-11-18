@@ -36,6 +36,7 @@
   "no_data": "No data",
   "title": "Title",
   "chat_together": "Chat together",
+  "image": "Image",
   "sidebar": {
     "all_kind_of_currency": "All kind of currency",
     "exchange": "Exchange",
@@ -57,6 +58,7 @@
     "donate": "Donate",
     "donated": "Donated",
     "donate_confirm_title": "Confirm donate ?",
-    "donate_confirm_content": "Give away is never take return, are you sure give 1 point for "
+    "donate_confirm_content": "Give away is never take return, are you sure give 1 point for ",
+    "require_post": "Please enter your message before posting"
   }
 }

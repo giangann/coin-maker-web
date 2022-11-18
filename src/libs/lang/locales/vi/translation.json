@@ -35,6 +35,7 @@
   "no_data": "Không có dữ liệu",
   "title": " Tiêu đề",
   "chat_together": "Trò chuyện cùng nhau",
+  "image": "Ảnh",
   "sidebar": {
     "all_kind_of_currency": "Các loại tiền điện tử",
     "exchange": "Trao đổi",
@@ -52,10 +53,11 @@
   },
   "post": {
     "name": "Đăng",
-    "curr_score":"Số điểm hiện tại của bạn là: ",
+    "curr_score": "Số điểm hiện tại của bạn là: ",
     "donate": "Tặng điểm",
     "donated": "Đã tặng điểm",
     "donate_confirm_title": "Xác nhận tặng điểm",
-    "donate_confirm_content": "Cho đi là không nhận lại, bạn có chắc chắn sẽ tặng 1 điểm cho "
+    "donate_confirm_content": "Cho đi là không nhận lại, bạn có chắc chắn sẽ tặng 1 điểm cho ",
+    "require_post": "Vui lòng nhập nội dung của bạn trước khi đăng"
   }
 }
