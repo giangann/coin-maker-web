@@ -102,7 +102,13 @@ export const Layout = () => {
 
       {/* Main */}
       <Grid
-        sx={{ minHeight: 'calc(100vh - 74px)', mt: 4, px: { xs: 'unset', sm: '0px !important' } }}
+        sx={{
+          position: 'relative',
+          minHeight: 'calc(100vh - 74px)',
+          mt: 4,
+          pb: 18,
+          px: { xs: 'unset', sm: '0px !important' },
+        }}
         item
         xs={12}
         sm={10}

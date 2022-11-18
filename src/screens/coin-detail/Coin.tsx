@@ -1,10 +1,12 @@
-import { Grid, styled, Typography } from '@mui/material'
+import { Box, Grid, styled, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
 import { BoxDescription } from '@/components'
+import { ChartCoin } from '@/components/Charts'
+import { ChartSkeleton } from '@/components/Skeleton/ChartSkeleton'
 import { useAuth } from '@/libs/hooks'
 import { ICoin, ICoinLaravel, IDescription } from '@/libs/types'
 
@@ -72,13 +74,13 @@ export const Coin = () => {
         </Grid>
       </Grid>
 
-      {/* {uuidCoin ? (
+      {uuidCoin ? (
         <Box sx={{ my: 4 }}>
           {!isFetching ? <ChartCoin idCoin={uuidCoin} /> : <ChartSkeleton />}
         </Box>
       ) : (
         <></>
-      )} */}
+      )}
 
       <BoxDescription
         desc={
