@@ -52,10 +52,16 @@
   },
   "post": {
     "name": "Đăng",
-    "curr_score":"Số điểm hiện tại của bạn là: ",
+    "curr_score": "Số điểm hiện tại của bạn là: ",
     "donate": "Tặng điểm",
     "donated": "Đã tặng điểm",
     "donate_confirm_title": "Xác nhận tặng điểm",
     "donate_confirm_content": "Cho đi là không nhận lại, bạn có chắc chắn sẽ tặng 1 điểm cho "
+  },
+  "product": {
+    "exchange_tool": "Bộ chuyển đổi",
+    "converter_title": "Máy tính chuyển đổi tiền tệ",
+    "type_number": "Nhập số lượng tiền",
+    "currency_type": "Tiền tệ"
   }
 }

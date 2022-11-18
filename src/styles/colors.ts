@@ -24,6 +24,7 @@ export const backgroundColor = {
   chipHover: '#1e243f',
   post: '#222531',
   chipOfWatchList: '#ffffff40',
+  autoCompleteInput: '#202B59',
 }
 
 export const grey = {

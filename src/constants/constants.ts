@@ -31,3 +31,8 @@ export const CURRENCIES: { [key: string]: string } = {
 }
 
 export const DEFAULT_POINTS_DONATE = 1
+
+export const DEFAULT_CONVERT_UNIT = {
+  ORIGIN: 'btc',
+  DEST: 'usd',
+}

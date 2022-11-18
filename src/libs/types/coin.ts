@@ -87,3 +87,10 @@ export interface IChangeCurrency {
   eth: number
   vnd: number
 }
+
+export interface IExchangeRates {
+  name: string
+  unit: string
+  value: number
+  type: string
+}

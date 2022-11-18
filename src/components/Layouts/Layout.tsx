@@ -1,5 +1,6 @@
-import { Grid, Hidden, Stack } from '@mui/material'
+import { Box, Grid, Hidden, Stack } from '@mui/material'
 import axios from 'axios'
+import { useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
@@ -14,7 +15,9 @@ import {
   Sidebar,
   SubHeader,
 } from '@/components/Layouts'
+import { exchangeRatesAtom } from '@/libs/atoms'
 import { changeCurrencyAtom } from '@/libs/atoms'
+import { IExchangeRates } from '@/libs/types'
 import { backgroundColor, GridWithBackground } from '@/styles'
 
 export const Layout = () => {
@@ -38,6 +41,21 @@ export const Layout = () => {
     })
   })
 
+  const [exchangeRates, setExchangeRates] = useAtom(exchangeRatesAtom)
+
+  useQuery<{ [key: string]: IExchangeRates }>(
+    [
+      `https://api.coingecko.com/api/v3/exchange_rates
+    `,
+    ],
+    {
+      onSuccess: (data) => {
+        console.log(data.rates)
+        setExchangeRates(data.rates as any)
+      },
+    },
+  )
+
   return (
     <Grid
       sx={{ backgroundColor: backgroundColor['main'] }}
@@ -46,8 +64,14 @@ export const Layout = () => {
       columnSpacing={6}
     >
       {/* Header */}
-      <Grid item xs={12}>
-        <Header triggerSidebar={triggerSidebar} />
+      <Grid
+        sx={{ paddingTop: '0px !important', position: 'sticky', top: '0', zIndex: 11 }}
+        item
+        xs={12}
+      >
+        <Box>
+          <Header triggerSidebar={triggerSidebar} />
+        </Box>
       </Grid>
       <Hidden smUp>
         <Grid item xs={12}>
@@ -58,7 +82,9 @@ export const Layout = () => {
       {/* Sidebar / Drawer */}
       <Hidden smDown>
         <GridWithBackground item xs={0} sm={2}>
-          <Sidebar />
+          <Box sx={{ position: 'sticky', top: '90px' }}>
+            <Sidebar />
+          </Box>
         </GridWithBackground>
       </Hidden>
 
@@ -75,8 +101,22 @@ export const Layout = () => {
       </Hidden>
 
       {/* Main */}
-      <Grid sx={{ minHeight: 'calc(100vh - 74px)' }} item xs={12} sm={10} pr={{ xs: 1, sm: 6 }}>
-        <Outlet />
+      <Grid
+        sx={{
+          position: 'relative',
+          minHeight: 'calc(100vh - 74px)',
+          mt: 4,
+          pb: 18,
+          px: { xs: 'unset', sm: '0px !important' },
+        }}
+        item
+        xs={12}
+        sm={10}
+        pr={{ xs: 1, sm: 6 }}
+      >
+        <Box px={{ xs: 1, sm: 6 }}>
+          <Outlet />
+        </Box>
         <Footer />
       </Grid>
     </Grid>
