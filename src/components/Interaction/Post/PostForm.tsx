@@ -148,8 +148,16 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
         />
         {files ? (
           <Box position="relative" width="max-content">
-            <img
-              style={{ minWidth: 200, maxWidth: 400, marginTop: '16px' }}
+            <Box
+              component="img"
+              sx={{
+                width: '100%',
+                maxWidth: {
+                  xs: 275,
+                  sm: 375,
+                },
+                marginTop: '16px',
+              }}
               src={files.type ? URL.createObjectURL(files) : ''}
               alt="preview"
             />
