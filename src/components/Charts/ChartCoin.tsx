@@ -7,8 +7,9 @@ import { CoinDataType, PriceChartDataResponseType, ServerResponseType } from '@/
 
 import { ChartSkeleton } from '../Skeleton/ChartSkeleton'
 import { TabPanel, TabsStyled, TabStyled } from '../Tabs'
-import { BarLineChart, dataChartType } from './component/BarLineChart'
+import { dataChartType } from './component/BarLineChart'
 import { CandleChart } from './component/CandleChart'
+import { MarketChart, PriceChart } from './component/chartComponent'
 import { parseDataChart, parseVolumeData } from './component/parseDataChart'
 
 enum Tab {
@@ -48,6 +49,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
       },
     ],
     {
+      retry: 3,
       onSuccess: (data) => {
         const volumeDataResponse = data.data.coin.sparkline
         const volumeData = parseVolumeData(volumeDataResponse, priceData.dataY.price.length)
@@ -58,6 +60,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
 
         setPriceData(newPriceData)
       },
+      enabled: !priceData.dataY.volume.length,
     },
   )
   const { isSuccess: isPriceResponseSuccess, refetch: priceRefetch } = useQuery<
@@ -71,11 +74,13 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
       },
     ],
     {
+      retry: 3,
       onSuccess: (data) => {
         const dataParse = parseDataChart(data.data.history)
         setPriceData(dataParse)
         refetch()
       },
+      enabled: !priceData.dataX.length && !priceData.dataY.price.length,
     },
   )
 
@@ -84,7 +89,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
     priceRefetch()
   }, [timeOption])
 
-  return isPriceResponseSuccess && isCoinDataSuccess ? (
+  return priceData.dataX.length && priceData.dataY.price.length && priceData.dataY.volume.length ? (
     <Box>
       <Box
         sx={{
@@ -133,10 +138,10 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
         </Stack>
       </Box>
       <TabPanel value={tab} index={Tab.Price}>
-        <BarLineChart height={600} data={priceData} isPriceOption />
+        <PriceChart data={priceData} />
       </TabPanel>
       <TabPanel value={tab} index={Tab.MarketCap}>
-        <BarLineChart height={600} data={priceData} isMarketOption />
+        <MarketChart data={priceData} />
       </TabPanel>
       <TabPanel value={tab} index={Tab.CandleChart}>
         <CandleChart />

@@ -1,7 +1,7 @@
 import type { ECharts, SetOptionOpts } from 'echarts/core'
 import { getInstanceByDom, init } from 'echarts/core'
 import { ECBasicOption } from 'echarts/types/dist/shared'
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import React, { useEffect, useImperativeHandle, useRef } from 'react'
 
 // Redeclare forwardRef
 declare module 'react' {
@@ -64,4 +64,4 @@ function CoreChartInner<T extends ECBasicOption>(
   return <div ref={chartRef} style={{ width: '100%', height: '100%' }} />
 }
 
-export const CoreChart = forwardRef(CoreChartInner)
+export const CoreChart = React.forwardRef(CoreChartInner)

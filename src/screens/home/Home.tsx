@@ -11,6 +11,7 @@ import { TrendingList } from '@/screens/home'
 import { colorCoinGraph, CustomLink, strokeColor } from '@/styles'
 
 import { CoinGraph } from './coinGraph/CoinGraph'
+
 // import viberateLogo from '@/viberate_logo.png'
 
 export type ColType = {
@@ -154,15 +155,16 @@ export const Home = () => {
         <TrendingList />
       </Grid>
 
-      {listCoinGraph.map((coin, index) => (
-        <Grid item {...grid} key={index}>
-          <CoinGraph
-            coin={coin}
-            colorGraph={colorCoinGraph.colorGraph[index]}
-            colorLine={colorCoinGraph.colorLine[index]}
-          />
-        </Grid>
-      ))}
+      {listCoinGraph &&
+        listCoinGraph.map((coin, index) => (
+          <Grid item {...grid} key={index + 'key'}>
+            <CoinGraph
+              coin={coin}
+              colorGraph={colorCoinGraph.colorGraph[index]}
+              colorLine={colorCoinGraph.colorLine[index]}
+            />
+          </Grid>
+        ))}
     </Grid>
   )
 }

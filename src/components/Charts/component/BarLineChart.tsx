@@ -86,12 +86,14 @@ const BarLineChart = forwardRef<ECharts, BarLineChartProps>(function Bar(props, 
   const { data, isMarketOption, isPriceOption, isLineGraph, colorLine, ...boxProps } = props
 
   const chartRef = useRef<ECharts>(null)
+  const priceRef = useRef<ECharts>(null)
+  const lineRef = useRef<ECharts>(null)
 
   return (
     <Box width="100%" {...boxProps}>
       {isMarketOption && <CoreChart options={MarketChartOption(data)} ref={chartRef} />}
-      {isPriceOption && <CoreChart options={PriceOption(data)} ref={chartRef} />}
-      {isLineGraph && <CoreChart options={LineGraphOption(data, colorLine)} ref={chartRef} />}
+      {isPriceOption && <CoreChart options={PriceOption(data)} ref={priceRef} />}
+      {isLineGraph && <CoreChart options={LineGraphOption(data, colorLine)} ref={lineRef} />}
     </Box>
   )
 })

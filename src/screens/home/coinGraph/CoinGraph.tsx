@@ -1,12 +1,13 @@
 import { Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 
 import { TableSkeleton } from '@/components'
 import { defaultPriceData } from '@/components/Charts/ChartCoin'
-import { BarLineChart, dataChartType } from '@/components/Charts/component/BarLineChart'
+import { dataChartType } from '@/components/Charts/component/BarLineChart'
+import { LineChart } from '@/components/Charts/component/chartComponent'
 import { parseDataChart } from '@/components/Charts/component/parseDataChart'
 import { baseUrl, cryptoApiHeaders, defaultReferenceCurrency } from '@/constants'
 import { ICoin, ICoinLaravel } from '@/libs/types'
@@ -21,7 +22,7 @@ export type CoinGraphType = {
 const CoinGraph: React.FC<CoinGraphType> = ({ coin, colorGraph, colorLine }) => {
   const { t } = useTranslation()
   const [priceData, setPriceData] = useState<dataChartType>(defaultPriceData)
-  const [uuidCoin, setUuidCoin] = useState<string>('')
+  const [uuidCoin, setUuidCoin] = useState<string>('Qwsogvtv82FCd')
 
   useQuery<ICoinLaravel>([`coin/${coin.id}`], {
     onSuccess(data) {
@@ -48,11 +49,7 @@ const CoinGraph: React.FC<CoinGraphType> = ({ coin, colorGraph, colorLine }) => 
     },
   )
 
-  useEffect(() => {
-    refetch()
-  }, [])
-
-  return !isPriceResponseLoading ? (
+  return !isPriceResponseLoading && coin ? (
     <Stack height={280} border="1px solid white" borderRadius={1}>
       <Stack
         direction="row"
@@ -86,7 +83,7 @@ const CoinGraph: React.FC<CoinGraphType> = ({ coin, colorGraph, colorLine }) => 
         </CustomLink>
       </Stack>
       <Box overflow="hidden" sx={{ bgcolor: colorGraph }}>
-        <BarLineChart height={250} data={priceData} colorLine={colorLine} isLineGraph />
+        <LineChart data={priceData} colorLine={colorLine} />
       </Box>
     </Stack>
   ) : (

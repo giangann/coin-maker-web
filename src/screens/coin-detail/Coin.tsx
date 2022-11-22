@@ -42,6 +42,7 @@ export const Coin = () => {
         setUuidCoin(data.uuid)
         setIsCoinInWatchList(data.is_in_watch_list)
       },
+      enabled: !uuidCoin,
     },
   )
 
@@ -76,7 +77,7 @@ export const Coin = () => {
 
       {uuidCoin ? (
         <Box sx={{ my: 4 }}>
-          {!isFetching ? <ChartCoin idCoin={uuidCoin} /> : <ChartSkeleton />}
+          {!isFetching ? <ChartCoin idCoin={uuidCoin || 'Qwsogvtv82FCd'} /> : <ChartSkeleton />}
         </Box>
       ) : (
         <></>
