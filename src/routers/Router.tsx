@@ -5,6 +5,7 @@ import { ChartCoin } from '@/components/Charts/ChartCoin'
 import { Layout } from '@/components/Layouts'
 import { Coin, Home, Login, NotFound } from '@/screens'
 import { Converter } from '@/screens/converter/Converter'
+import { UserProfile } from '@/screens/profile/UserProfile'
 import { SiteMap } from '@/screens/site-map/SiteMap'
 import { WatchList } from '@/screens/watch-list/WatchList'
 
@@ -19,6 +20,7 @@ export const Router = () => {
         <Route path="/watch-list" element={<WatchList />} />
         <Route path="/convert-tool" element={<Converter />} />
         <Route path="/site-map" element={<SiteMap />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route index element={<Home />} />
       </Route>
       <Route path="*" element={<NotFound />} />
