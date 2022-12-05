@@ -90,7 +90,7 @@ export const Layout = () => {
 
       <Hidden smUp>
         <CustomDrawer open={isSidebarOpen} setOpen={triggerSidebar}>
-          <Sidebar />
+          <Sidebar setOpen={triggerSidebar} />
           <Hidden mdUp>
             <Stack sx={{ position: 'absolute', bottom: '10px', left: 10 }} gap="8px">
               <LanguageHeader />
