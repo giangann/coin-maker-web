@@ -45,7 +45,6 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
   }
 
   const handleNavigate = () => {
-    console.log('navigate')
     navigate('/watch-list')
   }
 

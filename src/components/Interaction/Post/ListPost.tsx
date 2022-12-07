@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+import { useAtom } from 'jotai'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
@@ -6,7 +7,7 @@ import { toast } from 'react-toastify'
 
 import { BaseDialog } from '@/components/Dialog/BaseDialog'
 import { DEFAULT_POINTS_DONATE } from '@/constants'
-import { useAuth } from '@/libs/hooks'
+import { userAtomWithStorage } from '@/libs/atoms'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { IPost, UserType } from '@/libs/types'
@@ -27,7 +28,8 @@ type PostInfo = {
 }
 
 export const ListPost: React.FC<IListPost> = ({ coin_id }) => {
-  const { userStorage } = useAuth()
+  const [userStorage, setUserStorage] = useAtom(userAtomWithStorage)
+  console.log('userStorage', userStorage)
   const [openDialog, setOpenDialog] = useState(false)
   const [postInfo, setPostInfo] = useState<PostInfo | null>(null)
   const { data: posts, isLoading } = useQuery<IListPostResponse>([
@@ -40,12 +42,17 @@ export const ListPost: React.FC<IListPost> = ({ coin_id }) => {
 
   const handleDonate = async () => {
     try {
-      const res = await request.post('/donate', {
+      const res = await request.post('/donate/donate', {
         post_id: postInfo?.postId,
         user_donate_id: userStorage?.id,
+        user_take_id: postInfo?.user.id,
         points: DEFAULT_POINTS_DONATE,
       })
-
+      console.log('res', res)
+      setUserStorage({
+        ...userStorage,
+        score: res.data.data.user_donate_curr_score,
+      } as any)
       queryClient.fetchQuery([`post/get-by-coin-id/${coin_id}?user_id=${userStorage?.id}`], {
         staleTime: 2000,
       })

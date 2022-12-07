@@ -1,19 +1,29 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useAtom } from 'jotai'
+import { useQuery } from 'react-query'
 
-import { Card } from '@/components'
 import { userAtomWithStorage } from '@/libs/atoms'
 
+import { DonateHistory } from './DonateHistory'
+import { UserInfo } from './UserInfo'
+
+type Setting = {
+  price_per_point: number
+  initial_point: number
+}
 export const UserProfile = () => {
   const [userStorage] = useAtom(userAtomWithStorage)
-  console.log('user storage', userStorage)
+
+  const { data: settings } = useQuery<Setting[]>([`get-setting`])
+
   return (
     <Box>
-      <Card title="Thong tin ca nhan" hasMore={false}>
-        <Box>
-          <Typography>Email: {userStorage?.email} </Typography>
-        </Box>
-      </Card>
+      <Box sx={{ mb: 3 }}>
+        <UserInfo />
+      </Box>
+      <Box>
+        <DonateHistory />
+      </Box>
     </Box>
   )
 }

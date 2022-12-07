@@ -25,6 +25,11 @@ export const backgroundColor = {
   post: '#222531',
   chipOfWatchList: '#ffffff40',
   autoCompleteInput: '#202B59',
+  tag: {
+    red: '#EA394380',
+    green: '#00FF9E80',
+    yellow: '#FFDB85CC',
+  },
 }
 
 export const grey = {

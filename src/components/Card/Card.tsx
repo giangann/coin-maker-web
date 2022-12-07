@@ -16,7 +16,7 @@ export const Card = ({ title, children, hasMore = true }: ICardProps) => {
   return (
     <Box
       sx={{
-        padding: '20px',
+        padding: { xs: '14px', sm: '20px' },
         borderRadius: 1,
         backgroundColor: backgroundColor['primary'],
         border: `1px solid ${strokeColor['primary']}`,

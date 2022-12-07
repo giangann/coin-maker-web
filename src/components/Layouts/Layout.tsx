@@ -50,7 +50,6 @@ export const Layout = () => {
     ],
     {
       onSuccess: (data) => {
-        console.log(data.rates)
         setExchangeRates(data.rates as any)
       },
     },
