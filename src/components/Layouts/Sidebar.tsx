@@ -53,7 +53,12 @@ export const sidebarList = [
   },
 ]
 
-export const Sidebar = () => {
+type SidebarProps = {
+  setOpen?: () => void
+}
+
+export const Sidebar = (props: SidebarProps) => {
+  const { setOpen } = props
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -106,7 +111,14 @@ export const Sidebar = () => {
                 sx={{ border: '1px solid white', backgroundColor: backgroundColor['main'] }}
               >
                 {item?.children?.map((item: any, index: any) => (
-                  <MenuItem key={index} onClick={() => navigate(item.link)}>
+                  <MenuItem
+                    key={index}
+                    onClick={() => {
+                      navigate(item.link)
+                      handleClose()
+                      setOpen?.()
+                    }}
+                  >
                     <ListItemIcon> {item.icon}</ListItemIcon>
                     <WhiteTypograpy
                       sx={{

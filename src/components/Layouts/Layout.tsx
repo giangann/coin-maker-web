@@ -50,7 +50,6 @@ export const Layout = () => {
     ],
     {
       onSuccess: (data) => {
-        console.log(data.rates)
         setExchangeRates(data.rates as any)
       },
     },
@@ -90,7 +89,7 @@ export const Layout = () => {
 
       <Hidden smUp>
         <CustomDrawer open={isSidebarOpen} setOpen={triggerSidebar}>
-          <Sidebar />
+          <Sidebar setOpen={triggerSidebar} />
           <Hidden mdUp>
             <Stack sx={{ position: 'absolute', bottom: '10px', left: 10 }} gap="8px">
               <LanguageHeader />

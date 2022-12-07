@@ -41,6 +41,10 @@ export const responsiveTextStyle = {
   fontSize: { xs: 12, sm: 14 },
 }
 
+export const responsiveBiggerTextStyle = {
+  fontSize: { xs: 14, sm: 16 },
+}
+
 export const SidebarMenuItem = styled(MenuItem)({
   width: '100%',
 })
@@ -62,6 +66,14 @@ export const MenuItemStyled = styled(MenuItem)({
   fontSize: '12px',
   fontWeight: 700,
 })
+
+export const CurveBoxWithCustomBackground = styled(Box, {
+  shouldForwardProp: (props) => props !== 'bgColor',
+})<{ bgColor?: string }>(({ theme, bgColor }) => ({
+  borderRadius: theme.spacing(0.5),
+  padding: theme.spacing(1),
+  backgroundColor: bgColor ?? 'none',
+}))
 
 // export const BoxGreyBorder = styled(Box)({
 //   border: ''

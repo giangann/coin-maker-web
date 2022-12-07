@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu'
-import { Avatar, Button, Grid, Hidden, Stack, Typography } from '@mui/material'
+import { Button, Grid, Hidden, Stack, Typography } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { useAtom } from 'jotai'
 import React, { useState } from 'react'
@@ -18,6 +18,8 @@ import {
   whiteColorStyle,
   yellow,
 } from '@/styles'
+
+import { ProfileHeader } from './ProfileHeader'
 
 interface HeaderProps {
   triggerSidebar: () => void
@@ -43,7 +45,6 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
   }
 
   const handleNavigate = () => {
-    console.log('navigate')
     navigate('/watch-list')
   }
 
@@ -115,11 +116,8 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
               )}
               <LanguageHeader />
               <CurrencyHeader />
-              <Avatar
-                sx={{ width: '32px', height: '32px' }}
-                alt="Remy Sharp"
-                src={isLoggined ? (profileImage as any) : '/assets/images/avatar3.webp'}
-              />
+
+              <ProfileHeader />
             </Stack>
           </Grid>
         </AlignGrid>
@@ -127,19 +125,19 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
 
       {/* mobile */}
       <Hidden smUp>
-        <AlignGrid item xs={2}>
+        <AlignGrid item xs={2.5}>
           <IconButton onClick={triggerSidebar}>
             <MenuIcon sx={{ color: 'white' }} fontSize="large" />
           </IconButton>
         </AlignGrid>
-        <AlignGrid item xs={8} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <AlignGrid item xs={7} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              mr: 2,
+              // mr: 2,
               display: 'flex',
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -151,12 +149,8 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
             LOGO
           </Typography>
         </AlignGrid>
-        <AlignGrid item xs={2}>
-          <Avatar
-            sx={{ width: '32px', height: '32px' }}
-            alt="Remy Sharp"
-            src={isLoggined ? (profileImage as any) : '/assets/images/avatar3.webp'}
-          />
+        <AlignGrid item xs={2.5}>
+          <ProfileHeader />
         </AlignGrid>
       </Hidden>
 
