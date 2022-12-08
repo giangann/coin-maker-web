@@ -7,7 +7,7 @@ type BaseDialogProps = {
   open: boolean
   handleClose: () => void
   title?: string
-  handleSubmit?: () => void
+  handleSubmit?: any
   submitAction?: string
 } & DialogProps
 export const BaseDialog: React.FC<BaseDialogProps> = ({
@@ -17,6 +17,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   handleSubmit,
   submitAction,
   children,
+  ...props
 }: BaseDialogProps) => {
   const defaultSubmit = () => {
     toast.success('Submit')
@@ -24,7 +25,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   }
   const { t } = useTranslation()
   return (
-    <Dialog maxWidth="md" open={open} onClose={handleClose}>
+    <Dialog maxWidth="sm" open={open} onClose={handleClose} {...props}>
       <AppBar position="relative" sx={{ padding: 2 }}>
         <Typography>{title ? title : t('title')}</Typography>
       </AppBar>

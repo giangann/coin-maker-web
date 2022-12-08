@@ -34,3 +34,10 @@ export const donateHistoryData = [
     created_at: '2022-10-28 06:18:08',
   },
 ]
+
+export const listBanksData = [
+  {
+    label: 'VietinBank',
+    value: 1,
+  },
+]
