@@ -1,12 +1,12 @@
 import { Box, FormControl, FormControlProps } from '@mui/material'
-import { memo } from 'react'
+import React, { memo } from 'react'
 import { FieldError } from 'react-hook-form'
 
 import { FormHelper } from './FormHelper'
 import { FormLabel } from './FormLabel'
 
 export type AddControlProps = {
-  helperText?: string | JSX.Element
+  helperText?: string | React.ReactNode
   label?: string
   fieldError?: FieldError | boolean
 }
