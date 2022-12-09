@@ -1,8 +1,15 @@
 import { Box, Button, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
 
-import { baseUrl, cryptoApiHeaders, defaultReferenceCurrency, optionTimeFilter } from '@/constants'
+import {
+  baseUrl,
+  cryptoApiHeaders,
+  defaultReferenceCurrency,
+  optionTimeFilter,
+  optionTimeFilterGecko,
+} from '@/constants'
 import { CoinDataType, PriceChartDataResponseType, ServerResponseType } from '@/libs/types/apiChart'
 
 import { ChartSkeleton } from '../Skeleton/ChartSkeleton'
@@ -37,8 +44,10 @@ export type ChartCoinProps = {
 }
 
 const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
+  const { coin_id } = useParams()
   const [tab, setTab] = useState<Tab>(Tab.Price)
   const [priceData, setPriceData] = useState<dataChartType>(defaultPriceData)
+  const [candleChartData, setCandleChartData] = useState<number[][]>([])
   const [timeOption, setTimeOption] = useState('7d')
   const { isSuccess: isCoinDataSuccess, refetch } = useQuery<ServerResponseType<CoinDataType>>(
     [
@@ -84,12 +93,32 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
     },
   )
 
+  const { refetch: tempfetch } = useQuery(
+    [
+      `https://api.coingecko.com/api/v3/coins/${coin_id}/ohlc?vs_currency=usd&days=${
+        optionTimeFilterGecko[timeOption as keyof typeof optionTimeFilterGecko]
+      }`,
+    ],
+    {
+      retry: 3,
+      onSuccess: (data) => {
+        setCandleChartData(data as number[][])
+        console.log(data)
+      },
+      enabled: !candleChartData.length,
+    },
+  )
+
   useEffect(() => {
     refetch()
     priceRefetch()
+    tempfetch()
   }, [timeOption])
 
-  return priceData.dataX.length && priceData.dataY.price.length && priceData.dataY.volume.length ? (
+  return priceData.dataX.length &&
+    priceData.dataY.price.length &&
+    priceData.dataY.volume.length &&
+    candleChartData.length ? (
     <Box>
       <Box
         sx={{
@@ -144,7 +173,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
         <MarketChart data={priceData} />
       </TabPanel>
       <TabPanel value={tab} index={Tab.CandleChart}>
-        <CandleChart />
+        <CandleChart dataCandle={candleChartData} />
       </TabPanel>
     </Box>
   ) : (
