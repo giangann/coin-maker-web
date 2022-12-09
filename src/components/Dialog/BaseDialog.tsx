@@ -9,6 +9,7 @@ type BaseDialogProps = {
   title?: string
   handleSubmit?: any
   submitAction?: string
+  defaultAction?: boolean
 } & DialogProps
 export const BaseDialog: React.FC<BaseDialogProps> = ({
   title,
@@ -16,6 +17,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   handleClose,
   handleSubmit,
   submitAction,
+  defaultAction = true,
   children,
   ...props
 }: BaseDialogProps) => {
@@ -31,14 +33,17 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
       </AppBar>
       <Box sx={{ padding: 2 }}>
         {children}
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-          <Button onClick={handleClose} variant="outlined">
-            {t('cancel')}
-          </Button>
-          <Button sx={{ ml: 1 }} onClick={handleSubmit || defaultSubmit} variant="contained">
-            {submitAction || t('submit')}
-          </Button>
-        </Box>
+
+        {defaultAction ? (
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleClose} variant="outlined">
+              {t('cancel')}
+            </Button>
+            <Button sx={{ ml: 1 }} onClick={handleSubmit || defaultSubmit} variant="contained">
+              {submitAction || t('submit')}
+            </Button>
+          </Box>
+        ) : undefined}
       </Box>
     </Dialog>
   )

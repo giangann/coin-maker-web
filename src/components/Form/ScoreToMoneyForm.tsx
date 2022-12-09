@@ -1,8 +1,12 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
+import { toast } from 'react-toastify'
 
+import { STATUS_FORM } from '@/constants'
 import { useAuth } from '@/libs/hooks'
+import { request } from '@/libs/request'
 
 import { Select } from '../AutoComplete'
 import { Input } from '../Input'
@@ -10,42 +14,61 @@ import { Input } from '../Input'
 export type ScoreToMoneyFormType = {
   points: number | string
   bank_name: string
-  bank_number: string | number
+  bank_number: number | string
   bank_owner?: string
   bank_branch?: string
   name: string
-  phone_number: string | number
+  phone_number: number | string
 }
 
-export const ScoreToMoneyForm = () => {
+export const ScoreToMoneyForm = (props: any) => {
+  const { handleClose } = props
   const { userStorage } = useAuth()
-  // const [bankOptions, setBankOptions] = useState<SelectOption[]>()
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
 
-  console.log(listBanksData)
+  const { t } = useTranslation()
+  // @ts-ignore
   const bankOptions = listBanksData?.data?.map((item, index) => {
     return {
-      value: item.id,
+      value: item.short_name,
       label: item.short_name,
     }
   })
-  console.log('bankOptions', bankOptions)
-  console.log('listBanksData', listBanksData)
   const { control, handleSubmit, getValues, watch } = useForm<ScoreToMoneyFormType>({
     defaultValues: {
       points: 1,
       bank_name: '',
-      bank_number: '',
+      // bank_number: '',
       bank_owner: '',
       bank_branch: '',
       name: userStorage?.name,
       phone_number: '',
     },
   })
+
+  const onSubmit = async (value: ScoreToMoneyFormType) => {
+    try {
+      const res = await request.post('score-to-money-form', {
+        ...value,
+        user_id: userStorage?.id,
+        status: STATUS_FORM.AWAIT_CONFIRM,
+      })
+
+      console.log('result', res)
+
+      if (res.status === 200) {
+        toast.success(res.data.message)
+      }
+    } catch (error: any) {
+      console.log('error', error)
+      toast.error(error.errors)
+    }
+    handleClose()
+  }
   return (
-    <Grid container component="form" rowSpacing={1}>
+    <Grid container component="form" rowSpacing={1} onSubmit={handleSubmit(onSubmit)}>
       <Grid item xs={12} sx={{ mb: 4 }}>
-        <Box sx={{ width: { xs: '100%', sm: '50%' } }}>
+        <Box sx={{ width: { xs: '100%', sm: '48%' } }}>
           <Typography sx={{ color: 'black' }}>Tỉ lệ đổi: 1 điểm = 10.000đ</Typography>
           <Input
             sx={{ borderRadius: 6 }}
@@ -113,6 +136,16 @@ export const ScoreToMoneyForm = () => {
             placeholder="Số điện thoại"
           />
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Box sx={{ mt: 2, mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={handleClose} variant="outlined">
+            {t('cancel')}
+          </Button>
+          <Button sx={{ ml: 1 }} type="submit" variant="contained">
+            {t('submit')}
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   )

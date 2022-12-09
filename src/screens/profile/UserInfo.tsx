@@ -19,7 +19,6 @@ export const UserInfo = () => {
 
   const handleSubmitForm = async (value: ScoreToMoneyFormType) => {
     console.log(value)
-    handleClose()
   }
 
   const { t } = useTranslation()
@@ -47,9 +46,10 @@ export const UserInfo = () => {
         title={'Đổi điểm lấy tiền'}
         handleSubmit={handleSubmitForm}
         submitAction={'Xác nhận'}
+        defaultAction={false}
         fullWidth
       >
-        <ScoreToMoneyForm />
+        <ScoreToMoneyForm handleClose={handleClose} />
       </BaseDialog>
     </Card>
   )
