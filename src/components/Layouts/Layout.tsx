@@ -17,9 +17,7 @@ import {
 } from '@/components/Layouts'
 import { exchangeRatesAtom } from '@/libs/atoms'
 import { changeCurrencyAtom } from '@/libs/atoms'
-import { settingAtom } from '@/libs/atoms/settingAtom'
 import { IExchangeRates } from '@/libs/types'
-import { SettingType } from '@/libs/types/setting'
 import { backgroundColor, GridWithBackground } from '@/styles'
 
 export const Layout = () => {
