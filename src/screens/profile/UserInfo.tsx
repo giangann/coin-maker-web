@@ -30,23 +30,31 @@ export const UserInfo = () => {
 
   const { data: scoreData } = useQuery<any>('user/calculate-score')
   return (
-    <Card title="Thong tin ca nhan" hasMore={false}>
+    <Card title={t('user.info')} hasMore={false}>
       <Box>
-        <Typography>Email: {userStorage?.email} </Typography>
-        <Typography>Current score: {scoreData?.score} </Typography>
+        <Typography>
+          {t('user.email')} {userStorage?.email}{' '}
+        </Typography>
+        <Typography>
+          {t('user.curr_score')} {scoreData?.score}{' '}
+        </Typography>
         <Stack direction="row" alignItems="center" spacing={1} mt={1}>
-          <Typography>Current avaiable score: {scoreData?.avaiable_score} </Typography>
+          <Typography>
+            {t('user.avaiable_score')} {scoreData?.avaiable_score}{' '}
+          </Typography>
           <MenuItem sx={{ borderRadius: 4, p: 0 }} onClick={() => setOpenDialog(true)}>
             <CurveBoxWithCustomBackground
               sx={{ borderRadius: 4 }}
               bgColor={backgroundColor.tag.blue}
             >
               {'>'}
-              {'>'} yêu cầu đổi điểm
+              {'>'} {t('form.money_exchange')}
             </CurveBoxWithCustomBackground>
           </MenuItem>
         </Stack>
-        <Typography>Awaiting exchange score: {scoreData?.awating_score_to_money} </Typography>
+        <Typography>
+          {t('user.awaiting_exchange_score')} {scoreData?.awating_score_to_money}{' '}
+        </Typography>
       </Box>
 
       <BaseDialog
@@ -54,7 +62,7 @@ export const UserInfo = () => {
         handleClose={handleClose}
         title={'Đổi điểm lấy tiền'}
         handleSubmit={handleSubmitForm}
-        submitAction={'Xác nhận'}
+        submitAction={t('action.submit')}
         defaultAction={false}
         fullWidth
       >

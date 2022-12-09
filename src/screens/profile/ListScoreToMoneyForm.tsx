@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 
 import { Card } from '@/components'
@@ -8,6 +9,8 @@ import { StatusTag } from '@/components/Tag/StatusTag'
 import { numberWithCommas } from '@/libs/utils'
 
 export const ListScoreToMoneyForm = () => {
+  const { t } = useTranslation()
+
   const { data: listFormData, isLoading: isLoading } =
     useQuery<ScoreToMoneyFormType[]>('score-to-money-form')
 
@@ -21,25 +24,25 @@ export const ListScoreToMoneyForm = () => {
         sticky: 'left',
       },
       {
-        Header: 'User name',
+        Header: t('user.name'),
         accessor: 'user.name', // accessor is the "key" in the data
         width: 100,
         sticky: 'left',
       },
       {
-        Header: 'Phone number',
+        Header: t('user.phone_number'),
         accessor: 'phone_number', // accessor is the "key" in the data
         width: 100,
         sticky: 'left',
       },
       {
-        Header: 'Points',
+        Header: t('form.points'),
         accessor: 'points', // accessor is the "key" in the data
         width: 50,
         sticky: 'left',
       },
       {
-        Header: 'Money',
+        Header: t('form.money'),
         accessor: 'money', // accessor is the "key" in the data
         width: 50,
         Cell: ({ value }: { value: number }) => {
@@ -48,7 +51,7 @@ export const ListScoreToMoneyForm = () => {
         sticky: 'left',
       },
       {
-        Header: 'Status',
+        Header: t('form.status'),
         accessor: 'status', // accessor is the "key" in the data
         width: 100,
         Cell: (value: number) => {
@@ -57,22 +60,22 @@ export const ListScoreToMoneyForm = () => {
         sticky: 'left',
       },
       {
-        Header: 'Creaed at',
+        Header: t('form.created_at'),
         accessor: 'created_at', // accessor is the "key" in the data
-        width: 200,
+        width: 150,
         sticky: 'left',
       },
       {
-        Header: 'Updated at',
+        Header: t('form.updated_at'),
         accessor: 'updated_at', // accessor is the "key" in the data
-        width: 200,
+        width: 150,
         sticky: 'left',
       },
     ],
     [],
   )
   return (
-    <Card title="List score to money request" hasMore={false}>
+    <Card title={t('form.list_score_to_money_form')} hasMore={false}>
       <ReactTableWithToolBar columns={columns} data={listFormData || []} isLoading={isLoading} />
     </Card>
   )

@@ -1,5 +1,5 @@
 export type SettingType = {
-  initial_score: number
+  initial_point: number
   price_per_point: number
   admin: {
     name: string
