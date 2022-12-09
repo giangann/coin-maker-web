@@ -70,6 +70,7 @@ export const MenuItemStyled = styled(MenuItem)({
 export const CurveBoxWithCustomBackground = styled(Box, {
   shouldForwardProp: (props) => props !== 'bgColor',
 })<{ bgColor?: string }>(({ theme, bgColor }) => ({
+  // width: 'fit-content',
   borderRadius: theme.spacing(0.5),
   padding: theme.spacing(1),
   backgroundColor: bgColor ?? 'none',

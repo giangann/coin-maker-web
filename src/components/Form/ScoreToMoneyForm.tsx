@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -6,7 +8,9 @@ import { toast } from 'react-toastify'
 
 import { STATUS_FORM } from '@/constants'
 import { useAuth } from '@/libs/hooks'
+import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
+import { numberWithCommas } from '@/libs/utils'
 
 import { Select } from '../AutoComplete'
 import { Input } from '../Input'
@@ -27,6 +31,7 @@ export const ScoreToMoneyForm = (props: any) => {
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
 
   const { t } = useTranslation()
+  const { setting } = useAuth()
   // @ts-ignore
   const bankOptions = listBanksData?.data?.map((item, index) => {
     return {
@@ -38,7 +43,7 @@ export const ScoreToMoneyForm = (props: any) => {
     defaultValues: {
       points: 1,
       bank_name: '',
-      // bank_number: '',
+      bank_number: '',
       bank_owner: '',
       bank_branch: '',
       name: userStorage?.name,
@@ -52,12 +57,15 @@ export const ScoreToMoneyForm = (props: any) => {
         ...value,
         user_id: userStorage?.id,
         status: STATUS_FORM.AWAIT_CONFIRM,
+        money: watch('points') * setting?.price_per_point,
       })
 
       console.log('result', res)
 
       if (res.status === 200) {
         toast.success(res.data.message)
+        queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
+        queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
       }
     } catch (error: any) {
       console.log('error', error)
@@ -69,7 +77,9 @@ export const ScoreToMoneyForm = (props: any) => {
     <Grid container component="form" rowSpacing={1} onSubmit={handleSubmit(onSubmit)}>
       <Grid item xs={12} sx={{ mb: 4 }}>
         <Box sx={{ width: { xs: '100%', sm: '48%' } }}>
-          <Typography sx={{ color: 'black' }}>Tỉ lệ đổi: 1 điểm = 10.000đ</Typography>
+          <Typography sx={{ color: 'black' }}>
+            Tỉ lệ đổi: 1 điểm = {numberWithCommas(setting?.price_per_point)}đ
+          </Typography>
           <Input
             sx={{ borderRadius: 6 }}
             type="number"
@@ -80,7 +90,8 @@ export const ScoreToMoneyForm = (props: any) => {
             placeholder="Nhập số điểm muốn đổi"
           />
           <Typography sx={{ color: 'black' }}>
-            Số tiền bạn sẽ nhận được là: {(watch('points') as number) * 10}.000đ{' '}
+            Số tiền bạn sẽ nhận được là:{' '}
+            {numberWithCommas((watch('points') as number) * setting?.price_per_point)}đ{' '}
           </Typography>
         </Box>
       </Grid>
