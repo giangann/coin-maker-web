@@ -29,6 +29,7 @@ export const backgroundColor = {
     red: '#EA394380',
     green: '#00FF9E80',
     yellow: '#FFDB85CC',
+    blue: '#3861FB',
   },
 }
 

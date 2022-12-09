@@ -5,6 +5,8 @@ export type UserType = {
   imageUrl?: string
   avatar_url?: string
   score?: number
+  avaiable_score?: number
+  awating_score_to_money?: number
   created_at?: string | Date
 }
 

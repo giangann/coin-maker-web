@@ -7,8 +7,9 @@ type BaseDialogProps = {
   open: boolean
   handleClose: () => void
   title?: string
-  handleSubmit?: () => void
+  handleSubmit?: any
   submitAction?: string
+  defaultAction?: boolean
 } & DialogProps
 export const BaseDialog: React.FC<BaseDialogProps> = ({
   title,
@@ -16,7 +17,9 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   handleClose,
   handleSubmit,
   submitAction,
+  defaultAction = true,
   children,
+  ...props
 }: BaseDialogProps) => {
   const defaultSubmit = () => {
     toast.success('Submit')
@@ -24,20 +27,23 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   }
   const { t } = useTranslation()
   return (
-    <Dialog maxWidth="md" open={open} onClose={handleClose}>
+    <Dialog maxWidth="sm" open={open} onClose={handleClose} {...props}>
       <AppBar position="relative" sx={{ padding: 2 }}>
         <Typography>{title ? title : t('title')}</Typography>
       </AppBar>
       <Box sx={{ padding: 2 }}>
         {children}
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-          <Button onClick={handleClose} variant="outlined">
-            {t('cancel')}
-          </Button>
-          <Button sx={{ ml: 1 }} onClick={handleSubmit || defaultSubmit} variant="contained">
-            {submitAction || t('submit')}
-          </Button>
-        </Box>
+
+        {defaultAction ? (
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleClose} variant="outlined">
+              {t('cancel')}
+            </Button>
+            <Button sx={{ ml: 1 }} onClick={handleSubmit || defaultSubmit} variant="contained">
+              {submitAction || t('submit')}
+            </Button>
+          </Box>
+        ) : undefined}
       </Box>
     </Dialog>
   )

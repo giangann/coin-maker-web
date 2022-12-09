@@ -1,3 +1,5 @@
+import i18n from '@/libs/lang/translations/i18n'
+
 export const adminEmail = 'gta007md@gmail.com'
 
 export const STATUS_LIKE = {
@@ -44,3 +46,14 @@ export const DEFAULT_CONVERT_UNIT = {
   ORIGIN: 'btc',
   DEST: 'usd',
 }
+export const STATUS_FORM = {
+  APPROVED: 1,
+  AWAIT_CONFIRM: 0,
+  REJECTED: 2,
+}
+
+export const STATUS_FORM_OPTIONS = [
+  { label: i18n.t('approved'), value: STATUS_FORM.APPROVED },
+  { label: i18n.t('await_confirm'), value: STATUS_FORM.AWAIT_CONFIRM },
+  { label: i18n.t('rejected'), value: STATUS_FORM.REJECTED },
+]
