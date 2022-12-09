@@ -4,8 +4,8 @@ import { changeCurrencyAtom } from '@/libs/atoms'
 
 export const numberWithCommas = (num: number | string) => {
   if (!num) return 0
-  const arr = num?.toString().split('.')
-  if (arr?.length === 1) {
+  const arr = num.toString().split('.')
+  if (arr.length === 1) {
     return arr[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 

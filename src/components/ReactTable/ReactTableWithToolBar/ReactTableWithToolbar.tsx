@@ -18,6 +18,7 @@ function ReactTableWithToolBar<T extends object>({
   title,
   sxCustom,
   isLoading,
+  onRowClick,
   ...props
 }: ReactTableWithToolBarProps<T>) {
   return (
@@ -26,6 +27,7 @@ function ReactTableWithToolBar<T extends object>({
         columns={columns}
         data={data || []}
         isLoading={isLoading}
+        onRowClick={onRowClick}
         // handleChangeParams={handleChangeParams}
         // {...paginationData}
       />

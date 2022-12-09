@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
+import { Row as RowProps } from 'react-table'
 
 import { Card } from '@/components'
 import { ScoreToMoneyFormType } from '@/components/Form'
@@ -74,9 +75,19 @@ export const ListScoreToMoneyForm = () => {
     ],
     [],
   )
+
+  const onRowClick = (row: RowProps<ScoreToMoneyFormType>) => {
+    console.log(row)
+  }
+
   return (
     <Card title={t('form.list_score_to_money_form')} hasMore={false}>
-      <ReactTableWithToolBar columns={columns} data={listFormData || []} isLoading={isLoading} />
+      <ReactTableWithToolBar
+        columns={columns}
+        data={listFormData || []}
+        isLoading={isLoading}
+        onRowClick={onRowClick}
+      />
     </Card>
   )
 }

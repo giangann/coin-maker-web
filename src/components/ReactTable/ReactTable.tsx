@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TableOptions, usePagination, useSortBy, useTable } from 'react-table'
+import { Row as RowProps, TableOptions, usePagination, useSortBy, useTable } from 'react-table'
 import styled from 'styled-components'
 
 import { ArrowDropDownIcon, ArrowDropUpIcon, FilterOutline } from '@/components'
@@ -20,6 +20,7 @@ interface TableProperties<T extends object> extends TableOptions<T> {
   isSuccess?: boolean
   handleChangePagination?: any
   isLoading?: boolean
+  onRowClick?(row: RowProps<T>): void
 }
 
 const Styles = styled.div`
@@ -98,10 +99,13 @@ function ReactTable<T extends object>(props: TableProperties<T>): ReactElement {
     loading,
     isLoading,
     handleChangeParams,
+    onRowClick,
     pageCount: controlledPageCount,
     handleChangePagination,
     ...useTableOptions
   } = props
+
+  const hasRowClick = typeof onRowClick === 'function'
 
   const instance = useTable<T>(
     {
@@ -258,7 +262,7 @@ function ReactTable<T extends object>(props: TableProperties<T>): ReactElement {
                 {page.map((row) => {
                   prepareRow(row)
                   return (
-                    <tr {...row.getRowProps()}>
+                    <tr {...row.getRowProps()} onClick={() => hasRowClick && onRowClick(row)}>
                       {row.cells.map((cell, index) => {
                         return (
                           <td
