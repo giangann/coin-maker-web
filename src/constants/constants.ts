@@ -23,6 +23,14 @@ export const coinMarketApiHeader = {
 }
 export const baseUrl = 'https://coinranking1.p.rapidapi.com'
 export const optionTimeFilter = ['24h', '3h', '7d', '30d', '3m', '1y']
+export const optionTimeFilterGecko = {
+  '24h': 1,
+  '3h': 1,
+  '7d': 7,
+  '30d': 30,
+  '3m': 90,
+  '1y': 365,
+}
 export const defaultReferenceCurrency = 'yhjMzLPhuIDl'
 
 export const CURRENCIES: { [key: string]: string } = {
