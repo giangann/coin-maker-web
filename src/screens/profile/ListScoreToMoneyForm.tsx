@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
+import { useNavigate } from 'react-router-dom'
 import { Row as RowProps } from 'react-table'
 
 import { Card } from '@/components'
@@ -11,7 +12,7 @@ import { numberWithCommas } from '@/libs/utils'
 
 export const ListScoreToMoneyForm = () => {
   const { t } = useTranslation()
-
+  const navigate = useNavigate()
   const { data: listFormData, isLoading: isLoading } =
     useQuery<ScoreToMoneyFormType[]>('score-to-money-form')
 
@@ -77,7 +78,8 @@ export const ListScoreToMoneyForm = () => {
   )
 
   const onRowClick = (row: RowProps<ScoreToMoneyFormType>) => {
-    console.log(row)
+    console.log(row.values.id)
+    navigate(`/form/${row.values.id}`)
   }
 
   return (

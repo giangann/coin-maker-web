@@ -81,6 +81,7 @@
   "action": {
     "edit": "Sửa",
     "create": "Tạo mới",
+    "update": "Cập nhật",
     "submit": "Xác nhận",
     "cancel": "Hủy",
     "save": "Lưu",

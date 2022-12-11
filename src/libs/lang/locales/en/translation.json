@@ -81,6 +81,7 @@
   "action": {
     "edit": "Edit",
     "create": "Create",
+    "update": "Update",
     "submit": "Submit",
     "cancel": "Cancel",
     "save": "Save",

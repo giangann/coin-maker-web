@@ -262,7 +262,11 @@ function ReactTable<T extends object>(props: TableProperties<T>): ReactElement {
                 {page.map((row) => {
                   prepareRow(row)
                   return (
-                    <tr {...row.getRowProps()} onClick={() => hasRowClick && onRowClick(row)}>
+                    <tr
+                      style={{ cursor: 'pointer' }}
+                      {...row.getRowProps()}
+                      onClick={() => hasRowClick && onRowClick(row)}
+                    >
                       {row.cells.map((cell, index) => {
                         return (
                           <td

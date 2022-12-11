@@ -1,4 +1,5 @@
 import { Box, MenuItem, Stack, Typography } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +12,13 @@ import { userAtomWithStorage } from '@/libs/atoms'
 import { useAuth } from '@/libs/hooks'
 import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 
+export const darkTheme = createTheme({
+  palette: {
+    text: {
+      primary: '#000',
+    },
+  },
+})
 export const UserInfo = () => {
   const [userStorage] = useAtom(userAtomWithStorage)
 
@@ -24,7 +32,6 @@ export const UserInfo = () => {
   }
 
   const { setting } = useAuth()
-  console.log('setting', setting)
 
   const { t } = useTranslation()
 
@@ -60,13 +67,15 @@ export const UserInfo = () => {
       <BaseDialog
         open={openDialog}
         handleClose={handleClose}
-        title={'Đổi điểm lấy tiền'}
+        title={t('form.score_to_money')}
         handleSubmit={handleSubmitForm}
         submitAction={t('action.submit')}
         defaultAction={false}
         fullWidth
       >
-        <ScoreToMoneyForm handleClose={handleClose} />
+        <ThemeProvider theme={darkTheme}>
+          <ScoreToMoneyForm handleClose={handleClose} />
+        </ThemeProvider>
       </BaseDialog>
     </Card>
   )
