@@ -27,7 +27,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
   }
   const { t } = useTranslation()
   return (
-    <Dialog maxWidth="sm" open={open} onClose={handleClose} {...props}>
+    <Dialog maxWidth="md" open={open} onClose={handleClose} {...props}>
       <AppBar position="relative" sx={{ padding: 2 }}>
         <Typography>{title ? title : t('title')}</Typography>
       </AppBar>
