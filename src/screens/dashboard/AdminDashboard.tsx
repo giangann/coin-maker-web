@@ -8,6 +8,7 @@ import { settingAtom } from '@/libs/atoms/settingAtom'
 import { SettingType } from '@/libs/types/setting'
 import { BoxFlexStart, BoxHeader } from '@/styles'
 
+import { ManagerScoreToMoneyForm } from './ManagerScoreToMoneyForm'
 import { SystemSetting } from './SystemSetting'
 
 export const AdminDashboard = () => {
@@ -22,7 +23,7 @@ export const AdminDashboard = () => {
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ mb: 3 }}>
         <Card
           title={
             <BoxFlexStart sx={{ alignItems: 'center' }}>
@@ -34,6 +35,9 @@ export const AdminDashboard = () => {
         >
           <SystemSetting />
         </Card>
+      </Box>
+      <Box>
+        <ManagerScoreToMoneyForm />
       </Box>
     </Box>
   )
