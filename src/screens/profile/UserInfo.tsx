@@ -1,4 +1,5 @@
 import { Box, MenuItem, Stack, Typography } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +12,13 @@ import { userAtomWithStorage } from '@/libs/atoms'
 import { useAuth } from '@/libs/hooks'
 import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 
+export const darkTheme = createTheme({
+  palette: {
+    text: {
+      primary: '#000',
+    },
+  },
+})
 export const UserInfo = () => {
   const [userStorage] = useAtom(userAtomWithStorage)
 
@@ -24,41 +32,50 @@ export const UserInfo = () => {
   }
 
   const { setting } = useAuth()
-  console.log('setting', setting)
 
   const { t } = useTranslation()
 
   const { data: scoreData } = useQuery<any>('user/calculate-score')
   return (
-    <Card title="Thong tin ca nhan" hasMore={false}>
+    <Card title={t('user.info')} hasMore={false}>
       <Box>
-        <Typography>Email: {userStorage?.email} </Typography>
-        <Typography>Current score: {scoreData?.score} </Typography>
+        <Typography>
+          {t('user.email')} {userStorage?.email}{' '}
+        </Typography>
+        <Typography>
+          {t('user.curr_score')} {scoreData?.score}{' '}
+        </Typography>
         <Stack direction="row" alignItems="center" spacing={1} mt={1}>
-          <Typography>Current avaiable score: {scoreData?.avaiable_score} </Typography>
+          <Typography>
+            {t('user.avaiable_score')} {scoreData?.avaiable_score}{' '}
+          </Typography>
           <MenuItem sx={{ borderRadius: 4, p: 0 }} onClick={() => setOpenDialog(true)}>
             <CurveBoxWithCustomBackground
               sx={{ borderRadius: 4 }}
               bgColor={backgroundColor.tag.blue}
             >
               {'>'}
-              {'>'} yêu cầu đổi điểm
+              {'>'} {t('form.money_exchange')}
             </CurveBoxWithCustomBackground>
           </MenuItem>
         </Stack>
-        <Typography>Awaiting exchange score: {scoreData?.awating_score_to_money} </Typography>
+        <Typography>
+          {t('user.awaiting_exchange_score')} {scoreData?.awating_score_to_money}{' '}
+        </Typography>
       </Box>
 
       <BaseDialog
         open={openDialog}
         handleClose={handleClose}
-        title={'Đổi điểm lấy tiền'}
+        title={t('form.score_to_money')}
         handleSubmit={handleSubmitForm}
-        submitAction={'Xác nhận'}
+        submitAction={t('action.submit')}
         defaultAction={false}
         fullWidth
       >
-        <ScoreToMoneyForm handleClose={handleClose} />
+        <ThemeProvider theme={darkTheme}>
+          <ScoreToMoneyForm handleClose={handleClose} />
+        </ThemeProvider>
       </BaseDialog>
     </Card>
   )

@@ -77,5 +77,43 @@
   "login": {
     "login_form_content": "For convinience to login and authorize your account, please sign in with your google account! ",
     "sign_in_with_google": "Sign in with google"
+  },
+  "action": {
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "goback": "Back"
+  },
+  "form": {
+    "score_to_money": "Exchange score to take money",
+    "money_exchange": "exchange score",
+    "list_score_to_money_form": "List of exchange score request",
+    "points": "Points",
+    "status": "Status",
+    "created_at": "Created at",
+    "updated_at": "Updated at",
+    "money": "Money"
+  },
+  "user": {
+    "info": "Personal information",
+    "email": "Email address",
+    "curr_score": "Your current score is: ",
+    "avaiable_score": "Your avaiable score for exchange is: ",
+    "awaiting_exchange_score": "Your awaiting exchange score: ",
+    "name": "User name",
+    "phone_number": "Phone number"
+  },
+  "donate": {
+    "history": "Donate history",
+    "first_time_sign_in": "First time sign in,",
+    "admin": "Admin",
+    "give_you": "give you",
+    "points": "points",
+    "gived_you": "gived you",
+    "you_have_give": "You give to",
+    "curr_score": "Current score: "
   }
 }

@@ -7,6 +7,7 @@ import { Coin, Home, Login, NotFound } from '@/screens'
 import { Converter } from '@/screens/converter/Converter'
 import { AdminDashboard } from '@/screens/dashboard/AdminDashboard'
 import { Forbidden } from '@/screens/forbidden/Forbidden'
+import { ScoreToMoneyEditForm } from '@/screens/profile/ScoreToMoneyEditForm'
 import { UserProfile } from '@/screens/profile/UserProfile'
 import { SiteMap } from '@/screens/site-map/SiteMap'
 import { WatchList } from '@/screens/watch-list/WatchList'
@@ -23,6 +24,7 @@ export const Router = ({ isAdmin }: { isAdmin: boolean }) => {
         <Route path="/convert-tool" element={<Converter />} />
         <Route path="/site-map" element={<SiteMap />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/form/:id" element={<ScoreToMoneyEditForm />} />
         <Route path="/dashboard" element={isAdmin ? <AdminDashboard /> : <Forbidden />} />
         <Route index element={<Home />} />
       </Route>

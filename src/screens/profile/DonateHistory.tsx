@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material'
 import { useAtom } from 'jotai'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 
 import { Card } from '@/components'
@@ -18,6 +19,8 @@ type HistoryItemProps = {
 
 const HistoryItem = (props: HistoryItemProps) => {
   const { user, isTakePoints, isAdminInitial = false, donateTime, points, currentScore } = props
+
+  const { t } = useTranslation()
   return (
     <CurveBoxWithCustomBackground
       sx={{ mb: 2 }}
@@ -31,13 +34,13 @@ const HistoryItem = (props: HistoryItemProps) => {
         {isAdminInitial ? (
           <Grid item xs={12} sm={7}>
             <Typography sx={{ ...contentStyle }}>
-              Lần đầu đăng nhập,{' '}
+              {t('donate.first_time_sign_in')}{' '}
               <Typography component="span" sx={{ ...userNameStyle }}>
-                Admin
+                {t('donate.admin')}
               </Typography>{' '}
-              tặng bạn{' '}
+              {t('donate.give_you')}{' '}
               <Typography component="span" sx={{ ...userNameStyle }}>
-                {points} điểm
+                {points} {t('donate.points')}
               </Typography>{' '}
             </Typography>
           </Grid>
@@ -47,29 +50,32 @@ const HistoryItem = (props: HistoryItemProps) => {
               <Typography component="span" sx={{ ...userNameStyle }}>
                 {user?.name}
               </Typography>{' '}
-              ({user?.email}) đã tặng bạn{' '}
+              ({user?.email}) {t('donate.gived_you')}{' '}
               <Typography component="span" sx={{ ...userNameStyle }}>
-                {points} điểm
+                {points} {t('donate.points')}
               </Typography>{' '}
             </Typography>
           </Grid>
         ) : (
           <Grid item xs={12} sm={7}>
             <Typography sx={{ ...contentStyle }}>
-              Bạn đã tặng{' '}
+              {t('donate.you_have_give')}{' '}
               <Typography component="span" sx={{ ...userNameStyle }}>
                 {user?.name}
               </Typography>{' '}
               ({user?.email}){' '}
               <Typography component="span" sx={{ ...userNameStyle }}>
-                {points} điểm
+                {points} {t('donate.points')}
               </Typography>{' '}
             </Typography>
           </Grid>
         )}
 
         <Grid item xs={12} sm={2.5}>
-          <Typography sx={{ ...dateAndScoreStyle }}>Điểm hiện tại: {currentScore}</Typography>
+          <Typography sx={{ ...dateAndScoreStyle }}>
+            {t('donate.curr_score')}
+            {currentScore}
+          </Typography>
         </Grid>
       </Grid>
     </CurveBoxWithCustomBackground>
@@ -91,6 +97,7 @@ export const DonateHistory = () => {
   const { data: donateHistories } = useQuery<DonateHistoryData>([`/donate/get-by-my-id`])
   return (
     <Card title="Donate history" hasMore={false}>
+      {/* @ts-ignore */}
       {donateHistories?.data?.map((item, index) =>
         item.user_donate.id === userStorage?.id ? (
           // myself donate (give points)

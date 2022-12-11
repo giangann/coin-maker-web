@@ -77,5 +77,43 @@
   "login": {
     "login_form_content": "Để thuận tiện cho việc đăng nhập và xác thực tài khoản, vui lòng đăng nhập bằng tài khoản google của bạn!",
     "sign_in_with_google": "Đăng nhập bằng tài khoản google"
+  },
+  "action": {
+    "edit": "Sửa",
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "submit": "Xác nhận",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "goback": "Quay lại"
+  },
+  "form": {
+    "score_to_money": "Đổi điểm lấy tiền",
+    "money_exchange": "yêu cầu đổi điểm",
+    "list_score_to_money_form": "Danh sách yêu cầu đổi điểm",
+    "points": "Số điểm",
+    "status": "Trạng thái",
+    "created_at": "Ngày tạo",
+    "updated_at": "Ngày cập nhật",
+    "money": "Số tiền"
+  },
+  "user": {
+    "info": "Thông tin cá nhân",
+    "email": "Địa chỉ email",
+    "curr_score": "Số điểm hiện tại của bạn là: ",
+    "avaiable_score": "Số điểm có thể giao dịch: ",
+    "awaiting_exchange_score": "Số tiền chờ được đổi",
+    "name": "Người dùng",
+    "phone_number": "Số điện thoại"
+  },
+  "donate": {
+    "history": "Lịch sử tặng điểm",
+    "first_time_sign_in": "Lần đầu đăng nhập,",
+    "admin": "Admin",
+    "give_you": "tặng bạn",
+    "points": "điểm",
+    "gived_you": "đã tặng bạn",
+    "you_have_give": "Bạn đã tặng",
+    "curr_score": "Điểm hiện tại: "
   }
 }
