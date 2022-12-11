@@ -115,5 +115,13 @@
     "gived_you": "đã tặng bạn",
     "you_have_give": "Bạn đã tặng",
     "curr_score": "Điểm hiện tại: "
+  },
+  "notification": {
+    "title": "Thông báo",
+    "all": "Tất cả",
+    "read": "Đã đọc",
+    "unread": "Chưa đọc",
+    "no_notification": "Không có thông báo nào",
+    "mark_all": "Đánh dấu tất cả đã đọc"
   }
 }

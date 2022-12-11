@@ -61,12 +61,12 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
 
   // check is user_edit/user_create/admin_view
   const isEdit = params.id ? true : false
-  console.log('id of form', params.id)
+  // console.log('id of form', params.id)
 
   if (isEdit) {
     useQuery(`score-to-money-form/${params.id}`, {
       onSuccess: (data: any) => {
-        console.log('value', data)
+        // console.log('value', data)
         setValue('points', data.points)
         setValue('bank_name', data.bank_name)
         setValue('bank_number', data.bank_number)
@@ -97,7 +97,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         })
       }
 
-      console.log('result', res)
+      // console.log('result', res)
 
       if (res.status === 200) {
         toast.success(res.data.message)
@@ -105,7 +105,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
       }
     } catch (error: any) {
-      console.log('error', error)
+      // console.log('error', error)
       toast.error(error.errors)
     }
     handleClose()
@@ -128,7 +128,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           },
         }
       : undefined
-  console.log('theme style', themeStyle)
+  // console.log('theme style', themeStyle)
   return (
     <Grid container component="form" rowSpacing={1} onSubmit={handleSubmit(onSubmit)}>
       <Grid item xs={12} sx={{ mb: 4 }}>

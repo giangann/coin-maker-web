@@ -16,7 +16,7 @@ export const ListScoreToMoneyForm = () => {
   const { data: listFormData, isLoading: isLoading } =
     useQuery<ScoreToMoneyFormType[]>('score-to-money-form')
 
-  console.log('listformDaa', listFormData)
+  // console.log('listformDaa', listFormData)
   const columns = React.useMemo(
     () => [
       {

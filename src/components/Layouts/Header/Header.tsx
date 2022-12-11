@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { CurrencyHeader, LanguageHeader, Search } from '@/components/Layouts/Header'
+import { CurrencyHeader, LanguageHeader, Notification, Search } from '@/components/Layouts/Header'
 import { userAtomWithStorage, userProfileImage } from '@/libs/atoms/authAtom'
 import { LoginDialog } from '@/screens/auth/LoginDialog'
 import {
@@ -116,7 +116,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
               )}
               <LanguageHeader />
               <CurrencyHeader />
-
+              <Notification />
               <ProfileHeader />
             </Stack>
           </Grid>

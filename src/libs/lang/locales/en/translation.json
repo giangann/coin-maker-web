@@ -115,5 +115,13 @@
     "gived_you": "gived you",
     "you_have_give": "You give to",
     "curr_score": "Current score: "
+  },
+  "notification": {
+    "title": "Notification",
+    "all": "All",
+    "read": "Read",
+    "unread": "Unreaded",
+    "no_notification": "No notification",
+    "mark_all": "Mark all"
   }
 }
