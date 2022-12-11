@@ -10,7 +10,7 @@ import { ReactTableWithToolBar } from '@/components/ReactTable'
 import { StatusTag } from '@/components/Tag/StatusTag'
 import { numberWithCommas } from '@/libs/utils'
 
-export const ListScoreToMoneyForm = () => {
+export const ManagerScoreToMoneyForm = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data: listFormData, isLoading: isLoading } =
@@ -83,7 +83,7 @@ export const ListScoreToMoneyForm = () => {
   }
 
   return (
-    <Card title={t('form.list_score_to_money_form')} hasMore={false}>
+    <Card title={t('Manage form')}>
       <ReactTableWithToolBar
         columns={columns}
         data={listFormData || []}
