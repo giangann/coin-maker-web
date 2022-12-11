@@ -4,15 +4,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { userAtomWithStorage, userProfileImage } from '@/libs/atoms'
+import { useAuth } from '@/libs/hooks'
 
 export const ProfileHeader = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const open = Boolean(anchorEl)
-
+  const { isAdmin } = useAuth()
   const [userStorage, setUserStorage] = useAtom(userAtomWithStorage)
   const [profileImage, setProfileImage] = useAtom(userProfileImage)
   const isLoggined = userStorage ? true : false
-
   const userProfileHeaderItems = [
     {
       icon: '',
@@ -25,8 +25,16 @@ export const ProfileHeader = () => {
     {
       icon: '',
       name: 'Dashboard',
+      link: '/dashboard',
+    },
+    {
+      icon: '',
+      name: 'Profile',
+      link: '/profile',
     },
   ]
+
+  const profileHeaderItems = isAdmin ? adminProfileHeaderItems : userProfileHeaderItems
 
   const navigate = useNavigate()
 
@@ -58,7 +66,7 @@ export const ProfileHeader = () => {
         onClose={handleClose}
       >
         <MenuList>
-          {userProfileHeaderItems.map((item, index) => (
+          {profileHeaderItems.map((item, index) => (
             <MenuItem
               key={index}
               onClick={() => {
