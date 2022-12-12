@@ -4,16 +4,27 @@ import {
   Button,
   Divider,
   IconButton,
+  MenuItem,
+  MenuList,
   Popover,
   Stack,
+  SxProps,
+  Theme,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from '@mui/material'
-import React, { MouseEvent, useState } from 'react'
+import React, { MouseEvent, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { InView } from 'react-intersection-observer'
 
 import BellIcon from '@/assets/svgs/bell_icon.svg'
+import { NOTI_TYPE, STATUS_NOTIFICATION } from '@/constants'
+import { usePaginationQuery } from '@/libs/hooks'
+import { request } from '@/libs/request'
+import { NotificationType } from '@/libs/types/notification'
+import { formatTimeDiff } from '@/libs/utils'
+import { Title } from '@/screens'
 import { backgroundColor } from '@/styles/colors'
 interface NotificationProps {}
 
@@ -22,6 +33,13 @@ const Notification: React.FC<NotificationProps> = () => {
   const [notiFilter, setNotiFilter] = useState<'all' | 'unread'>('all')
   const [anchorNoti, setAnchorNoti] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorNoti)
+
+  const {
+    paginationData: { data: notifications },
+    refetch: refetchNotification,
+    handleChangeParams,
+    isLoading: isLoadingNotification,
+  } = usePaginationQuery<NotificationType>(`notification/by-user`, { per_page: 20 })
 
   const handleOpenNoti = async (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorNoti(event.currentTarget)
@@ -48,6 +66,64 @@ const Notification: React.FC<NotificationProps> = () => {
   }
 
   const newCount = 0
+  const [isAvaiableRefetch, setIsAvaiableRefetch] = useState<boolean>(false)
+
+  const _handleChangeParams = () => {
+    if (notifications.length < 50 && isAvaiableRefetch) {
+      handleChangeParams({ per_page: notifications.length + 10, filter: notiFilter })
+      refetchNotification()
+    }
+  }
+
+  const NotificationItem = useCallback(({ noti }: { noti: NotificationType }) => {
+    return (
+      <MenuItem
+        sx={
+          {
+            // background:
+            //   (noti.status === STATUS_NOTIFICATION['UNREAD'] ||
+            //     noti.status === STATUS_NOTIFICATION['NEW']) &&
+            //   '#EEE',
+            minHeight: (theme: Theme) => theme.spacing(10),
+            mb: 1,
+            justifyContent: 'space-between',
+            gap: 1,
+          } as SxProps
+        }
+        style={{ whiteSpace: 'normal' }}
+        onClick={() => markAsRead(noti)}
+      >
+        <Stack spacing={1} sx={{ flex: 1 }}>
+          <Title variant="body1">
+            {/* {noti.content as string} */}
+            <span style={{ fontWeight: '600' }}>{noti?.sender_name}</span>
+            {createContentNoti(noti.model_type, noti.type)}
+          </Title>
+          <Typography variant="body2" color="grey.500">
+            {formatTimeDiff(noti.created_at)}
+          </Typography>
+        </Stack>
+        {noti.status === STATUS_NOTIFICATION['UNREAD'] ||
+        noti.status === STATUS_NOTIFICATION['NEW'] ? (
+          <Badge
+            color="primary"
+            variant="dot"
+            sx={{ width: '12px', height: '12px', position: 'relative', top: '8px' }}
+          />
+        ) : null}
+      </MenuItem>
+    )
+  }, [])
+
+  const createContentNoti = (model_type: string, type: number) => {
+    return `${model_type} - ${NOTI_TYPE[type as any]}`
+  }
+
+  const markAsRead = async (noti: NotificationType) => {
+    const res = await request.patch('notification/mark-as-read')
+
+    console.log('mark as read result', res)
+  }
 
   return (
     <>
@@ -119,7 +195,7 @@ const Notification: React.FC<NotificationProps> = () => {
             height="100%"
             sx={{ overflowY: 'auto', px: (theme) => theme.spacing(3, 2, 1) }}
           >
-            {/* {notifications.length ? (
+            {notifications.length ? (
               <MenuList dense>
                 {notifications?.map((noti, index) =>
                   notifications.length - 1 === index ? (
@@ -138,20 +214,20 @@ const Notification: React.FC<NotificationProps> = () => {
                   ),
                 )}
               </MenuList>
-            ) : ( */}
-            <Typography
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                height: '100%',
-                fontWeight: '700',
-              }}
-            >
-              {t('notification.no_notification')}
-            </Typography>
-            {/* )} */}
+            ) : (
+              <Typography
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                  fontWeight: '700',
+                }}
+              >
+                {t('notification.no_notification')}
+              </Typography>
+            )}
           </Box>
           <Divider />
           <Button

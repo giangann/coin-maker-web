@@ -1,3 +1,4 @@
+import { UnknownObj } from '@/components/AutoComplete'
 import i18n from '@/libs/lang/translations/i18n'
 
 export const adminEmail = 'gta007md@gmail.com'
@@ -57,3 +58,23 @@ export const STATUS_FORM_OPTIONS = [
   { label: i18n.t('await_confirm'), value: STATUS_FORM.AWAIT_CONFIRM },
   { label: i18n.t('rejected'), value: STATUS_FORM.REJECTED },
 ]
+
+export const STATUS_NOTIFICATION = {
+  UNREAD: 0,
+  READ: 1,
+  NEW: 2,
+}
+
+export const NOTI_MODEL_TYPE = {
+  DONATE: 'Donate',
+  SCORE_TO_MONEY_FORM: 'ScoreToMoneyForm',
+  POST: 'POST',
+}
+
+export const NOTI_TYPE: UnknownObj = {
+  DONATE: 0,
+  CREATE: 1,
+  UPDATE: 2,
+  ACCEPT: 3,
+  REJECT: 4,
+}
