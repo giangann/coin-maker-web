@@ -7,13 +7,13 @@ import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 export const StatusTag = (props: { value: number }) => {
   const { value } = props
   const { t } = useTranslation()
-  if (value === STATUS_FORM.APPROVED)
+  if (value === STATUS_FORM.ACCEPTED)
     return (
       <CurveBoxWithCustomBackground
         sx={{ width: 'fit-content' }}
         bgColor={backgroundColor.tag.green}
       >
-        <Typography>{t('approved')}</Typography>
+        <Typography>{t('accepted')}</Typography>
       </CurveBoxWithCustomBackground>
     )
   if (value === STATUS_FORM.REJECTED)

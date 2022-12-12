@@ -122,8 +122,8 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
     if (action === 'rejected') {
       newStatus = STATUS_FORM.REJECTED
     }
-    if (action === 'approved') {
-      newStatus = STATUS_FORM.APPROVED
+    if (action === 'accepted') {
+      newStatus = STATUS_FORM.ACCEPTED
     }
     console.log('value', value)
     try {
@@ -295,7 +295,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
             <ButtonCustomDisableColor
               color="primary"
               sx={{ ml: 1 }}
-              onClick={() => handleApprove('approved')}
+              onClick={() => handleApprove('accepted')}
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >

@@ -47,13 +47,13 @@ export const DEFAULT_CONVERT_UNIT = {
   DEST: 'usd',
 }
 export const STATUS_FORM = {
-  APPROVED: 1,
+  ACCEPTED: 1,
   AWAIT_CONFIRM: 0,
   REJECTED: 2,
 }
 
 export const STATUS_FORM_OPTIONS = [
-  { label: i18n.t('approved'), value: STATUS_FORM.APPROVED },
+  { label: i18n.t('accepted'), value: STATUS_FORM.ACCEPTED },
   { label: i18n.t('await_confirm'), value: STATUS_FORM.AWAIT_CONFIRM },
   { label: i18n.t('rejected'), value: STATUS_FORM.REJECTED },
 ]
