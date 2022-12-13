@@ -9,7 +9,9 @@ export const SystemSetting = () => {
   return (
     <Box>
       <Typography>Initial score of each user: {setting?.initial_point}</Typography>
-      <Typography>Price per point: {numberWithCommas(setting?.price_per_point)}đ</Typography>
+      <Typography>
+        Price per point: {numberWithCommas(setting?.price_per_point as number)}đ
+      </Typography>
     </Box>
   )
 }

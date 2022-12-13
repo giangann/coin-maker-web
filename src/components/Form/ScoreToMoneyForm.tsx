@@ -65,12 +65,12 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   const isEdit = params.id ? true : false
   const { isAdmin } = useAuth()
   const isDisable = isAdmin && isEdit
-  console.log('id of form', params.id)
+  // console.log('id of form', params.id)
 
   if (isEdit) {
     useQuery(`score-to-money-form/${params.id}`, {
       onSuccess: (data: any) => {
-        console.log('value', data)
+        // console.log('value', data)
         setValue('points', data.points)
         setValue('bank_name', data.bank_name)
         setValue('bank_number', data.bank_number)
@@ -100,7 +100,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         })
       }
 
-      console.log('result', res)
+      // console.log('result', res)
 
       if (res.status === 200) {
         toast.success(res.data.message)
@@ -108,7 +108,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
       }
     } catch (error: any) {
-      console.log('error', error)
+      // console.log('error', error)
       toast.error(error.errors)
     }
     handleClose()
@@ -122,8 +122,8 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
     if (action === 'rejected') {
       newStatus = STATUS_FORM.REJECTED
     }
-    if (action === 'approved') {
-      newStatus = STATUS_FORM.APPROVED
+    if (action === 'accepted') {
+      newStatus = STATUS_FORM.ACCEPTED
     }
     console.log('value', value)
     try {
@@ -162,7 +162,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           },
         }
       : undefined
-  console.log('theme style', themeStyle)
+  // console.log('theme style', themeStyle)
   return (
     <Grid container component="form" rowSpacing={1}>
       <Grid item xs={12} sx={{ mb: 4 }}>
@@ -295,7 +295,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
             <ButtonCustomDisableColor
               color="primary"
               sx={{ ml: 1 }}
-              onClick={() => handleApprove('approved')}
+              onClick={() => handleApprove('accepted')}
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >

@@ -29,7 +29,7 @@ type PostInfo = {
 
 export const ListPost: React.FC<IListPost> = ({ coin_id }) => {
   const [userStorage, setUserStorage] = useAtom(userAtomWithStorage)
-  console.log('userStorage', userStorage)
+  // console.log('userStorage', userStorage)
   const [openDialog, setOpenDialog] = useState(false)
   const [postInfo, setPostInfo] = useState<PostInfo | null>(null)
   const { data: posts, isLoading } = useQuery<IListPostResponse>([
@@ -48,7 +48,7 @@ export const ListPost: React.FC<IListPost> = ({ coin_id }) => {
         user_take_id: postInfo?.user.id,
         points: DEFAULT_POINTS_DONATE,
       })
-      console.log('res', res)
+      // console.log('res', res)
       setUserStorage({
         ...userStorage,
         score: res.data.data.user_donate_curr_score,

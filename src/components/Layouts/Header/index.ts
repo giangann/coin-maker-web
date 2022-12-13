@@ -1,5 +1,6 @@
 export * from './CurrencyHeader'
 export * from './Header'
 export * from './LanguageHeader'
+export * from './Notification'
 export * from './Search'
 export * from './SubHeader'

@@ -91,9 +91,9 @@
     "score_to_money": "Exchange score to take money",
     "money_exchange": "exchange score",
     "list_score_to_money_form": "List of exchange score request",
-    "conversion_rate": "Conversition ratio: 1 point = ",
+    "conversion_rate": "Conversion ratio: 1 point = ",
     "points": "Points",
-    "conversion_points": "Conversition points",
+    "conversion_points": "Conversion points",
     "type_conversion_points": "Type number of point want to converse",
     "money_you_will_take": "Amount of money you will take is: ",
     "bank_information": "Bank information",
@@ -133,5 +133,20 @@
     "gived_you": "gived you",
     "you_have_give": "You give to",
     "curr_score": "Current score: "
+  },
+  "notification": {
+    "title": "Notification",
+    "all": "All",
+    "read": "Read",
+    "unread": "Unreaded",
+    "no_notification": "No notification",
+    "mark_all": "Mark all",
+    "content": {
+      "create": "create new exchange money request",
+      "update": "update exchange money request",
+      "accept": "Admin accepted your exchange money request, please check your bank transaction",
+      "reject": "Oops! Admin rejected your exchange money request, please try again",
+      "dontate": "gived you point, please check it out"
+    }
   }
 }
