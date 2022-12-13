@@ -100,10 +100,10 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
             </Tooltip>
           )}
         </BoxFlexAlignCenter>
-        <BoxFlexAlignCenter gap="16px" sx={{ mt: '16px' }}>
-          <Chip content={`${t('rank')} ${coin?.market_cap_rank}`} />
-          <Chip content={'Đồng coin'} />
-          <Chip content={'On 3,516,026 watchlists'} />
+        <BoxFlexAlignCenter gap="16px" sx={{ mt: '16px', overflowY: 'auto' }}>
+          <Chip content={`${t('rank')} ${coin?.market_cap_rank}`} sx={{ whiteSpace: 'nowrap' }} />
+          <Chip content={'Đồng coin'} sx={{ whiteSpace: 'nowrap' }} />
+          <Chip content={'On 3,516,026 watchlists'} sx={{ whiteSpace: 'nowrap' }} />
         </BoxFlexAlignCenter>
       </>
     ),
@@ -111,49 +111,47 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
   )
 
   return (
-    <div>
-      <Card title={TitleCard} hasMore={false}>
-        <Box>
-          <Title>
-            {t('price')} {coin?.name} (USD)
-          </Title>
-          <BoxFlexAlignCenter>
-            <TextPrice>${numberWithCommas(coin?.market_data?.current_price?.usd || 0)}</TextPrice>
-            <Chip
-              content={
-                <BoxFlexCenter>
-                  {coin?.market_data.price_change_percentage_24h}%{/* @ts-ignore */}
-                  {coin?.market_data?.price_change_percentage_24h < 0 ? (
-                    <ArrowDropDownIcon height="20px" width="20px" />
-                  ) : (
-                    <ArrowDropUpIcon height="20px" width="20px" />
-                  )}
-                </BoxFlexCenter>
-              }
-              sx={{
-                backgroundColor:
-                  coin?.market_data?.price_change_percentage_24h > 0
-                    ? green['primary']
-                    : red['primary'],
-                marginLeft: '24px',
-                fontSize: '14px',
-                fontWeight: 600,
-              }}
-            />
-          </BoxFlexAlignCenter>
-          <Title>0.06714 BTC fix cung</Title>
-        </Box>
-        {coin?.categories && (
-          <Box mt={1}>
-            <Title>{t('tag')}</Title>
-            <Box>
-              {filterEmptySrting(coin?.categories).map((item, index) => (
-                <Chip content={item} key={index} sx={{ marginRight: '8px', marginTop: '8px' }} />
-              ))}
-            </Box>
+    <Card title={TitleCard} hasMore={false} sx={{ height: '100%' }}>
+      <Box>
+        <Title>
+          {t('price')} {coin?.name} (USD)
+        </Title>
+        <BoxFlexAlignCenter>
+          <TextPrice>${numberWithCommas(coin?.market_data?.current_price?.usd || 0)}</TextPrice>
+          <Chip
+            content={
+              <BoxFlexCenter>
+                {coin?.market_data.price_change_percentage_24h}%{/* @ts-ignore */}
+                {coin?.market_data?.price_change_percentage_24h < 0 ? (
+                  <ArrowDropDownIcon height="20px" width="20px" />
+                ) : (
+                  <ArrowDropUpIcon height="20px" width="20px" />
+                )}
+              </BoxFlexCenter>
+            }
+            sx={{
+              backgroundColor:
+                coin?.market_data?.price_change_percentage_24h > 0
+                  ? green['primary']
+                  : red['primary'],
+              marginLeft: '24px',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}
+          />
+        </BoxFlexAlignCenter>
+        <Title>0.06714 BTC fix cung</Title>
+      </Box>
+      {coin?.categories && (
+        <Box mt={1}>
+          <Title>{t('tag')}</Title>
+          <Box>
+            {filterEmptySrting(coin?.categories).map((item, index) => (
+              <Chip content={item} key={index} sx={{ marginRight: '8px', marginTop: '8px' }} />
+            ))}
           </Box>
-        )}
-      </Card>
-    </div>
+        </Box>
+      )}
+    </Card>
   )
 }
