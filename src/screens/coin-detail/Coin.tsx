@@ -83,11 +83,14 @@ export const Coin = () => {
         <></>
       )}
 
-      <BoxDescription
-        desc={
-          coin?.description[language as keyof IDescription] || (coin?.description?.en as string)
-        }
-      />
+      <Box sx={{ my: 3 }}>
+        <BoxDescription
+          desc={
+            coin?.description[language as keyof IDescription] || (coin?.description?.en as string)
+          }
+        />
+      </Box>
+
       {coin_id && <CoinPost coin_id={coin_id} />}
     </>
   )

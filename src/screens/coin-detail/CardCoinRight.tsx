@@ -30,14 +30,15 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
   // console.log(platformsEntries)
 
   return (
-    <Card hasMore={false}>
-      <Stack direction="row" gap="12px">
+    <Card hasMore={false} sx={{ height: '100%' }}>
+      <Stack direction="row" gap="12px" sx={{ overflowY: 'auto' }}>
         <ChipLink
           content={coin?.links.homepage[0] || ''}
           startIcon={<LinkIcon />}
           link={coin?.links.homepage[0] || ''}
           hasHover={true}
           endIcon={<BiLinkExternal />}
+          sx={{ whiteSpace: 'nowrap' }}
         />
         <ChipDropDown
           content={t('explore')}
@@ -52,6 +53,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
               </CustomLinkMUI>
             </MenuItemStyled>
           )}
+          sx={{ whiteSpace: 'nowrap' }}
         />
         <ChipDropDown
           content={t('comunity') + ' fix cung'}
@@ -66,6 +68,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
               </CustomLinkMUI>
             </MenuItemStyled>
           )}
+          sx={{ whiteSpace: 'nowrap' }}
         />
         {coin?.links?.repos_url?.github[0] && (
           <ChipLink
@@ -74,6 +77,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
             endIcon={<BiLinkExternal />}
             hasHover={true}
             link={coin?.links?.repos_url?.github[0]}
+            sx={{ whiteSpace: 'nowrap' }}
           />
         )}
       </Stack>
@@ -81,11 +85,11 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
       {platformsEntries.length && platformsEntries[0][1] && (
         <Box sx={{ marginTop: '16px' }}>
           <TextTitle>{t('contracts')}</TextTitle>
-          <Stack direction="row" gap="8px" mt="8px">
+          <Stack direction="row" gap="8px" mt="8px" sx={{ overflowY: 'auto' }}>
             <Chip
               content={`${removeDash(platformsEntries[0][0])}: ${platformsEntries[0][1]}`}
               startIcon={<img src={coin?.image?.thumb} alt="" width="12px" height="12px" />}
-              sx={{ textTransform: 'capitalize' }}
+              sx={{ textTransform: 'capitalize', whiteSpace: 'nowrap' }}
             />
 
             <ChipDropDown
@@ -104,6 +108,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
                   </CustomLinkMUI>
                 </MenuItemStyled>
               )}
+              sx={{ whiteSpace: 'nowrap' }}
             />
           </Stack>
         </Box>

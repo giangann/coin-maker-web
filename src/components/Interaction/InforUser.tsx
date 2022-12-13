@@ -10,7 +10,19 @@ interface IInforUser {
 export const InforUser: React.FC<IInforUser> = ({ user_name, user_avatar, time }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '16px' }}>
-      <Avatar src={user_avatar} />
+      <Avatar
+        src={user_avatar}
+        sx={{
+          width: {
+            xs: 32,
+            sm: 28,
+          },
+          height: {
+            xs: 32,
+            sm: 28,
+          },
+        }}
+      />
       <Box>
         <Typography sx={{ fontWeight: 700 }}>{user_name}</Typography>
         {time && (
