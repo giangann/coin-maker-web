@@ -11,4 +11,4 @@ export type NotificationType<T = UnknownObj> = {
   sender_name: string
 }
 
-// export const 
+// export const
