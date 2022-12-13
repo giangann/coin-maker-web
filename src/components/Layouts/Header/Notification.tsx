@@ -14,9 +14,11 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material'
-import React, { MouseEvent, useCallback, useState } from 'react'
+import React, { MouseEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InView } from 'react-intersection-observer'
+import { useQuery } from 'react-query'
+import { useNavigate } from 'react-router-dom'
 
 import BellIcon from '@/assets/svgs/bell_icon.svg'
 import { NOTI_TYPE, STATUS_NOTIFICATION } from '@/constants'
@@ -33,6 +35,7 @@ const Notification: React.FC<NotificationProps> = () => {
   const [notiFilter, setNotiFilter] = useState<'all' | 'unread'>('all')
   const [anchorNoti, setAnchorNoti] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorNoti)
+  const navigate = useNavigate()
 
   const {
     paginationData: { data: notifications },
@@ -41,12 +44,13 @@ const Notification: React.FC<NotificationProps> = () => {
     isLoading: isLoadingNotification,
   } = usePaginationQuery<NotificationType>(`notification/by-user`, { per_page: 20 })
 
+  const { data: newCount, refetch: refecthNewCount } = useQuery(`notification/new-count`)
   const handleOpenNoti = async (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorNoti(event.currentTarget)
-    // if (newCount !== 0) {
-    //   await markAsSeenApi()
-    //   refecthNewCount()
-    // }
+    if (newCount !== 0) {
+      await request.post('notification/mark-as-seen')
+      refecthNewCount()
+    }
   }
 
   const handleClose = () => {
@@ -58,14 +62,12 @@ const Notification: React.FC<NotificationProps> = () => {
     // handleChangeParams({ filter: filter })
   }
 
-  const maskAllAsRead = async () => {
-    // await markAllAsReadApi()
-    // refetchNotification()
-    console.log('maskAllAsRead')
-    // handleClose()
+  const markAllAsRead = async () => {
+    await request.post('notification/mark-all-as-read')
+    refetchNotification()
   }
 
-  const newCount = 0
+  const [notiCount, setNotiCount] = useState<number>(0)
   const [isAvaiableRefetch, setIsAvaiableRefetch] = useState<boolean>(false)
 
   const _handleChangeParams = () => {
@@ -96,8 +98,8 @@ const Notification: React.FC<NotificationProps> = () => {
         <Stack spacing={1} sx={{ flex: 1 }}>
           <Title variant="body1">
             {/* {noti.content as string} */}
-            <span style={{ fontWeight: '600' }}>{noti?.sender_name}</span>
-            {createContentNoti(noti.model_type, noti.type)}
+            <span style={{ fontWeight: '600', marginRight: 10 }}>{noti?.sender_name}</span>
+            {createContentNoti(noti)}
           </Title>
           <Typography variant="body2" color="grey.500">
             {formatTimeDiff(noti.created_at)}
@@ -115,15 +117,52 @@ const Notification: React.FC<NotificationProps> = () => {
     )
   }, [])
 
-  const createContentNoti = (model_type: string, type: number) => {
-    return `${model_type} - ${NOTI_TYPE[type as any]}`
+  const createContentNoti = (noti: NotificationType) => {
+    // for admin: user create or update form
+    if (noti.type === NOTI_TYPE.CREATE) {
+      return `create new exchange money request`
+    }
+    if (noti.type === NOTI_TYPE.UPDATE) {
+      return `update exchange money request`
+    }
+
+    // for user: (2 situations)
+    // 1: admin accept or reject application
+    // 2: other user donate point
+    if (noti.type === NOTI_TYPE.ACCEPT) {
+      return `Admin accepted your exchange money request, please check your bank transaction`
+    }
+    if (noti.type === NOTI_TYPE.REJECTE) {
+      return `Oops! Admin rejected your exchange money request, please try again`
+    }
+    if (noti.type === NOTI_TYPE.DONATE) {
+      return `gived you point, please check it out`
+    }
   }
 
   const markAsRead = async (noti: NotificationType) => {
-    const res = await request.patch('notification/mark-as-read')
+    const res = await request.post(`notification/mark-as-read/${noti.id}`)
 
-    console.log('mark as read result', res)
+    if (noti.model_type === 'ScoreToMoneyForm') {
+      navigate(`/form/${noti.model_id}`)
+    }
+    if (noti.model_type === 'Donate') {
+      navigate(`/profile`)
+    }
+
+    refetchNotification()
+
+    handleClose()
   }
+
+  useEffect(() => {
+    if (notiCount !== notifications.length) {
+      setNotiCount(notifications.length)
+      setIsAvaiableRefetch(true)
+    } else {
+      setIsAvaiableRefetch(false)
+    }
+  }, [notifications])
 
   return (
     <>
@@ -240,7 +279,7 @@ const Notification: React.FC<NotificationProps> = () => {
               },
               borderRadius: 'unset',
             }}
-            onClick={maskAllAsRead}
+            onClick={markAllAsRead}
           >
             {t('notification.mark_all')}
           </Button>

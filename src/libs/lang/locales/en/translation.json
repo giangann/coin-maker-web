@@ -140,6 +140,13 @@
     "read": "Read",
     "unread": "Unreaded",
     "no_notification": "No notification",
-    "mark_all": "Mark all"
+    "mark_all": "Mark all",
+    "content": {
+      "create": "create new exchange money request",
+      "update": "update exchange money request",
+      "accept": "Admin accepted your exchange money request, please check your bank transaction",
+      "reject": "Oops! Admin rejected your exchange money request, please try again",
+      "dontate": "gived you point, please check it out"
+    }
   }
 }

@@ -140,6 +140,13 @@
     "read": "Đã đọc",
     "unread": "Chưa đọc",
     "no_notification": "Không có thông báo nào",
-    "mark_all": "Đánh dấu tất cả đã đọc"
+    "mark_all": "Đánh dấu tất cả đã đọc",
+    "content": {
+      "create": "tạo mới yêu cầu đổi điểm lấy tiền",
+      "update": "cập nhật yêu cầu đổi điểm lấy tiền",
+      "accept": "Admin đã chấp nhận yêu cầu đổi điểm lấy tiền của bạn, tiền đã được chuyển đến tài khoản ngân hàng của bạn",
+      "reject": "Oops! Admin đã từ chối yêu cầu đổi điểm lấy tiền của bạn, vui lòng thử lại sau",
+      "dontate": "tặng bạn điểm, hãy kiểm tra lịch sử tặng điểm"
+    }
   }
 }

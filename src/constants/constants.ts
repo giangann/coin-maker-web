@@ -68,7 +68,7 @@ export const STATUS_NOTIFICATION = {
 export const NOTI_MODEL_TYPE = {
   DONATE: 'Donate',
   SCORE_TO_MONEY_FORM: 'ScoreToMoneyForm',
-  POST: 'POST',
+  POST: 'Post',
 }
 
 export const NOTI_TYPE: UnknownObj = {
