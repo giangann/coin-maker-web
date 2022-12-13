@@ -125,12 +125,12 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
 
       {/* mobile */}
       <Hidden smUp>
-        <AlignGrid item xs={2.5}>
+        <AlignGrid item xs={4}>
           <IconButton onClick={triggerSidebar}>
             <MenuIcon sx={{ color: 'white' }} fontSize="large" />
           </IconButton>
         </AlignGrid>
-        <AlignGrid item xs={7} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <AlignGrid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
             variant="h6"
             noWrap
@@ -149,7 +149,8 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
             LOGO
           </Typography>
         </AlignGrid>
-        <AlignGrid item xs={2.5}>
+        <AlignGrid item xs={4}>
+          <Notification />
           <ProfileHeader />
         </AlignGrid>
       </Hidden>

@@ -206,7 +206,7 @@ const Notification: React.FC<NotificationProps> = () => {
           >
             <Typography variant="h6">{t('notification.title')}</Typography>
 
-            <ToggleButtonGroup
+            {/* <ToggleButtonGroup
               value={notiFilter}
               exclusive
               size="small"
@@ -227,7 +227,7 @@ const Notification: React.FC<NotificationProps> = () => {
                   {t('notification.unread')}
                 </Typography>
               </ToggleButton>
-            </ToggleButtonGroup>
+            </ToggleButtonGroup> */}
           </Stack>
           <Box
             width="100%"
