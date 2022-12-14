@@ -59,8 +59,8 @@ export const AdminDashboard = () => {
         queryClient.fetchQuery('get-setting', { staleTime: 2000 })
         handleClose()
       }
-    } catch (error) {
-      toast.error(error)
+    } catch (error: any) {
+      toast.error(error.errors)
     }
   }
 
