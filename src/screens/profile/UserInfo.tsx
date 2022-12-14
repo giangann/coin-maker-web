@@ -60,7 +60,7 @@ export const UserInfo = () => {
           </MenuItem>
         </Stack>
         <Typography>
-          {t('user.awaiting_exchange_score')} {scoreData?.awating_score_to_money}{' '}
+          {t('user.awaiting_exchange_score')} {scoreData?.awaiting_score_to_money}{' '}
         </Typography>
       </Box>
 
@@ -74,7 +74,7 @@ export const UserInfo = () => {
         fullWidth
       >
         <ThemeProvider theme={darkTheme}>
-          <ScoreToMoneyForm handleClose={handleClose} />
+          <ScoreToMoneyForm handleClose={handleClose} scoreData={scoreData} />
         </ThemeProvider>
       </BaseDialog>
     </Card>

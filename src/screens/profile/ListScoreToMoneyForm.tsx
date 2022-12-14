@@ -55,7 +55,7 @@ export const ListScoreToMoneyForm = () => {
       {
         Header: t('form.status'),
         accessor: 'status', // accessor is the "key" in the data
-        width: 100,
+        width: 150,
         Cell: ({ value }: { value: number }) => {
           return <StatusTag value={value} />
         },
@@ -89,6 +89,7 @@ export const ListScoreToMoneyForm = () => {
         data={listFormData || []}
         isLoading={isLoading}
         onRowClick={onRowClick}
+        sxCustom={{ padding: 0 }}
       />
     </Card>
   )

@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { styled, ThemeProvider } from '@mui/material/styles'
 import { useForm } from 'react-hook-form'
@@ -7,9 +8,11 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
 import { STATUS_FORM } from '@/constants'
 import { useAuth } from '@/libs/hooks'
+import i18n from '@/libs/lang/translations/i18n'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { numberWithCommas } from '@/libs/utils'
@@ -33,10 +36,21 @@ export type ScoreToMoneyFormProps = {
   handleClose?: any
   themeStyle?: 'light' | 'dark'
 }
+
+const validateForm = yup.object({
+  points: yup.number().required(i18n.t('validate.required')),
+  bank_name: yup.string().trim().required(i18n.t('validate.required')),
+  bank_number: yup.string().trim().required(i18n.t('validate.required')),
+  bank_owner: yup.string().trim().required(i18n.t('validate.required')),
+  // name: yup.string().trim().required(i18n.t('validate.required')),
+  phone_number: yup.string().trim().required(i18n.t('validate.required')),
+})
+
 export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   const { handleClose, themeStyle } = props
   const { userStorage } = useAuth()
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
+  const { data: scoreData } = useQuery<any>('user/calculate-score')
   const { t } = useTranslation()
   const { setting } = useAuth()
   const params = useParams()
@@ -59,12 +73,14 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       phone_number: '',
       status: STATUS_FORM.AWAIT_CONFIRM,
     },
+
+    resolver: yupResolver(validateForm),
   })
 
   // check is user_edit/user_create/admin_view
   const isEdit = params.id ? true : false
   const { isAdmin } = useAuth()
-  const isDisable = isAdmin && isEdit
+  const isDisable = (isAdmin && isEdit) || watch('status') !== STATUS_FORM.AWAIT_CONFIRM
   // console.log('id of form', params.id)
 
   if (isEdit) {
@@ -84,7 +100,16 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   }
 
   const onSubmit = async (value: ScoreToMoneyFormType) => {
+    console.log('submit')
     try {
+      // check points of requets:
+      if (value['points'] > scoreData.avaiable_score) {
+        toast.error(t('validate.run_out_of_points'))
+        return
+      }
+
+      console.log('is edit', isEdit)
+      // if points is enough
       let res
       if (!isEdit) {
         res = await request.post('score-to-money-form', {
@@ -100,24 +125,25 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         })
       }
 
-      // console.log('result', res)
-
       if (res.status === 200) {
         toast.success(res.data.message)
-        queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
-        queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
+        if (isEdit) {
+          if (isAdmin) navigate('/dashboard')
+          else navigate('/profile')
+        } else {
+          queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
+          queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
+          handleClose()
+        }
       }
-    } catch (error: any) {
-      // console.log('error', error)
+    } catch (error) {
       toast.error(error.errors)
     }
-    handleClose()
   }
 
   const handleApprove = async (action: string) => {
     const value: ScoreToMoneyFormType = getValues()
 
-    console.log('value', value)
     let newStatus
     if (action === 'rejected') {
       newStatus = STATUS_FORM.REJECTED
@@ -125,15 +151,11 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
     if (action === 'accepted') {
       newStatus = STATUS_FORM.ACCEPTED
     }
-    console.log('value', value)
     try {
       const res = await request.patch(`score-to-money-form/${parseInt(params.id)}`, {
         ...value,
         status: newStatus,
-        user_id: userStorage?.id,
-        money: watch('points') * setting?.price_per_point,
       })
-      console.log('result', res)
 
       if (res.status === 200) {
         toast.success(res.data.message)
@@ -162,7 +184,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           },
         }
       : undefined
-  // console.log('theme style', themeStyle)
   return (
     <Grid container component="form" rowSpacing={1}>
       <Grid item xs={12} sx={{ mb: 4 }}>
@@ -189,7 +210,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         </Box>
       </Grid>
 
-      <TypographyByThemeStyleProps>{t('form.money_you_will_take')}</TypographyByThemeStyleProps>
+      <TypographyByThemeStyleProps>{t('form.bank_information')}</TypographyByThemeStyleProps>
       <Grid item xs={12} sx={{ mb: 4 }} container spacing={2}>
         <Grid item xs={12} sm={6}>
           <ThemeProvider theme={darkTheme}>
@@ -278,7 +299,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {isDisable ? (
+        {isDisable && isAdmin ? (
           <Box sx={{ mt: 2, mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
             <Button onClick={handleGoBack} variant="outlined">
               {t('action.goback')}
@@ -290,7 +311,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >
-              {t('form.reject')}
+              {t('action.reject')}
             </ButtonCustomDisableColor>
             <ButtonCustomDisableColor
               color="primary"
@@ -299,7 +320,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >
-              {t('form.approve')}
+              {t('action.accept')}
             </ButtonCustomDisableColor>
           </Box>
         ) : (
@@ -308,14 +329,15 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               {isEdit ? t('action.goback') : t('cancel')}
             </Button>
             {isEdit ? (
-              <Button
+              <ButtonCustomDisableColor
                 color="primary"
                 sx={{ ml: 1 }}
                 onClick={handleSubmit(onSubmit)}
                 variant="contained"
+                disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
               >
                 {t('action.update')}
-              </Button>
+              </ButtonCustomDisableColor>
             ) : (
               <Button
                 color="primary"

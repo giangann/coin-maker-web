@@ -83,12 +83,13 @@ export const ManagerScoreToMoneyForm = () => {
   }
 
   return (
-    <Card title={t('Manage form')}>
+    <Card title={t('Manage form')} hasMore={false}>
       <ReactTableWithToolBar
         columns={columns}
         data={listFormData || []}
         isLoading={isLoading}
         onRowClick={onRowClick}
+        sxCustom={{ padding: 0 }}
       />
     </Card>
   )

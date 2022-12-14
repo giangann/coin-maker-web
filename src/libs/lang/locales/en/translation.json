@@ -85,7 +85,9 @@
     "submit": "Submit",
     "cancel": "Cancel",
     "save": "Save",
-    "goback": "Back"
+    "goback": "Back",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "form": {
     "score_to_money": "Exchange score to take money",
@@ -113,7 +115,14 @@
     "type_bank_owner": "Type bank owner",
     "type_bank_branch": "Type bank branch",
     "type_user_name": "Type your user name",
-    "type_phone_number": "Type your phone number"
+    "type_phone_number": "Type your phone number",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "await_confirm": "Await confirm"
+  },
+  "validate": {
+    "required": "This field is required",
+    "run_out_of_points": "Your avaiable score is not enough, please try again with smaller points"
   },
   "user": {
     "info": "Personal information",
@@ -148,5 +157,9 @@
       "reject": "Oops! Admin rejected your exchange money request, please try again",
       "dontate": "gived you point, please check it out"
     }
+  },
+  "setting": {
+    "user_init_score": "Initial score of each user:",
+    "price_per_point": "Price per point:"
   }
 }

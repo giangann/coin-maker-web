@@ -56,7 +56,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
           sx={{ whiteSpace: 'nowrap' }}
         />
         <ChipDropDown
-          content={t('comunity') + ' fix cung'}
+          content={t('comunity')}
           startIcon={<PublicIcon />}
           endIcon={<BiChevronDown />}
           data={filterEmptySrting(coin?.links?.blockchain_site || [])}
@@ -117,7 +117,7 @@ export const CardCoinRight: React.FC<ICardCoinRight> = ({ coin }) => {
       <Box sx={{ marginTop: '16px' }}>
         <TextTitle>{t('audits')}</TextTitle>
         <Stack direction="row" gap="8px" mt="8px">
-          <Chip content={`Metaverse fix cng`} />
+          <Chip content={`Metaverse `} />
         </Stack>
       </Box>
 

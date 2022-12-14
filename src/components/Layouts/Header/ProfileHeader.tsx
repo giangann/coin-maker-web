@@ -1,23 +1,34 @@
+// @ts-nocheck
 import { Avatar, Button, MenuItem, MenuList, Popover, styled, Typography } from '@mui/material'
 import { useAtom } from 'jotai'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { userAtomWithStorage, userProfileImage } from '@/libs/atoms'
 import { useAuth } from '@/libs/hooks'
+import { LoginDialog } from '@/screens'
 
-export const ProfileHeader = () => {
+export const ProfileHeader = (props: any) => {
+  const { handleLogout } = props
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const open = Boolean(anchorEl)
   const { isAdmin } = useAuth()
   const [userStorage, setUserStorage] = useAtom(userAtomWithStorage)
   const [profileImage, setProfileImage] = useAtom(userProfileImage)
   const isLoggined = userStorage ? true : false
+  const [openLoginDialog, setOpenLoginDialog] = useState(false)
   const userProfileHeaderItems = [
     {
       icon: '',
       name: 'Profile',
       link: '/profile',
+    },
+    {
+      icon: '',
+      name: 'Logout',
+      onChoose: () => {
+        handleLogout()
+      },
     },
   ]
 
@@ -32,14 +43,40 @@ export const ProfileHeader = () => {
       name: 'Profile',
       link: '/profile',
     },
+    {
+      icon: '',
+      name: 'Logout',
+      onChoose: () => {
+        handleLogout()
+        handleClose()
+      },
+    },
   ]
 
-  const profileHeaderItems = isAdmin ? adminProfileHeaderItems : userProfileHeaderItems
+  const loginItems = [
+    {
+      icon: '',
+      name: 'Login',
+      onChoose: () => {
+        setOpenLoginDialog(true)
+      },
+    },
+  ]
+
+  const profileHeaderItems = isLoggined
+    ? isAdmin
+      ? adminProfileHeaderItems
+      : userProfileHeaderItems
+    : loginItems
 
   const navigate = useNavigate()
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleCloseLoginDialog = () => {
+    setOpenLoginDialog(false)
   }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -70,8 +107,10 @@ export const ProfileHeader = () => {
             <MenuItem
               key={index}
               onClick={() => {
+                if (item?.link as any) {
+                  navigate(item.link as any)
+                } else item?.onChoose?.()
                 handleClose()
-                navigate(item.link)
               }}
             >
               <Typography
@@ -88,6 +127,8 @@ export const ProfileHeader = () => {
           ))}
         </MenuList>
       </Popover>
+
+      <LoginDialog open={openLoginDialog} handleClose={handleCloseLoginDialog} />
     </>
   )
 }

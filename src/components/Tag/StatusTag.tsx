@@ -13,13 +13,13 @@ export const StatusTag = (props: { value: number }) => {
         sx={{ width: 'fit-content' }}
         bgColor={backgroundColor.tag.green}
       >
-        <Typography>{t('accepted')}</Typography>
+        <Typography>{t('form.accepted')}</Typography>
       </CurveBoxWithCustomBackground>
     )
   if (value === STATUS_FORM.REJECTED)
     return (
       <CurveBoxWithCustomBackground sx={{ width: 'fit-content' }} bgColor={backgroundColor.tag.red}>
-        <Typography>{t('rejected')}</Typography>
+        <Typography>{t('form.rejected')}</Typography>
       </CurveBoxWithCustomBackground>
     )
   return (
@@ -27,7 +27,7 @@ export const StatusTag = (props: { value: number }) => {
       sx={{ width: 'fit-content' }}
       bgColor={backgroundColor.tag.yellow}
     >
-      <Typography>{t('await_confirm')}</Typography>
+      <Typography>{t('form.await_confirm')}</Typography>
     </CurveBoxWithCustomBackground>
   )
 }

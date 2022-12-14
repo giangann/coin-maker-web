@@ -1,4 +1,5 @@
 export type SettingType = {
+  id: number
   initial_point: number
   price_per_point: number
   admin: {

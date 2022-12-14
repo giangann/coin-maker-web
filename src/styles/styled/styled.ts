@@ -74,6 +74,9 @@ export const CurveBoxWithCustomBackground = styled(Box, {
   borderRadius: theme.spacing(0.5),
   padding: theme.spacing(1),
   backgroundColor: bgColor ?? 'none',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'elipsis',
 }))
 
 // export const BoxGreyBorder = styled(Box)({
