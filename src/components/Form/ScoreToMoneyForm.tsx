@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { styled, ThemeProvider } from '@mui/material/styles'
 import { useForm } from 'react-hook-form'
@@ -7,9 +8,11 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import * as yup from 'yup'
 
 import { STATUS_FORM } from '@/constants'
 import { useAuth } from '@/libs/hooks'
+import i18n from '@/libs/lang/translations/i18n'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { numberWithCommas } from '@/libs/utils'
@@ -33,8 +36,18 @@ export type ScoreToMoneyFormProps = {
   handleClose?: any
   themeStyle?: 'light' | 'dark'
 }
+
+const validateForm = yup.object({
+  points: yup.number().required(i18n.t('validate.required')),
+  bank_name: yup.string().trim().required(i18n.t('validate.required')),
+  bank_number: yup.string().trim().required(i18n.t('validate.required')),
+  bank_owner: yup.string().trim().required(i18n.t('validate.required')),
+  name: yup.string().trim().required(i18n.t('validate.required')),
+  phone_number: yup.string().trim().required(i18n.t('validate.required')),
+})
+
 export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
-  const { handleClose, themeStyle } = props
+  const { handleClose, themeStyle, scoreData } = props
   const { userStorage } = useAuth()
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
   const { t } = useTranslation()
@@ -59,6 +72,8 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       phone_number: '',
       status: STATUS_FORM.AWAIT_CONFIRM,
     },
+
+    resolver: yupResolver(validateForm),
   })
 
   // check is user_edit/user_create/admin_view
@@ -85,6 +100,13 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
 
   const onSubmit = async (value: ScoreToMoneyFormType) => {
     try {
+      // check points of requets:
+      if (value['points'] > scoreData.avaiable_score) {
+        toast.error(t('validate.run_out_of_points'))
+        return
+      }
+
+      // if points is enough
       let res
       if (!isEdit) {
         res = await request.post('score-to-money-form', {
@@ -100,15 +122,12 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         })
       }
 
-      // console.log('result', res)
-
       if (res.status === 200) {
         toast.success(res.data.message)
         queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
         queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
       }
     } catch (error: any) {
-      // console.log('error', error)
       toast.error(error.errors)
     }
     handleClose()
@@ -117,7 +136,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   const handleApprove = async (action: string) => {
     const value: ScoreToMoneyFormType = getValues()
 
-    console.log('value', value)
     let newStatus
     if (action === 'rejected') {
       newStatus = STATUS_FORM.REJECTED
@@ -125,7 +143,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
     if (action === 'accepted') {
       newStatus = STATUS_FORM.ACCEPTED
     }
-    console.log('value', value)
     try {
       const res = await request.patch(`score-to-money-form/${parseInt(params.id)}`, {
         ...value,
@@ -133,7 +150,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         user_id: userStorage?.id,
         money: watch('points') * setting?.price_per_point,
       })
-      console.log('result', res)
 
       if (res.status === 200) {
         toast.success(res.data.message)
@@ -162,7 +178,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           },
         }
       : undefined
-  // console.log('theme style', themeStyle)
   return (
     <Grid container component="form" rowSpacing={1}>
       <Grid item xs={12} sx={{ mb: 4 }}>
@@ -290,7 +305,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >
-              {t('form.reject')}
+              {t('action.reject')}
             </ButtonCustomDisableColor>
             <ButtonCustomDisableColor
               color="primary"
@@ -299,7 +314,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               variant="contained"
               disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
             >
-              {t('form.approve')}
+              {t('action.accept')}
             </ButtonCustomDisableColor>
           </Box>
         ) : (

@@ -115,6 +115,11 @@
     "type_user_name": "Nhập họ và tên",
     "type_phone_number": "Nhập số điện thoại"
   },
+
+  "validate": {
+    "required": "Phần thông tin này là bắt buộc",
+    "run_out_of_points": "Số điểm có thể giao dịch hiện tại của bạn không đủ, vui lòng thử lại với số điểm yêu cầu nhỏ hơn"
+  },
   "user": {
     "info": "Thông tin cá nhân",
     "email": "Địa chỉ email",
