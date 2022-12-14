@@ -140,7 +140,7 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
             }}
           />
         </BoxFlexAlignCenter>
-        <Title>0.06714 BTC fix cung</Title>
+        <Title>0.06714 BTC </Title>
       </Box>
       {coin?.categories && (
         <Box mt={1}>
