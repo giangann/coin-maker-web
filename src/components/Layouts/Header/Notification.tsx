@@ -100,7 +100,7 @@ const Notification: React.FC<NotificationProps> = () => {
             {createContentNoti(noti)}
           </Title>
           <Typography variant="body2" color="grey.500">
-            {formatTimeDiff(noti.created_at)}
+            {formatTimeDiff(noti.updated_at)}
           </Typography>
         </Stack>
         {noti.status === STATUS_NOTIFICATION['UNREAD'] ||

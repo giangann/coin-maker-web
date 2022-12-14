@@ -5,7 +5,7 @@ import { numberWithCommas } from '@/libs/utils'
 
 export const SystemSetting = () => {
   const { setting } = useAuth()
-  console.log('setting', setting)
+
   return (
     <Box>
       <Typography>Initial score of each user: {setting?.initial_point}</Typography>

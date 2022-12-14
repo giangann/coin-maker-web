@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 
 import { Card } from '@/components'
 import { userAtomWithStorage } from '@/libs/atoms'
+import { useAuth } from '@/libs/hooks'
 import { UserType } from '@/libs/types'
 import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 
@@ -19,7 +20,6 @@ type HistoryItemProps = {
 
 const HistoryItem = (props: HistoryItemProps) => {
   const { user, isTakePoints, isAdminInitial = false, donateTime, points, currentScore } = props
-
   const { t } = useTranslation()
   return (
     <CurveBoxWithCustomBackground
@@ -93,13 +93,23 @@ type DonateHistoryData = {
 }
 export const DonateHistory = () => {
   const [userStorage] = useAtom(userAtomWithStorage)
+  const { setting } = useAuth()
 
   const { data: donateHistories } = useQuery<DonateHistoryData>([`/donate/get-by-my-id`])
   return (
     <Card title="Donate history" hasMore={false}>
       {/* @ts-ignore */}
       {donateHistories?.data?.map((item, index) =>
-        item.user_donate.id === userStorage?.id ? (
+        !item.user_donate?.id ? (
+          // admin initial
+          <HistoryItem
+            currentScore={item?.user_take_curr_score as any}
+            donateTime={userStorage?.created_at as any}
+            points={setting?.initial_point as any}
+            isTakePoints={true}
+            isAdminInitial={true}
+          />
+        ) : item.user_donate.id === userStorage?.id ? (
           // myself donate (give points)
           <HistoryItem
             user={item.user_take}
@@ -119,14 +129,6 @@ export const DonateHistory = () => {
           />
         ),
       )}
-      {/* admin initial */}
-      <HistoryItem
-        currentScore={10}
-        donateTime={userStorage?.created_at as any}
-        points={10}
-        isTakePoints={true}
-        isAdminInitial={true}
-      />
     </Card>
   )
 }

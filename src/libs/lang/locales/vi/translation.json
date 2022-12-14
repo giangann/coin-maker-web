@@ -85,7 +85,9 @@
     "submit": "Xác nhận",
     "cancel": "Hủy",
     "save": "Lưu",
-    "goback": "Quay lại"
+    "goback": "Quay lại",
+    "accept": "Chấp nhận",
+    "reject": "Từ chối"
   },
   "form": {
     "score_to_money": "Đổi điểm lấy tiền",
@@ -113,7 +115,10 @@
     "type_bank_owner": "Nhập tên chủ thẻ",
     "type_bank_branch": "Tên chi nhánh",
     "type_user_name": "Nhập họ và tên",
-    "type_phone_number": "Nhập số điện thoại"
+    "type_phone_number": "Nhập số điện thoại",
+    "accepted": "Chấp nhận",
+    "rejected": "Từ chối",
+    "await_confirm": "Đợi phê duyệt"
   },
 
   "validate": {

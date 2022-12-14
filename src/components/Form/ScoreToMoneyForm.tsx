@@ -42,14 +42,15 @@ const validateForm = yup.object({
   bank_name: yup.string().trim().required(i18n.t('validate.required')),
   bank_number: yup.string().trim().required(i18n.t('validate.required')),
   bank_owner: yup.string().trim().required(i18n.t('validate.required')),
-  name: yup.string().trim().required(i18n.t('validate.required')),
+  // name: yup.string().trim().required(i18n.t('validate.required')),
   phone_number: yup.string().trim().required(i18n.t('validate.required')),
 })
 
 export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
-  const { handleClose, themeStyle, scoreData } = props
+  const { handleClose, themeStyle } = props
   const { userStorage } = useAuth()
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
+  const { data: scoreData } = useQuery<any>('user/calculate-score')
   const { t } = useTranslation()
   const { setting } = useAuth()
   const params = useParams()
@@ -79,7 +80,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   // check is user_edit/user_create/admin_view
   const isEdit = params.id ? true : false
   const { isAdmin } = useAuth()
-  const isDisable = isAdmin && isEdit
+  const isDisable = (isAdmin && isEdit) || watch('status') !== STATUS_FORM.AWAIT_CONFIRM
   // console.log('id of form', params.id)
 
   if (isEdit) {
@@ -99,6 +100,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   }
 
   const onSubmit = async (value: ScoreToMoneyFormType) => {
+    console.log('submit')
     try {
       // check points of requets:
       if (value['points'] > scoreData.avaiable_score) {
@@ -106,6 +108,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         return
       }
 
+      console.log('is edit', isEdit)
       // if points is enough
       let res
       if (!isEdit) {
@@ -124,13 +127,18 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
 
       if (res.status === 200) {
         toast.success(res.data.message)
-        queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
-        queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
+        if (isEdit) {
+          if (isAdmin) navigate('/dashboard')
+          else navigate('/profile')
+        } else {
+          queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
+          queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
+          handleClose()
+        }
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error.errors)
     }
-    handleClose()
   }
 
   const handleApprove = async (action: string) => {
@@ -147,8 +155,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       const res = await request.patch(`score-to-money-form/${parseInt(params.id)}`, {
         ...value,
         status: newStatus,
-        user_id: userStorage?.id,
-        money: watch('points') * setting?.price_per_point,
       })
 
       if (res.status === 200) {
@@ -204,7 +210,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         </Box>
       </Grid>
 
-      <TypographyByThemeStyleProps>{t('form.money_you_will_take')}</TypographyByThemeStyleProps>
+      <TypographyByThemeStyleProps>{t('form.bank_information')}</TypographyByThemeStyleProps>
       <Grid item xs={12} sx={{ mb: 4 }} container spacing={2}>
         <Grid item xs={12} sm={6}>
           <ThemeProvider theme={darkTheme}>
@@ -293,7 +299,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {isDisable ? (
+        {isDisable && isAdmin ? (
           <Box sx={{ mt: 2, mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
             <Button onClick={handleGoBack} variant="outlined">
               {t('action.goback')}
@@ -323,14 +329,15 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
               {isEdit ? t('action.goback') : t('cancel')}
             </Button>
             {isEdit ? (
-              <Button
+              <ButtonCustomDisableColor
                 color="primary"
                 sx={{ ml: 1 }}
                 onClick={handleSubmit(onSubmit)}
                 variant="contained"
+                disabled={watch('status') !== STATUS_FORM.AWAIT_CONFIRM}
               >
                 {t('action.update')}
-              </Button>
+              </ButtonCustomDisableColor>
             ) : (
               <Button
                 color="primary"

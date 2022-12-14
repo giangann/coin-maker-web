@@ -8,6 +8,7 @@ export type NotificationType<T = UnknownObj> = {
   model_type: string
   type: number
   created_at: string
+  updated_at: string
   sender_name: string
 }
 

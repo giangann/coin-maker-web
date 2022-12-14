@@ -42,6 +42,8 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
     setUserStorage(null)
     localStorage.setItem('user-token', 'null')
     setProfileImage(null)
+    navigate('/')
+    window.location.reload()
   }
 
   const handleNavigate = () => {
@@ -151,7 +153,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
         </AlignGrid>
         <AlignGrid item xs={4}>
           <Notification />
-          <ProfileHeader />
+          <ProfileHeader handleLogout={handleLogout} />
         </AlignGrid>
       </Hidden>
 

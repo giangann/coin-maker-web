@@ -89,6 +89,7 @@ export const ListScoreToMoneyForm = () => {
         data={listFormData || []}
         isLoading={isLoading}
         onRowClick={onRowClick}
+        sxCustom={{ padding: 0 }}
       />
     </Card>
   )

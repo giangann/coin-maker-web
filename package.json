@@ -14,6 +14,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@hookform/resolvers": "^2.8.5",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.3",
     "axios": "^0.27.2",
@@ -39,8 +40,8 @@
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.1",
     "styled-components": "^5.3.6",
-    "yup": "^0.32.11",
-    "@hookform/resolvers": "^2.8.5"
+    "vn-num2words": "^1.0.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.7.14",

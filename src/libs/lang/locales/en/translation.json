@@ -157,5 +157,9 @@
       "reject": "Oops! Admin rejected your exchange money request, please try again",
       "dontate": "gived you point, please check it out"
     }
+  },
+  "setting": {
+    "user_init_score": "Initial score of each user:",
+    "price_per_point": "Price per point:"
   }
 }
