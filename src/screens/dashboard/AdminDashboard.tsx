@@ -19,6 +19,7 @@ import { SettingType } from '@/libs/types/setting'
 import { BoxFlexStart, BoxHeader } from '@/styles'
 
 import { ManagerScoreToMoneyForm } from './ManagerScoreToMoneyForm'
+import { ManagerUser } from './ManagerUser'
 import { SystemSetting } from './SystemSetting'
 
 export const AdminDashboard = () => {
@@ -129,8 +130,11 @@ export const AdminDashboard = () => {
           </BaseDialog>
         </Card>
       </Box>
-      <Box>
+      <Box sx={{ mb: 3 }}>
         <ManagerScoreToMoneyForm />
+      </Box>
+      <Box>
+        <ManagerUser />
       </Box>
     </Box>
   )

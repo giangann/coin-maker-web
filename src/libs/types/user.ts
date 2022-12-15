@@ -8,6 +8,7 @@ export type UserType = {
   avaiable_score?: number
   awaiting_score_to_money?: number
   created_at?: string | Date
+  is_admin?: boolean
 }
 
 export type ProfileImage = string | null

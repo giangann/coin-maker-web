@@ -6,6 +6,7 @@ import { Layout } from '@/components/Layouts'
 import { Coin, Home, Login, NotFound } from '@/screens'
 import { Converter } from '@/screens/converter/Converter'
 import { AdminDashboard } from '@/screens/dashboard/AdminDashboard'
+import { UserDetail } from '@/screens/dashboard/UserDetail'
 import { Forbidden } from '@/screens/forbidden/Forbidden'
 import { ScoreToMoneyEditForm } from '@/screens/profile/ScoreToMoneyEditForm'
 import { UserProfile } from '@/screens/profile/UserProfile'
@@ -26,6 +27,7 @@ export const Router = ({ isAdmin }: { isAdmin: boolean }) => {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/form/:id" element={<ScoreToMoneyEditForm />} />
         <Route path="/dashboard" element={isAdmin ? <AdminDashboard /> : <Forbidden />} />
+        <Route path="/manager/user/:id" element={isAdmin ? <UserDetail /> : <Forbidden />} />
         <Route index element={<Home />} />
       </Route>
       <Route path="*" element={<NotFound />} />

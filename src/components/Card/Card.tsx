@@ -10,9 +10,10 @@ interface ICardProps {
   children: React.ReactNode
   hasMore?: boolean
   sx?: CSSProperties
+  sxTitle?: any
 }
 
-export const Card = ({ title, children, hasMore = true, sx }: ICardProps) => {
+export const Card = ({ title, children, hasMore = true, sx, sxTitle }: ICardProps) => {
   const { t } = useTranslation()
 
   return (
@@ -27,7 +28,7 @@ export const Card = ({ title, children, hasMore = true, sx }: ICardProps) => {
       }}
     >
       {(title || hasMore) && (
-        <BoxFlexCenterSpaceBetween sx={{ marginBottom: '24px', overflow: 'hidden' }}>
+        <BoxFlexCenterSpaceBetween sx={{ marginBottom: '24px', overflow: 'hidden', ...sxTitle }}>
           {title && <BoxHeader>{title}</BoxHeader>}
           {hasMore && <Typography sx={{ color: blue['primary'] }}>{t('more')}</Typography>}
         </BoxFlexCenterSpaceBetween>

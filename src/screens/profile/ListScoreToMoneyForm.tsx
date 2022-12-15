@@ -89,7 +89,7 @@ export const ListScoreToMoneyForm = () => {
   }
 
   return (
-    <Card title={t('form.list_score_to_money_form')} hasMore={false}>
+    <Card title={t('form.list_score_to_money_form')} hasMore={false} sxTitle={{ mb: 0, mt: 2 }}>
       <ReactTableWithToolBar
         columns={columns}
         data={listFormData || []}

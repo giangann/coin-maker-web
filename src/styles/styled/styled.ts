@@ -82,3 +82,12 @@ export const CurveBoxWithCustomBackground = styled(Box, {
 // export const BoxGreyBorder = styled(Box)({
 //   border: ''
 // })
+
+export const DotWithColor = styled(Box, {
+  shouldForwardProp: (props) => props !== 'dotColor' && props !== 'size',
+})<{ dotColor?: string; size: number }>(({ theme, dotColor, size }) => ({
+  width: `${size}px`,
+  height: `${size}px`,
+  borderRadius: '50%',
+  backgroundColor: dotColor ?? 'rgba(255, 255, 255, 0.5)',
+}))
