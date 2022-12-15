@@ -27,7 +27,15 @@ export const StatusTag = (props: { value: number }) => {
       sx={{ width: 'fit-content' }}
       bgColor={backgroundColor.tag.yellow}
     >
-      <Typography>{t('form.await_confirm')}</Typography>
+      <Typography
+        sx={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'elipsis',
+        }}
+      >
+        {t('form.await_confirm')}
+      </Typography>
     </CurveBoxWithCustomBackground>
   )
 }

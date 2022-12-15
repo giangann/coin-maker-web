@@ -118,23 +118,23 @@ const Notification: React.FC<NotificationProps> = () => {
   const createContentNoti = (noti: NotificationType) => {
     // for admin: user create or update form
     if (noti.type === NOTI_TYPE.CREATE) {
-      return `create new exchange money request`
+      return t('notification.content.create')
     }
     if (noti.type === NOTI_TYPE.UPDATE) {
-      return `update exchange money request`
+      return t('notification.content.update')
     }
 
     // for user: (2 situations)
     // 1: admin accept or reject application
     // 2: other user donate point
     if (noti.type === NOTI_TYPE.ACCEPT) {
-      return `Admin accepted your exchange money request, please check your bank transaction`
+      return t('notification.content.accept')
     }
     if (noti.type === NOTI_TYPE.REJECTE) {
-      return `Oops! Admin rejected your exchange money request, please try again`
+      return t('notification.content.reject')
     }
     if (noti.type === NOTI_TYPE.DONATE) {
-      return `gived you point, please check it out`
+      return t('notification.content.donate')
     }
   }
 
