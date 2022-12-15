@@ -84,7 +84,12 @@ export const AdminDashboard = () => {
           <SystemSetting />
 
           {/* Dialog change setting */}
-          <BaseDialog defaultAction={false} open={openDialog} handleClose={handleClose}>
+          <BaseDialog
+            title={t('setting.edit_title')}
+            defaultAction={false}
+            open={openDialog}
+            handleClose={handleClose}
+          >
             <Grid container component="form" spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Input

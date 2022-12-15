@@ -131,9 +131,12 @@ export const Home = () => {
     md: 12,
   }
 
+  const gridPaddingResponsive = {
+    paddingLeft: { xs: '16px !important', sm: 'unset' },
+  }
   return (
     <Grid container spacing={3} pl={{ xs: 1, sm: 'unset' }}>
-      <Grid item {...gridFull}>
+      <Grid item {...gridFull} sx={{ ...gridPaddingResponsive }}>
         <ReactTableWithToolBar
           sxCustom={{ border: `1px solid ${strokeColor['primary']}` }}
           title={t('home.top_coin')}
@@ -147,17 +150,17 @@ export const Home = () => {
           // manualPagination={true}
         />
       </Grid>
-      <Grid item {...grid}>
+      <Grid item {...grid} sx={{ ...gridPaddingResponsive }}>
         <TrendingList />
       </Grid>
 
-      <Grid item {...grid}>
+      <Grid item {...grid} sx={{ ...gridPaddingResponsive }}>
         <TrendingList />
       </Grid>
 
       {listCoinGraph &&
         listCoinGraph.map((coin, index) => (
-          <Grid item {...grid} key={index + 'key'}>
+          <Grid sx={{ ...gridPaddingResponsive }} item {...grid} key={index + 'key'}>
             <CoinGraph
               coin={coin}
               colorGraph={colorCoinGraph.colorGraph[index]}

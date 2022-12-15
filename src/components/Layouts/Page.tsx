@@ -11,9 +11,8 @@ type PageProps = {
 export const Page = ({ title, children, sxCustom, ...props }: PageProps) => {
   return (
     <Paper
-      // elevation={1}
       sx={{
-        padding: '30px 20px',
+        padding: { xs: '16px 8px', sm: 3 },
         margin: '8px 0',
         borderRadius: 2,
         backgroundColor: backgroundColor['primary'],
@@ -26,7 +25,7 @@ export const Page = ({ title, children, sxCustom, ...props }: PageProps) => {
           variant="h5"
           sx={{
             fontWeight: 700,
-            fontSize: { xs: '1rem', md: '1.5rem' },
+            fontSize: { xs: '1.25rem', md: '1.5rem' },
             color: '#fff',
             mb: { xs: 2, sm: 'unset' },
           }}

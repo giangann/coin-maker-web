@@ -159,7 +159,9 @@
     }
   },
   "setting": {
-    "user_init_score": "Initial score of each user:",
-    "price_per_point": "Price per point:"
+    "title": "Setting",
+    "edit_title": "Change setting",
+    "user_init_score": "Initial score of each user: ",
+    "price_per_point": "Price per point: "
   }
 }

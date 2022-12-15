@@ -8,7 +8,7 @@ import { Card } from '@/components'
 import { ScoreToMoneyFormType } from '@/components/Form'
 import { ReactTableWithToolBar } from '@/components/ReactTable'
 import { StatusTag } from '@/components/Tag/StatusTag'
-import { numberWithCommas } from '@/libs/utils'
+import { convertDatetimeTZWithoutSecond, numberWithCommas } from '@/libs/utils'
 
 export const ListScoreToMoneyForm = () => {
   const { t } = useTranslation()
@@ -16,7 +16,6 @@ export const ListScoreToMoneyForm = () => {
   const { data: listFormData, isLoading: isLoading } =
     useQuery<ScoreToMoneyFormType[]>('score-to-money-form')
 
-  // console.log('listformDaa', listFormData)
   const columns = React.useMemo(
     () => [
       {
@@ -65,12 +64,20 @@ export const ListScoreToMoneyForm = () => {
         Header: t('form.created_at'),
         accessor: 'created_at', // accessor is the "key" in the data
         width: 150,
+        Cell: ({ row }: { row: any }) => {
+          const asiaDate = convertDatetimeTZWithoutSecond(row.original.created_at)
+          return asiaDate
+        },
         sticky: 'left',
       },
       {
         Header: t('form.updated_at'),
         accessor: 'updated_at', // accessor is the "key" in the data
         width: 150,
+        Cell: ({ row }: { row: any }) => {
+          const asiaDate = convertDatetimeTZWithoutSecond(row.original.updated_at)
+          return asiaDate
+        },
         sticky: 'left',
       },
     ],
@@ -78,7 +85,6 @@ export const ListScoreToMoneyForm = () => {
   )
 
   const onRowClick = (row: RowProps<ScoreToMoneyFormType>) => {
-    console.log(row.values.id)
     navigate(`/form/${row.values.id}`)
   }
 

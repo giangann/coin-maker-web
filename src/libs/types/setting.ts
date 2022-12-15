@@ -7,4 +7,5 @@ export type SettingType = {
     email?: string
     phone_number?: string
   }
+  timezone?: 'Asia/Ho_Chi_Minh'
 }

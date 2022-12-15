@@ -7,6 +7,7 @@ import { Card } from '@/components'
 import { userAtomWithStorage } from '@/libs/atoms'
 import { useAuth } from '@/libs/hooks'
 import { UserType } from '@/libs/types'
+import { convertDatetimeTZWithoutSecond } from '@/libs/utils'
 import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 
 type HistoryItemProps = {
@@ -28,7 +29,9 @@ const HistoryItem = (props: HistoryItemProps) => {
     >
       <Grid container rowSpacing={{ xs: 0.5, sm: 'unset' }} alignItems="center">
         <Grid item xs={12} sm={2.5}>
-          <Typography sx={{ ...dateAndScoreStyle }}>{donateTime}</Typography>
+          <Typography sx={{ ...dateAndScoreStyle }}>
+            {convertDatetimeTZWithoutSecond(donateTime)}
+          </Typography>
         </Grid>
 
         {isAdminInitial ? (
@@ -94,10 +97,10 @@ type DonateHistoryData = {
 export const DonateHistory = () => {
   const [userStorage] = useAtom(userAtomWithStorage)
   const { setting } = useAuth()
-
+  const { t } = useTranslation()
   const { data: donateHistories } = useQuery<DonateHistoryData>([`/donate/get-by-my-id`])
   return (
-    <Card title="Donate history" hasMore={false}>
+    <Card title={t('donate.history')} hasMore={false}>
       {/* @ts-ignore */}
       {donateHistories?.data?.map((item, index) =>
         !item.user_donate?.id ? (

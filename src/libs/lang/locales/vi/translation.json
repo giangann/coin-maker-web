@@ -158,5 +158,11 @@
       "reject": "Oops! Admin đã từ chối yêu cầu đổi điểm lấy tiền của bạn, vui lòng thử lại sau",
       "dontate": "tặng bạn điểm, hãy kiểm tra lịch sử tặng điểm"
     }
+  },
+  "setting": {
+    "title": "Cài đặt",
+    "edit_title": "Thay đổi cài đặt",
+    "user_init_score": "Điểm khởi tạo cho mỗi người dùng mới: ",
+    "price_per_point": "Giá của 1 điểm: "
   }
 }
