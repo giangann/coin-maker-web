@@ -164,5 +164,20 @@
     "edit_title": "Thay đổi cài đặt",
     "user_init_score": "Điểm khởi tạo cho mỗi người dùng mới: ",
     "price_per_point": "Giá của 1 điểm: "
+  },
+  "manage_user": {
+    "title": "Quản lý người dùng",
+    "name": "Tên",
+    "email": "Email",
+    "score": "Điểm",
+    "is_admin": "Admin"
+  },
+  "user_detail": {
+    "role": "Quyền: ",
+    "change_role": "đổi quyền",
+    "current_score": "Điểm hiện tại: ",
+    "update_role": "Cập nhật quyền cho người dùng",
+    "sure_set_role":"Bạn có chắc muốn đặt quền: ",
+    "this_user":" cho người dùng này?"
   }
 }

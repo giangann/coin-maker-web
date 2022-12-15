@@ -24,9 +24,11 @@ export const UserDetail = () => {
     try {
       const res = await request.post(`user/update-role/${userInformation?.id}`)
 
-      if (res.status === 200) {
+      if (res.data.status === 200) {
         toast.success(res.data.message)
         queryClient.fetchQuery(`user/${params.id}`, { staleTime: 2000 })
+      } else {
+        toast.error(res.data.message)
       }
     } catch (error: any) {
       toast.error(error.errors)
@@ -50,7 +52,7 @@ export const UserDetail = () => {
           sx={{ justifyContent: 'flex-start', alignItems: 'center' }}
           spacing={1}
         >
-          <Typography>Role: </Typography>
+          <Typography>{t('user_detail.role')}</Typography>
           {userInformation?.is_admin ? (
             <CurveBoxWithCustomBackground bgColor={green.primary} sx={{ borderRadius: 4 }}>
               <Typography>Admin</Typography>
@@ -66,12 +68,15 @@ export const UserDetail = () => {
               bgColor={backgroundColor.tag.blue}
             >
               {'>'}
-              {'>'} {t('change role')}
+              {'>'} {t('user_detail.change_role')}
             </CurveBoxWithCustomBackground>
           </MenuItem>
         </Stack>
         <Typography>Email: {userInformation?.email}</Typography>
-        <Typography>Current score: {userInformation?.score}</Typography>
+        <Typography>
+          {t('user_detail.current_score')}
+          {userInformation?.score}
+        </Typography>
       </Stack>
       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
         <Button onClick={handleGoBack} variant="outlined">
@@ -83,15 +88,15 @@ export const UserDetail = () => {
       </Box>
 
       <BaseDialog
-        title={`Update role for user ${userInformation?.name}`}
+        title={`${t('user_detail.update_role')} ${userInformation?.name}`}
         open={openDialog}
         handleClose={handleCloseDialog}
         handleSubmit={handleSubmit}
       >
         <Typography sx={{ color: 'black' }}>
-          {`Are you sure to set role: ${
-            userInformation?.is_admin ? 'USER' : 'ADMIN'
-          } for this user?`}
+          {`${t('user_detail.sure_set_role')}${userInformation?.is_admin ? 'USER' : 'ADMIN'}${t(
+            'user_detail.this_user',
+          )}`}
         </Typography>
       </BaseDialog>
     </Card>

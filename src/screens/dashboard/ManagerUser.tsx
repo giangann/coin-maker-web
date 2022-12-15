@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { Row as RowProps } from 'react-table'
@@ -12,6 +13,7 @@ import { DotWithColor } from '@/styles'
 export const ManagerUser = () => {
   const { data: userData, isLoading: isLoading } = useQuery<UserType>('user')
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const columns = React.useMemo(
     () => [
       {
@@ -21,25 +23,25 @@ export const ManagerUser = () => {
         sticky: 'left',
       },
       {
-        Header: 'Name',
+        Header: t('manage_user.name'),
         accessor: 'name',
         width: 100,
         sticky: 'left',
       },
       {
-        Header: 'Email',
+        Header: t('manage_user.email'),
         accessor: 'email',
         width: 50,
         sticky: 'left',
       },
       {
-        Header: 'Score',
+        Header: t('manage_user.score'),
         accessor: 'score',
         width: 10,
         sticky: 'left',
       },
       {
-        Header: 'Created at',
+        Header: t('form.created_at'),
         accessor: 'created_at',
         width: 50,
         Cell: ({ row }: { row: any }) => {
@@ -67,7 +69,7 @@ export const ManagerUser = () => {
   }
 
   return (
-    <Card title="Manage user" hasMore={false} sxTitle={{ mb: 0, mt: 2 }}>
+    <Card title={t('manage_user.title')} hasMore={false} sxTitle={{ mb: 0, mt: 2 }}>
       <ReactTableWithToolBar
         sxCustom={{ padding: 0 }}
         isLoading={isLoading}

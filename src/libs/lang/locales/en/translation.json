@@ -163,5 +163,20 @@
     "edit_title": "Change setting",
     "user_init_score": "Initial score of each user: ",
     "price_per_point": "Price per point: "
+  },
+  "manage_user": {
+    "title": "User management",
+    "name": "Name",
+    "email": "Email",
+    "score": "Score",
+    "is_admin": "Is admin"
+  },
+  "user_detail": {
+    "role": "Role: ",
+    "change_role": "change role",
+    "current_score": "Current score: ",
+    "update_role": "Update role for user",
+    "sure_set_role":"Are you sure to set role: ",
+    "this_user":" for this user?"
   }
 }
