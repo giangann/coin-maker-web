@@ -35,7 +35,7 @@ export const Comment: React.FC<ICommentProps> = ({
       const res = await request.delete(`comment/${comment_id}`)
 
       if (res.status == 200) {
-        toast.success(t('delete_success'))
+        toast.success(res.data.message)
 
         queryClient.fetchQuery([`comment/get-by-post-id/${post_id}`], { staleTime: 2000 })
         queryClient.fetchQuery([`post/get-by-coin-id/${coin_id}?user_id=${userStorage?.id}`], {

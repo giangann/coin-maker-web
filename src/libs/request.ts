@@ -10,6 +10,8 @@ async function authRequestInterceptor(config: any) {
   if (_token && _token !== 'undefined' && config.headers) {
     const token = _token
     config.headers.authorization = `Bearer ${token}`
+    config.headers.common['Accept-Language'] = localStorage.getItem('language')
+
     // console.log(`Bearer ${token}`)
   }
   return config

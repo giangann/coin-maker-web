@@ -38,7 +38,7 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
       setIsLoading(false)
 
       if (res.status === 200) {
-        toast.success('Add to Watch List')
+        toast.success(res.data.message)
         queryClient.fetchQuery(
           [
             `coin/${coinId}`,
@@ -61,7 +61,7 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
       setIsLoading(false)
 
       if (res.status === 200) {
-        toast.success(res.data.message)
+        toast.warning(res.data.message)
         queryClient.fetchQuery(
           [
             `coin/${coinId}`,

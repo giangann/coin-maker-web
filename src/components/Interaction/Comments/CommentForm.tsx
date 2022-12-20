@@ -51,7 +51,7 @@ export const CommentForm: React.FC<ICommentForm> = ({ post_id, coin_id, user_nam
       setIsLoading(false)
 
       if (res.status === 200) {
-        toast.success('success')
+        toast.success(res.data.message)
         queryClient.fetchQuery([`comment/get-by-post-id/${post_id}`], { staleTime: 2000 })
         queryClient.fetchQuery([`post/get-by-coin-id/${coin_id}?user_id=${userStorage?.id}`], {
           staleTime: 2000,

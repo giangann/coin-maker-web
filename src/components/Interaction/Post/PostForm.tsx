@@ -71,7 +71,7 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
       setIsLoading(false)
 
       if (res.status === 200) {
-        toast.success('success')
+        toast.success(res.data.message)
         setText('')
         setTagPost(TAG_POST['UNSET'])
         setFiles(undefined)
