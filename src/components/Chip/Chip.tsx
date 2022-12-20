@@ -14,6 +14,7 @@ interface IChip {
   hasHover?: boolean
   hasDropDown?: boolean
   handleClick?: () => void
+  isLoading?: boolean
 }
 
 export const Chip: React.FC<IChip> = ({
@@ -23,12 +24,13 @@ export const Chip: React.FC<IChip> = ({
   startIcon,
   endIcon,
   hasHover = false,
+  isLoading = false,
   handleClick,
 }) => {
   return (
     <CustomSpan
-      onClick={handleClick}
-      hasHover={hasHover}
+      onClick={isLoading ? () => {} : handleClick}
+      hasHover={!isLoading && hasHover}
       style={{
         display: 'inline-flex',
         justifyContent: 'center',

@@ -39,3 +39,5 @@ export const formatTimeDiff = (dateTime: Date | string) => {
     locale: locale[language],
   })
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

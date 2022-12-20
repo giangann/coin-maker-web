@@ -142,7 +142,7 @@ export const Post: React.FC<IPostProps> = ({
 
         {image && (
           <Box mt={content ? '12px' : '0px'}>
-            <img src={image} alt="post" style={{ width: '100%', maxWidth: 375 }} />
+            <img src={image} alt="post" style={{ width: '100%', maxWidth: 375 }} loading="lazy" />
           </Box>
         )}
 

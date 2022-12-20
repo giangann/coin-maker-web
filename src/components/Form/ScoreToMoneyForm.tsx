@@ -355,7 +355,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   )
 }
 
-const ButtonCustomDisableColor = styled(Button)({
+export const ButtonCustomDisableColor = styled(Button)({
   '&.Mui-disabled': {
     backgroundColor: '#ffffff',
     color: '#00000080 !important',

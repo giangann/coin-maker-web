@@ -1,4 +1,5 @@
 import { Box, Stack, useMediaQuery } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useTheme } from '@mui/material/styles'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +8,7 @@ import { TiDelete } from 'react-icons/ti'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/Button'
+import { ButtonCustomDisableColor } from '@/components/Form'
 import { InforUser } from '@/components/Interaction'
 import { TAG_POST } from '@/constants'
 import { useAuth } from '@/libs/hooks'
@@ -26,6 +28,7 @@ interface IPostForm {
 }
 
 export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const { userStorage, userAvatar } = useAuth()
   const { t } = useTranslation()
   const [text, setText] = useState<string>('')
@@ -63,7 +66,9 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
         formData.append('image', files)
       }
 
+      setIsLoading(true)
       const res = await request.post('/post', formData)
+      setIsLoading(false)
 
       if (res.status === 200) {
         toast.success('success')
@@ -195,14 +200,15 @@ export const PostForm: React.FC<IPostForm> = ({ coin_id }) => {
             />
             {t('image')}
           </Button>
-          <Button
+          <ButtonCustomDisableColor
             variant="contained"
             sx={{ width: 'max-content', marginTop: '12px' }}
             onClick={handleSubmit}
             size={isMobile ? 'small' : 'medium'}
+            disabled={isLoading ? true : false}
           >
-            {t('post.name')}
-          </Button>
+            {isLoading ? <CircularProgress size={isMobile ? 22.75 : 24.5} /> : t('post.name')}
+          </ButtonCustomDisableColor>
         </Box>
       </Stack>
 

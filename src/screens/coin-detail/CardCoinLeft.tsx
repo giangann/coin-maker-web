@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Box, Tooltip } from '@mui/material'
-import React, { useMemo } from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
@@ -25,12 +26,17 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
   const { userStorage } = useAuth()
   const coinId = coin?.id
   const userId = userStorage?.id
+  const [isLoading, setIsLoading] = useState(false)
+
   const addToWatchList = async () => {
     try {
+      setIsLoading(true)
       const res = await request.post('/watch-list', {
         user_id: userId,
         coin_id: coinId,
       })
+      setIsLoading(false)
+
       if (res.status === 200) {
         toast.success('Add to Watch List')
         queryClient.fetchQuery(
@@ -50,7 +56,10 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
 
   const removeToWatchList = async () => {
     try {
+      setIsLoading(true)
       const res = await request.delete(`/watch-list/${coinId}/${userId}`)
+      setIsLoading(false)
+
       if (res.status === 200) {
         toast.success(res.data.message)
         queryClient.fetchQuery(
@@ -87,6 +96,7 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
                 content={<StarFill />}
                 isOutline={true}
                 sx={{ backgroundColor: backgroundColor['chipOfWatchList'] }}
+                isLoading={isLoading}
               />
             </Tooltip>
           ) : (
@@ -96,9 +106,11 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
                 handleClick={addToWatchList}
                 content={<StarOutline />}
                 isOutline={true}
+                isLoading={isLoading}
               />
             </Tooltip>
           )}
+          {isLoading ? <CircularProgress sx={{ ml: 1 }} size={18} /> : undefined}
         </BoxFlexAlignCenter>
         <BoxFlexAlignCenter gap="16px" sx={{ mt: '16px', overflowY: 'auto' }}>
           <Chip content={`${t('rank')} ${coin?.market_cap_rank}`} sx={{ whiteSpace: 'nowrap' }} />
@@ -107,7 +119,7 @@ export const CardCoinLeft: React.FC<ICardCoinLeft> = ({ coin, isCoinInWatchList 
         </BoxFlexAlignCenter>
       </>
     ),
-    [coin, isCoinInWatchList],
+    [coin, isCoinInWatchList, isLoading],
   )
 
   return (
