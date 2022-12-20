@@ -1,9 +1,11 @@
 import { Box, Stack } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/Button'
+import { ButtonCustomDisableColor } from '@/components/Form'
 import { useAuth } from '@/libs/hooks'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
@@ -17,6 +19,7 @@ interface ICommentForm {
 
 export const CommentForm: React.FC<ICommentForm> = ({ post_id, coin_id, user_name }) => {
   const [text, setText] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(false)
   const isTextareaDisabled = text.length === 0
   const { t } = useTranslation()
 
@@ -40,10 +43,12 @@ export const CommentForm: React.FC<ICommentForm> = ({ post_id, coin_id, user_nam
     }
 
     try {
+      setIsLoading(true)
       const res = await request.post('/comment', {
         content: text,
         post_id,
       })
+      setIsLoading(false)
 
       if (res.status === 200) {
         toast.success('success')
@@ -108,14 +113,14 @@ export const CommentForm: React.FC<ICommentForm> = ({ post_id, coin_id, user_nam
           >
             {t('cancel')}
           </Button>
-          <Button
+          <ButtonCustomDisableColor
             variant="contained"
             type="submit"
             sx={{ fontSize: '10px', textTransform: 'capitalize', cursor: 'pointer' }}
             size="small"
           >
-            {t('reply')}
-          </Button>
+            {isLoading ? <CircularProgress size={17.5} /> : t('reply')}
+          </ButtonCustomDisableColor>
         </Stack>
       </Box>
       <LoginDialog open={openLoginDialog} handleClose={handleCloseDialog} />
