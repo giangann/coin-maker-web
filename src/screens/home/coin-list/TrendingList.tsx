@@ -22,14 +22,18 @@ interface ICoinListResponse {
   coins: ICoinListProps[]
 }
 
-export const TrendingList = () => {
+export const TrendingList = ({ variant }: { variant?: 'first' | 'last' }) => {
   const { t } = useTranslation()
   const [trendingList, setTrendingList] = useState<ICoinListProps[]>([])
 
   useQuery<ICoinListResponse>([`https://api.coingecko.com/api/v3/search/trending`], {
     onSuccess: (data) => {
       // console.log(data)
-      setTrendingList(data.coins.slice(0, 3))
+      if (variant === 'last') {
+        setTrendingList(data.coins.slice(3, 6))
+      } else {
+        setTrendingList(data.coins.slice(0, 3))
+      }
     },
     onError: (error: any) => {
       toast.error(error.message)
@@ -38,7 +42,7 @@ export const TrendingList = () => {
   })
 
   return (
-    <Card title={t('trending')}>
+    <Card title={variant === 'last' ? t('many_search') : t('trending')} hasMore={false}>
       <Stack spacing={2}>
         {trendingList.map((item: ICoinListProps, index) => (
           <Stack key={item.item.coin_id} direction="row" justifyContent="space-between">

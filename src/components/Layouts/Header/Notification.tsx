@@ -86,8 +86,9 @@ const Notification: React.FC<NotificationProps> = () => {
             //   '#EEE',
             minHeight: (theme: Theme) => theme.spacing(10),
             mb: 1,
+            padding: { xs: '0px !important', sm: 'unset' },
             justifyContent: 'space-between',
-            gap: 1,
+            gap: { xs: 'none', sm: 1 },
           } as SxProps
         }
         style={{ whiteSpace: 'normal' }}

@@ -71,7 +71,7 @@ export const AdminDashboard = () => {
         <Card
           title={
             <BoxFlexStart sx={{ alignItems: 'center' }}>
-              <BoxHeader sx={{ mr: 2 }}>{t('Setting')}</BoxHeader>
+              <BoxHeader sx={{ mr: 2 }}>{t('setting.title')}</BoxHeader>
               <Chip
                 hasHover={true}
                 handleClick={() => setOpenDialog(true)}
@@ -98,7 +98,7 @@ export const AdminDashboard = () => {
                   name="initial_point"
                   required
                   fullWidth
-                  label="Initial point"
+                  label={t('setting.initial_point')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -107,7 +107,7 @@ export const AdminDashboard = () => {
                   name="price_per_point"
                   required
                   fullWidth
-                  label="Price each point (VND)"
+                  label={t('setting.price_each_point')}
                   helperText={VNnum2words(10000)}
                 />
               </Grid>

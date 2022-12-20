@@ -51,7 +51,7 @@ export const ManagerUser = () => {
         sticky: 'left',
       },
       {
-        Header: 'Is admin',
+        Header: t('manage_user.is_admin'),
         accessor: 'is_admin',
         width: 20,
         Cell: ({ value }: any) => {

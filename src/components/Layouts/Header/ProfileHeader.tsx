@@ -85,7 +85,7 @@ export const ProfileHeader = (props: any) => {
 
   return (
     <>
-      <LanguageButton onClick={handleClick}>
+      <LanguageButton sx={{ minWidth: { xs: 52, sm: 64 } }} onClick={handleClick}>
         <Avatar
           sx={{ width: '32px', height: '32px' }}
           alt="Remy Sharp"

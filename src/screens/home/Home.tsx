@@ -151,11 +151,11 @@ export const Home = () => {
         />
       </Grid>
       <Grid item {...grid} sx={{ ...gridPaddingResponsive }}>
-        <TrendingList />
+        <TrendingList variant="first" />
       </Grid>
 
       <Grid item {...grid} sx={{ ...gridPaddingResponsive }}>
-        <TrendingList />
+        <TrendingList variant="last" />
       </Grid>
 
       {listCoinGraph &&

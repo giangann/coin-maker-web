@@ -16,6 +16,7 @@
   "filter": "Filter",
   "more": "More",
   "trending": "Trending",
+  "many_search": "Many searchs",
   "of": "Of",
   "rank": "Rank",
   "description": "Description",
@@ -43,6 +44,10 @@
     "comunity": "Comunity",
     "product": "Product",
     "contact": "Contact",
+    "learn": "Learn",
+    "news": "News",
+    "articles": "Articles",
+    "video": "Video",
     "view_demo_chart": "VIEW DEMO CHART"
   },
   "table": {
@@ -90,6 +95,7 @@
     "reject": "Reject"
   },
   "form": {
+    "manage_form": "Manage conversion request",
     "score_to_money": "Exchange score to take money",
     "money_exchange": "exchange score",
     "list_score_to_money_form": "List of exchange score request",
@@ -162,7 +168,9 @@
     "title": "Setting",
     "edit_title": "Change setting",
     "user_init_score": "Initial score of each user: ",
-    "price_per_point": "Price per point: "
+    "price_per_point": "Price per point: ",
+    "initial_point": "Initial point",
+    "price_each_point": "Price each point (VND)"
   },
   "manage_user": {
     "title": "User management",
@@ -176,7 +184,10 @@
     "change_role": "change role",
     "current_score": "Current score: ",
     "update_role": "Update role for user",
-    "sure_set_role":"Are you sure to set role: ",
-    "this_user":" for this user?"
+    "sure_set_role": "Are you sure to set role: ",
+    "this_user": " for this user?"
+  },
+  "contact": {
+    "contact_admin": "Contact with our Admin"
   }
 }

@@ -78,7 +78,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              RUBY_COIN
             </Typography>
           </CustomLink>
         </AlignGrid>
@@ -135,7 +135,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
         <AlignGrid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
             variant="h6"
-            noWrap
+            // noWrap
             component="a"
             href="/"
             sx={{
@@ -148,10 +148,10 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            RUBYCOIN
           </Typography>
         </AlignGrid>
-        <AlignGrid item xs={4}>
+        <AlignGrid item xs={4} sx={{ justifyContent: { xs: 'end', sm: 'inherit' } }}>
           <Notification />
           <ProfileHeader handleLogout={handleLogout} />
         </AlignGrid>

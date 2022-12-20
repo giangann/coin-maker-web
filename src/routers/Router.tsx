@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { ChartCoin } from '@/components/Charts/ChartCoin'
 import { Layout } from '@/components/Layouts'
 import { Coin, Home, Login, NotFound } from '@/screens'
+import { Contact } from '@/screens/contact'
 import { Converter } from '@/screens/converter/Converter'
 import { AdminDashboard } from '@/screens/dashboard/AdminDashboard'
 import { UserDetail } from '@/screens/dashboard/UserDetail'
@@ -26,6 +27,7 @@ export const Router = ({ isAdmin }: { isAdmin: boolean }) => {
         <Route path="/site-map" element={<SiteMap />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/form/:id" element={<ScoreToMoneyEditForm />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={isAdmin ? <AdminDashboard /> : <Forbidden />} />
         <Route path="/manager/user/:id" element={isAdmin ? <UserDetail /> : <Forbidden />} />
         <Route index element={<Home />} />

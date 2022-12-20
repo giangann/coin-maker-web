@@ -16,6 +16,7 @@
   "filter": "Bộ lọc",
   "more": "Xem thêm",
   "trending": "Thịnh hành",
+  "many_search": "Nhiều lượt tìm kiếm",
   "of": "Của",
   "rank": "Xếp hạng",
   "description": "Mô tả",
@@ -42,7 +43,11 @@
     "exchange": "Trao đổi",
     "comunity": "Cộng đồng",
     "product": "Sản phẩm",
-    "contact": "Học hỏi",
+    "contact": "Liên hệ",
+    "learn": "Học hỏi",
+    "news": "Tin tức",
+    "articles": "Các bài viết",
+    "video": "Video",
     "view_demo_chart": "VIEW DEMO CHART"
   },
   "table": {
@@ -90,6 +95,7 @@
     "reject": "Từ chối"
   },
   "form": {
+    "manage_form": "Quản lý yêu cầu đổi tiền",
     "score_to_money": "Đổi điểm lấy tiền",
     "money_exchange": "yêu cầu đổi điểm",
     "list_score_to_money_form": "Danh sách yêu cầu đổi điểm",
@@ -163,7 +169,9 @@
     "title": "Cài đặt",
     "edit_title": "Thay đổi cài đặt",
     "user_init_score": "Điểm khởi tạo cho mỗi người dùng mới: ",
-    "price_per_point": "Giá của 1 điểm: "
+    "price_per_point": "Giá của 1 điểm: ",
+    "initial_point": "Điểm khởi tạo",
+    "price_each_point": "Giá mỗi điểm (VND)"
   },
   "manage_user": {
     "title": "Quản lý người dùng",
@@ -177,7 +185,10 @@
     "change_role": "đổi quyền",
     "current_score": "Điểm hiện tại: ",
     "update_role": "Cập nhật quyền cho người dùng",
-    "sure_set_role":"Bạn có chắc muốn đặt quền: ",
-    "this_user":" cho người dùng này?"
+    "sure_set_role": "Bạn có chắc muốn đặt quyền: ",
+    "this_user": " cho người dùng này?"
+  },
+  "contact": {
+    "contact_admin": "Liên hệ với Admin của chúng tôi"
   }
 }
