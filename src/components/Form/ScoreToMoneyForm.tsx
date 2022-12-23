@@ -20,6 +20,7 @@ import { darkTheme } from '@/screens/profile/UserInfo'
 
 import { Select } from '../AutoComplete'
 import { Input } from '../Input'
+import { StatusTag } from '../Tag/StatusTag'
 
 export type ScoreToMoneyFormType = {
   points: number | string
@@ -190,7 +191,11 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         }
       : undefined
   return (
-    <Grid container component="form" rowSpacing={1}>
+    <Grid container component="form" rowSpacing={1} sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'absolute', top: -50, right: 0 }}>
+        <StatusTag value={watch('status')} />
+      </Box>
+
       <Grid item xs={12} sx={{ mb: 4 }}>
         <Box sx={{ width: { xs: '100%', sm: 'calc(50% - 16px)' } }}>
           <TypographyByThemeStyleProps>
