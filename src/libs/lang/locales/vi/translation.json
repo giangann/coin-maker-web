@@ -95,6 +95,7 @@
     "reject": "Từ chối"
   },
   "form": {
+    "detail": "Chi tiết yêu cầu",
     "manage_form": "Quản lý yêu cầu đổi tiền",
     "score_to_money": "Đổi điểm lấy tiền",
     "money_exchange": "yêu cầu đổi điểm",

@@ -30,6 +30,7 @@ export type ScoreToMoneyFormType = {
   name: string
   phone_number: number | string
   status: number
+  money?: number
 }
 
 export type ScoreToMoneyFormProps = {
@@ -72,6 +73,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       name: userStorage?.name,
       phone_number: '',
       status: STATUS_FORM.AWAIT_CONFIRM,
+      money: 0,
     },
 
     resolver: yupResolver(validateForm),
@@ -95,6 +97,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         setValue('name', data.name)
         setValue('phone_number', data.phone_number)
         setValue('status', data.status)
+        setValue('money', data.money)
       },
     })
   }
@@ -131,7 +134,9 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           if (isAdmin) navigate('/dashboard')
           else navigate('/profile')
         } else {
-          queryClient.fetchQuery(`score-to-money-form`, { staleTime: 2000 })
+          queryClient.fetchQuery([`score-to-money-form`, { user_id: userStorage?.id }], {
+            staleTime: 2000,
+          })
           queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
           handleClose()
         }
@@ -190,7 +195,8 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         <Box sx={{ width: { xs: '100%', sm: 'calc(50% - 16px)' } }}>
           <TypographyByThemeStyleProps>
             {t('form.conversion_rate')}
-            {numberWithCommas(setting?.price_per_point)}đ
+            {numberWithCommas(isEdit ? watch('money') / watch('points') : setting?.price_per_point)}
+            đ
           </TypographyByThemeStyleProps>
           <Input
             sx={{ borderRadius: 6, ...sxInputByThemeStyle }}
@@ -205,7 +211,10 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           />
           <TypographyByThemeStyleProps>
             {t('form.money_you_will_take')}
-            {numberWithCommas((watch('points') as number) * setting?.price_per_point)}đ{' '}
+            {numberWithCommas(
+              isEdit ? watch('money') : (watch('points') as number) * setting?.price_per_point,
+            )}
+            đ{' '}
           </TypographyByThemeStyleProps>
         </Box>
       </Grid>

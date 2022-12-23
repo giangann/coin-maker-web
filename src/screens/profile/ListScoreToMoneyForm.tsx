@@ -8,13 +8,19 @@ import { Card } from '@/components'
 import { ScoreToMoneyFormType } from '@/components/Form'
 import { ReactTableWithToolBar } from '@/components/ReactTable'
 import { StatusTag } from '@/components/Tag/StatusTag'
+import { useAuth } from '@/libs/hooks'
 import { convertDatetimeTZWithoutSecond, numberWithCommas } from '@/libs/utils'
 
 export const ListScoreToMoneyForm = () => {
   const { t } = useTranslation()
+  const { isAdmin, userStorage } = useAuth()
   const navigate = useNavigate()
-  const { data: listFormData, isLoading: isLoading } =
-    useQuery<ScoreToMoneyFormType[]>('score-to-money-form')
+  const { data: listFormData, isLoading: isLoading } = useQuery<ScoreToMoneyFormType[]>([
+    'score-to-money-form',
+    {
+      user_id: userStorage?.id,
+    },
+  ])
 
   const columns = React.useMemo(
     () => [
