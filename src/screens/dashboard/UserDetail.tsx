@@ -10,6 +10,7 @@ import { BaseDialog } from '@/components/Dialog/BaseDialog'
 import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { UserType } from '@/libs/types'
+import { numberWithCommas } from '@/libs/utils'
 import { backgroundColor, CurveBoxWithCustomBackground, green, grey } from '@/styles'
 
 export const UserDetail = () => {
@@ -76,6 +77,18 @@ export const UserDetail = () => {
         <Typography>
           {t('user_detail.current_score')}
           {userInformation?.score}
+        </Typography>
+        <Typography>
+          {t('user.awaiting_exchange_score')}
+          {userInformation?.awaiting_score_to_money || 0}
+        </Typography>
+        <Typography>
+          {t('user.total_money_earned')}
+          {numberWithCommas(userInformation?.total_money_earned || 0)}đ
+        </Typography>
+        <Typography>
+          {t('user.total_await_money')}
+          {numberWithCommas(userInformation?.total_await_money || 0)}đ
         </Typography>
       </Stack>
       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>

@@ -1,15 +1,20 @@
 // @ts-nocheck
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material'
 import { styled, ThemeProvider } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { BsFileEarmarkImage } from 'react-icons/bs'
+import { TiDelete } from 'react-icons/ti'
 import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as yup from 'yup'
 
+import { Button as ImageBtn } from '@/components/Button'
 import { STATUS_FORM } from '@/constants'
 import { useAuth } from '@/libs/hooks'
 import i18n from '@/libs/lang/translations/i18n'
@@ -17,11 +22,11 @@ import { queryClient } from '@/libs/react-query'
 import { request } from '@/libs/request'
 import { numberWithCommas } from '@/libs/utils'
 import { darkTheme } from '@/screens/profile/UserInfo'
+import { grey } from '@/styles'
 
 import { Select } from '../AutoComplete'
 import { Input } from '../Input'
 import { StatusTag } from '../Tag/StatusTag'
-
 export type ScoreToMoneyFormType = {
   points: number | string
   bank_name: string
@@ -49,6 +54,10 @@ const validateForm = yup.object({
 })
 
 export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [files, setFiles] = useState<File>()
+  const [image, setImage] = useState<string>()
+
   const { handleClose, themeStyle } = props
   const { userStorage } = useAuth()
   const { data: listBanksData } = useQuery([`https://api.vietqr.io/v2/banks`])
@@ -86,6 +95,9 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   const isDisable = (isAdmin && isEdit) || watch('status') !== STATUS_FORM.AWAIT_CONFIRM
   // console.log('id of form', params.id)
 
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
   if (isEdit) {
     useQuery(`score-to-money-form/${params.id}`, {
       onSuccess: (data: any) => {
@@ -99,6 +111,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         setValue('phone_number', data.phone_number)
         setValue('status', data.status)
         setValue('money', data.money)
+        setImage(data.image)
       },
     })
   }
@@ -114,6 +127,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
 
       console.log('is edit', isEdit)
       // if points is enough
+
       let res
       if (!isEdit) {
         res = await request.post('score-to-money-form', {
@@ -158,11 +172,20 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       newStatus = STATUS_FORM.ACCEPTED
     }
     try {
-      const res = await request.patch(`score-to-money-form/${parseInt(params.id)}`, {
-        ...value,
-        status: newStatus,
+      // create form data
+      const formData = new FormData()
+      Object.entries(value).forEach(([key, value]) => {
+        formData.append(key, value)
       })
+      formData.set('status', newStatus)
+      if (files) {
+        formData.append('image', files)
+      }
 
+      const res = await request.post(
+        `score-to-money-form/${parseInt(params.id)}?_method=PATCH`,
+        formData,
+      )
       if (res.status === 200) {
         toast.success(res.data.message)
         handleGoBack()
@@ -192,9 +215,11 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
       : undefined
   return (
     <Grid container component="form" rowSpacing={1} sx={{ position: 'relative' }}>
-      <Box sx={{ position: 'absolute', top: -50, right: 0 }}>
-        <StatusTag value={watch('status')} />
-      </Box>
+      {isEdit ? (
+        <Box sx={{ position: 'absolute', top: -50, right: 0 }}>
+          <StatusTag value={watch('status')} />
+        </Box>
+      ) : undefined}
 
       <Grid item xs={12} sx={{ mb: 4 }}>
         <Box sx={{ width: { xs: '100%', sm: 'calc(50% - 16px)' } }}>
@@ -285,7 +310,7 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         </Grid>
       </Grid>
       <TypographyByThemeStyleProps>{t('form.contact_information')}</TypographyByThemeStyleProps>
-      <Grid item xs={12} container spacing={2}>
+      <Grid item xs={12} container spacing={2} sx={{ mb: isEdit ? 4 : 0 }}>
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
@@ -312,6 +337,84 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           />
         </Grid>
       </Grid>
+
+      {isEdit && isAdmin ? (
+        <>
+          <TypographyByThemeStyleProps>
+            {t('form.confirm_transfer_image')}
+          </TypographyByThemeStyleProps>
+          <Grid item xs={12} container spacing={2} sx={{ mb: isEdit ? 4 : 0 }}>
+            <Grid item xs={12} sm={6}>
+              <Box sx={{ textAlign: 'left' }}>
+                <ImageBtn
+                  variant="outlined"
+                  component="label"
+                  disabled={watch('status') !== STATUS_FORM['AWAIT_CONFIRM']}
+                  sx={{
+                    width: 'max-content',
+                    marginTop: '12px',
+                    marginRight: '12px',
+
+                    '&.Mui-disabled': {
+                      backgroundColor: '#ffffff',
+                      color: '#00000080 !important',
+                    },
+                  }}
+                  size={isMobile ? 'small' : 'medium'}
+                  startIcon={<BsFileEarmarkImage size="14px" />}
+                >
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    onChange={(e) => {
+                      const listFile = e.target.files as FileList
+                      const file = listFile[0]
+                      setFiles(file)
+                    }}
+                  />
+                  {t('image')}
+                </ImageBtn>
+              </Box>
+              {files ? (
+                <Box position="relative" width="max-content">
+                  <Box
+                    component="img"
+                    sx={{
+                      width: '100%',
+                      maxWidth: {
+                        xs: 275,
+                        sm: 375,
+                      },
+                      marginTop: '16px',
+                    }}
+                    src={files.type ? URL.createObjectURL(files) : ''}
+                    alt="preview"
+                  />
+                  <TiDelete
+                    size="28px"
+                    color={grey['primary']}
+                    style={{
+                      position: 'absolute',
+                      top: '18px',
+                      right: '2px',
+                      cursor: 'pointer',
+                      zIndex: 1,
+                    }}
+                    onClick={() => setFiles(undefined)}
+                  />
+                </Box>
+              ) : null}
+            </Grid>
+          </Grid>
+        </>
+      ) : undefined}
+      {isEdit && image ? (
+        <Box>
+          <img src={image} alt="post" style={{ width: '100%', maxWidth: 375 }} loading="lazy" />
+        </Box>
+      ) : undefined}
+
       <Grid item xs={12}>
         {isDisable && isAdmin ? (
           <Box sx={{ mt: 2, mb: 2, display: 'flex', justifyContent: 'flex-end' }}>

@@ -76,6 +76,7 @@ const Notification: React.FC<NotificationProps> = () => {
   }
 
   const NotificationItem = useCallback(({ noti }: { noti: NotificationType }) => {
+    console.log('noti', noti)
     return (
       <MenuItem
         sx={
@@ -130,7 +131,7 @@ const Notification: React.FC<NotificationProps> = () => {
     if (noti.type === NOTI_TYPE.ACCEPT) {
       return t('notification.content.accept')
     }
-    if (noti.type === NOTI_TYPE.REJECTE) {
+    if (noti.type === NOTI_TYPE.REJECT) {
       return t('notification.content.reject')
     }
     if (noti.type === NOTI_TYPE.DONATE) {

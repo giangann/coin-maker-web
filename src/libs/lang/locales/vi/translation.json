@@ -125,7 +125,8 @@
     "type_phone_number": "Nhập số điện thoại",
     "accepted": "Chấp nhận",
     "rejected": "Từ chối",
-    "await_confirm": "Đợi phê duyệt"
+    "await_confirm": "Đợi phê duyệt",
+    "confirm_transfer_image": "Ảnh xác nhận chuyển tiền"
   },
 
   "validate": {
@@ -134,12 +135,14 @@
   },
   "user": {
     "info": "Thông tin cá nhân",
-    "email": "Địa chỉ email",
+    "email": "Địa chỉ email: ",
     "curr_score": "Số điểm hiện tại của bạn là: ",
     "avaiable_score": "Số điểm có thể giao dịch: ",
-    "awaiting_exchange_score": "Số tiền chờ được đổi",
+    "awaiting_exchange_score": "Số điểm chờ được đổi: ",
     "name": "Người dùng",
-    "phone_number": "Số điện thoại"
+    "phone_number": "Số điện thoại",
+    "total_money_earned": "Tổng số tiền đã nhận được: ",
+    "total_await_money": "Tổng số tiền đang đợi admin phê duyệt: "
   },
   "donate": {
     "history": "Lịch sử tặng điểm",
@@ -163,7 +166,7 @@
       "update": "cập nhật yêu cầu đổi điểm lấy tiền",
       "accept": "Admin đã chấp nhận yêu cầu đổi điểm lấy tiền của bạn, tiền đã được chuyển đến tài khoản ngân hàng của bạn",
       "reject": "Oops! Admin đã từ chối yêu cầu đổi điểm lấy tiền của bạn, vui lòng thử lại sau",
-      "dontate": "tặng bạn điểm, hãy kiểm tra lịch sử tặng điểm"
+      "donate": "tặng bạn điểm, hãy kiểm tra lịch sử tặng điểm"
     }
   },
   "setting": {
@@ -173,6 +176,11 @@
     "price_per_point": "Giá của 1 điểm: ",
     "initial_point": "Điểm khởi tạo",
     "price_each_point": "Giá mỗi điểm (VND)"
+  },
+  "statistic": {
+    "title_money": "Số liệu về tiền của điểm thưởng",
+    "all_paid_money": "Tổng tiền đã thanh toán cho người dùng: ",
+    "all_await_to_paid_money": "Tổng tiền đang chờ thanh toán cho người dùng: "
   },
   "manage_user": {
     "title": "Quản lý người dùng",

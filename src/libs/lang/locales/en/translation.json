@@ -125,7 +125,8 @@
     "type_phone_number": "Type your phone number",
     "accepted": "Accepted",
     "rejected": "Rejected",
-    "await_confirm": "Await confirm"
+    "await_confirm": "Await confirm",
+    "confirm_transfer_image": "Confirm transfer image"
   },
   "validate": {
     "required": "This field is required",
@@ -133,12 +134,14 @@
   },
   "user": {
     "info": "Personal information",
-    "email": "Email address",
+    "email": "Email address: ",
     "curr_score": "Your current score is: ",
     "avaiable_score": "Your avaiable score for exchange is: ",
     "awaiting_exchange_score": "Your awaiting exchange score: ",
     "name": "User name",
-    "phone_number": "Phone number"
+    "phone_number": "Phone number",
+    "total_money_earned": "Total money you earned: ",
+    "total_await_money": "Total money that await to approved: "
   },
   "donate": {
     "history": "Donate history",
@@ -162,7 +165,7 @@
       "update": "update exchange money request",
       "accept": "Admin accepted your exchange money request, please check your bank transaction",
       "reject": "Oops! Admin rejected your exchange money request, please try again",
-      "dontate": "gived you point, please check it out"
+      "donate": "gived you point, please check it out"
     }
   },
   "setting": {
@@ -172,6 +175,11 @@
     "price_per_point": "Price per point: ",
     "initial_point": "Initial point",
     "price_each_point": "Price each point (VND)"
+  },
+  "statistic": {
+    "title_money": "Money statistic",
+    "all_paid_money": "Total all paid money for user: ",
+    "all_await_to_paid_money": "Total all awaiting to paid money for user: "
   },
   "manage_user": {
     "title": "User management",

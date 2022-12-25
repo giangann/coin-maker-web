@@ -10,6 +10,7 @@ import { BaseDialog } from '@/components/Dialog/BaseDialog'
 import { ScoreToMoneyForm, ScoreToMoneyFormType } from '@/components/Form'
 import { userAtomWithStorage } from '@/libs/atoms'
 import { useAuth } from '@/libs/hooks'
+import { numberWithCommas } from '@/libs/utils'
 import { backgroundColor, CurveBoxWithCustomBackground } from '@/styles'
 
 export const darkTheme = createTheme({
@@ -61,6 +62,14 @@ export const UserInfo = () => {
         </Stack>
         <Typography>
           {t('user.awaiting_exchange_score')} {scoreData?.awaiting_score_to_money}{' '}
+        </Typography>
+        <Typography>
+          {t('user.total_money_earned')} {numberWithCommas(scoreData?.money_earned)}
+          {'đ '}
+        </Typography>
+        <Typography>
+          {t('user.total_await_money')} {numberWithCommas(scoreData?.awaiting_money)}
+          {'đ '}
         </Typography>
       </Box>
 
