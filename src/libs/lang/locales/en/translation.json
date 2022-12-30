@@ -173,6 +173,7 @@
     "edit_title": "Change setting",
     "user_init_score": "Initial score of each user: ",
     "price_per_point": "Price per point: ",
+    "limit_exchange_point_per_day": "Limit of exchange point each day of user: ",
     "initial_point": "Initial point",
     "price_each_point": "Price each point (VND)"
   },

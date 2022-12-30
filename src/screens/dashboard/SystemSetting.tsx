@@ -24,6 +24,9 @@ export const SystemSetting = () => {
       <Typography>
         {t('setting.price_per_point')} {numberWithCommas(setting?.price_per_point as number)}đ
       </Typography>
+      <Typography>
+        {t('setting.limit_exchange_point_per_day')} {setting?.limit_exchange_point_per_day}
+      </Typography>
 
       <Typography variant="h6" sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
         {t('statistic.title_money')}

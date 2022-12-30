@@ -155,9 +155,11 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
           queryClient.fetchQuery(`user/calculate-score`, { staleTime: 2000 })
           handleClose()
         }
+      } else {
+        toast.error(res.data.message)
       }
     } catch (error) {
-      toast.error(error.errors)
+      toast.error(error.response.data.message)
     }
   }
 
