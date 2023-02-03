@@ -38,6 +38,7 @@
   "title": "Title",
   "chat_together": "Chat together",
   "image": "Image",
+  "score": "score",
   "sidebar": {
     "all_kind_of_currency": "All kind of currency",
     "exchange": "Exchange",
@@ -175,7 +176,8 @@
     "price_per_point": "Price per point: ",
     "limit_exchange_point_per_day": "Limit of exchange point each day of user: ",
     "initial_point": "Initial point",
-    "price_each_point": "Price each point (VND)"
+    "price_each_point": "Price each point (VND)",
+    "hidden_iframe_link": "Hidden iframe link"
   },
   "statistic": {
     "title_money": "Money statistic",

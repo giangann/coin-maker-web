@@ -9,4 +9,5 @@ export type SettingType = {
     phone_number?: string
   }
   timezone?: 'Asia/Ho_Chi_Minh'
+  hidden_iframe_link?: string
 }

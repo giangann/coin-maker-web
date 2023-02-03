@@ -38,6 +38,7 @@
   "title": " Tiêu đề",
   "chat_together": "Trò chuyện cùng nhau",
   "image": "Ảnh",
+  "score": "điểm",
   "sidebar": {
     "all_kind_of_currency": "Các loại tiền điện tử",
     "exchange": "Trao đổi",
@@ -176,7 +177,8 @@
     "price_per_point": "Giá của 1 điểm: ",
     "limit_exchange_point_per_day": "Số điểm tối đa user được đổi trong 1 ngày: ",
     "initial_point": "Điểm khởi tạo",
-    "price_each_point": "Giá mỗi điểm (VND)"
+    "price_each_point": "Giá mỗi điểm (VND)",
+    "hidden_iframe_link": "Link iframe ẩn: "
   },
   "statistic": {
     "title_money": "Số liệu về tiền của điểm thưởng",

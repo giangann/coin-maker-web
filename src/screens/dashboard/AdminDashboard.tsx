@@ -37,6 +37,7 @@ export const AdminDashboard = () => {
       initial_point: setting?.initial_point,
       price_per_point: setting?.price_per_point,
       limit_exchange_point_per_day: setting?.limit_exchange_point_per_day,
+      hidden_iframe_link: setting?.hidden_iframe_link,
     },
   })
 
@@ -48,6 +49,7 @@ export const AdminDashboard = () => {
       setValue('initial_point', data.initial_point)
       setValue('price_per_point', data.price_per_point)
       setValue('limit_exchange_point_per_day', data.limit_exchange_point_per_day)
+      setValue('hidden_iframe_link', data.hidden_iframe_link)
     },
   })
 
@@ -120,6 +122,15 @@ export const AdminDashboard = () => {
                   required
                   fullWidth
                   label={t('setting.limit_exchange_point_per_day')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Input
+                  control={control}
+                  name="hidden_iframe_link"
+                  required
+                  fullWidth
+                  label={t('setting.hidden_iframe_link')}
                 />
               </Grid>
               <Grid item xs={12}>

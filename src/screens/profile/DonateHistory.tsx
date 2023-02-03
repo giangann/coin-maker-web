@@ -136,18 +136,18 @@ export const DonateHistory = () => {
   )
 }
 
-const dateAndScoreStyle = {
+export const dateAndScoreStyle = {
   fontSize: { xs: 12, sm: 14 },
   opacity: 0.7,
 }
 
-const contentStyle = {
+export const contentStyle = {
   fontSize: { xs: 14, sm: 16 },
   opacity: 0.7,
   lineHeight: { xs: 1.2, sm: 'unset' },
 }
 
-const userNameStyle = {
+export const userNameStyle = {
   fontSize: { xs: 15, sm: 17 },
   fontWeight: 700,
   lineHeight: { xs: 1.2, sm: 'unset' },

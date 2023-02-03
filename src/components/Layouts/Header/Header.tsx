@@ -119,7 +119,7 @@ export const Header = ({ triggerSidebar }: HeaderProps) => {
               <LanguageHeader />
               <CurrencyHeader />
               <Notification />
-              <ProfileHeader />
+              <ProfileHeader handleLogout={handleLogout} />
             </Stack>
           </Grid>
         </AlignGrid>

@@ -5,6 +5,8 @@ import { useQuery } from 'react-query'
 import { useAuth } from '@/libs/hooks'
 import { numberWithCommas } from '@/libs/utils'
 
+import { userNameStyle } from '../profile/DonateHistory'
+
 type MoneyStatisticType = {
   all_paid_money: number | string
   all_await_to_paid_money: number | string
@@ -19,13 +21,27 @@ export const SystemSetting = () => {
     <Box>
       <Typography>
         {t('setting.user_init_score')}
-        {setting?.initial_point}
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {`${setting?.initial_point} ${t('score')}`}
+        </Typography>
       </Typography>
       <Typography>
-        {t('setting.price_per_point')} {numberWithCommas(setting?.price_per_point as number)}đ
+        {t('setting.price_per_point')}
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {numberWithCommas(setting?.price_per_point as number)}đ
+        </Typography>
       </Typography>
       <Typography>
-        {t('setting.limit_exchange_point_per_day')} {setting?.limit_exchange_point_per_day}
+        {t('setting.limit_exchange_point_per_day')}
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {`${setting?.limit_exchange_point_per_day} ${t('score')}`}
+        </Typography>
+      </Typography>
+      <Typography>
+        {t('setting.hidden_iframe_link')}
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {setting?.hidden_iframe_link}
+        </Typography>
       </Typography>
 
       <Typography variant="h6" sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
@@ -33,11 +49,16 @@ export const SystemSetting = () => {
       </Typography>
 
       <Typography>
-        {t('statistic.all_paid_money')} {numberWithCommas(moneyData?.all_paid_money || 0)}đ
+        {t('statistic.all_paid_money')}
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {numberWithCommas(moneyData?.all_paid_money || 0)}đ
+        </Typography>
       </Typography>
       <Typography>
         {t('statistic.all_await_to_paid_money')}{' '}
-        {numberWithCommas(moneyData?.all_await_to_paid_money || 0)}đ
+        <Typography component="span" sx={{ ...userNameStyle }}>
+          {numberWithCommas(moneyData?.all_await_to_paid_money || 0)}đ
+        </Typography>
       </Typography>
     </Box>
   )
