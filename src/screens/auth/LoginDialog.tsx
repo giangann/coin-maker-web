@@ -48,6 +48,7 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
   const onFailure = (err: any) => {}
 
   React.useEffect(() => {
+    console.log('GOOGLE_CLIENT_ID',GOOGLE_CLIENT_ID)
     const initClient = () => {
       gapi.client.init({
         clientId: GOOGLE_CLIENT_ID,

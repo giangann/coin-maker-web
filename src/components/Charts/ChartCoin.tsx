@@ -49,6 +49,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
   const [priceData, setPriceData] = useState<dataChartType>(defaultPriceData)
   const [candleChartData, setCandleChartData] = useState<number[][]>([])
   const [timeOption, setTimeOption] = useState('7d')
+  console.log('cryptoApiHeaders',cryptoApiHeaders)
   const { isSuccess: isCoinDataSuccess, refetch } = useQuery<ServerResponseType<CoinDataType>>(
     [
       `${RAPID_API_URL}/coin/${idCoin}`,
