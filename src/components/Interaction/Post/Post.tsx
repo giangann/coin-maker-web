@@ -2,8 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiLike, BiTrash } from 'react-icons/bi'
-import { BsFillChatRightTextFill } from 'react-icons/bs'
-import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs'
+import { BsCaretDownFill, BsCaretUpFill, BsFillChatRightTextFill } from 'react-icons/bs'
 import { toast } from 'react-toastify'
 
 import { GiftIcon } from '@/components'
@@ -115,7 +114,6 @@ export const Post: React.FC<IPostProps> = ({
   const handleOpenDialog = () => {
     setOpenLoginDialog(true)
   }
-
   return (
     <>
       <Stack>

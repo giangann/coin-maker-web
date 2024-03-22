@@ -4,11 +4,11 @@ import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
 import {
-  baseUrl,
   cryptoApiHeaders,
   defaultReferenceCurrency,
   optionTimeFilter,
   optionTimeFilterGecko,
+  RAPID_API_URL,
 } from '@/constants'
 import { CoinDataType, PriceChartDataResponseType, ServerResponseType } from '@/libs/types/apiChart'
 
@@ -51,7 +51,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
   const [timeOption, setTimeOption] = useState('7d')
   const { isSuccess: isCoinDataSuccess, refetch } = useQuery<ServerResponseType<CoinDataType>>(
     [
-      `${baseUrl}/coin/${idCoin}`,
+      `${RAPID_API_URL}/coin/${idCoin}`,
       { referenceCurrencyUuid: defaultReferenceCurrency, timePeriod: timeOption },
       {
         headers: cryptoApiHeaders,
@@ -76,7 +76,7 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
     ServerResponseType<PriceChartDataResponseType>
   >(
     [
-      `${baseUrl}/coin/${idCoin}/history`,
+      `${RAPID_API_URL}/coin/${idCoin}/history`,
       { referenceCurrencyUuid: defaultReferenceCurrency, timePeriod: timeOption },
       {
         headers: cryptoApiHeaders,
@@ -103,7 +103,6 @@ const ChartCoin: React.FC<ChartCoinProps> = ({ idCoin }) => {
       retry: 3,
       onSuccess: (data) => {
         setCandleChartData(data as number[][])
-        console.log(data)
       },
       enabled: !candleChartData.length,
     },

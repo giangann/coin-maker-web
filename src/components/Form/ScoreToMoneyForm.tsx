@@ -2,9 +2,8 @@
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material'
-import { styled, ThemeProvider } from '@mui/material/styles'
-import { useTheme } from '@mui/material/styles'
-import React, { useState } from 'react'
+import { ThemeProvider, styled, useTheme } from '@mui/material/styles'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { BsFileEarmarkImage } from 'react-icons/bs'
@@ -117,7 +116,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
   }
 
   const onSubmit = async (value: ScoreToMoneyFormType) => {
-    console.log('submit')
     try {
       // check points of requets:
       if (value['points'] > scoreData.avaiable_score) {
@@ -125,7 +123,6 @@ export const ScoreToMoneyForm = (props: ScoreToMoneyFormProps & any) => {
         return
       }
 
-      console.log('is edit', isEdit)
       // if points is enough
 
       let res

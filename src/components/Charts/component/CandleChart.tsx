@@ -42,7 +42,6 @@ const CandleChart: React.FC<CandleChartType> = ({ dataCandle }) => {
     const newItem = [timeChart, ...item.slice(1, 5)]
     return newItem
   })
-  console.log('kaka', newDataCandle)
 
   const data = splitData(newDataCandle as number[][])
 

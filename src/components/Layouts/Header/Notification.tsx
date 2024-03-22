@@ -76,7 +76,6 @@ const Notification: React.FC<NotificationProps> = () => {
   }
 
   const NotificationItem = useCallback(({ noti }: { noti: NotificationType }) => {
-    console.log('noti', noti)
     return (
       <MenuItem
         sx={

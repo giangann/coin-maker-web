@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { loginWithGG } from '@/libs/apis'
 import { userAtomWithStorage, userProfileImage } from '@/libs/atoms/authAtom'
 import { backgroundColor, WhiteTypograpy } from '@/styles'
+import { GOOGLE_CLIENT_ID } from '@/constants'
 type LoginDialogProps = {
   open: boolean
   handleClose: () => void
@@ -49,7 +50,7 @@ export const LoginDialog = ({ open, handleClose }: LoginDialogProps) => {
   React.useEffect(() => {
     const initClient = () => {
       gapi.client.init({
-        clientId: '892961628161-ttu2f42daldnurgoednpa6fss17u0pr4.apps.googleusercontent.com',
+        clientId: GOOGLE_CLIENT_ID,
         scope: '',
       })
     }

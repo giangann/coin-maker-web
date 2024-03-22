@@ -9,7 +9,7 @@ import { defaultPriceData } from '@/components/Charts/ChartCoin'
 import { dataChartType } from '@/components/Charts/component/BarLineChart'
 import { LineChart } from '@/components/Charts/component/chartComponent'
 import { parseDataChart } from '@/components/Charts/component/parseDataChart'
-import { baseUrl, cryptoApiHeaders, defaultReferenceCurrency } from '@/constants'
+import { RAPID_API_URL, cryptoApiHeaders, defaultReferenceCurrency } from '@/constants'
 import { ICoin, ICoinLaravel } from '@/libs/types'
 import { PriceChartDataResponseType, ServerResponseType } from '@/libs/types/apiChart'
 import { backgroundColor, blue, CustomLink } from '@/styles'
@@ -34,7 +34,7 @@ const CoinGraph: React.FC<CoinGraphType> = ({ coin, colorGraph, colorLine }) => 
     ServerResponseType<PriceChartDataResponseType>
   >(
     [
-      `${baseUrl}/coin/${uuidCoin}/history`,
+      `${RAPID_API_URL}/coin/${uuidCoin}/history`,
       { referenceCurrencyUuid: defaultReferenceCurrency, timePeriod: '30d' },
       {
         headers: cryptoApiHeaders,

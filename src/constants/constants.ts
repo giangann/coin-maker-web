@@ -15,14 +15,17 @@ export const TAG_POST = {
   UNSET: 2,
 }
 export const cryptoApiHeaders = {
-  'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
-  'x-rapidapi-key': '04de44fc83msh46cb01efcfaa973p1fba02jsndd85800cb112',
+  'x-rapidapi-host': `${import.meta.env.VITE_X_RAPID_API_HOST}`,
+  'x-rapidapi-key': `${import.meta.env.VITE_X_RAPID_API_KEY}`,
 }
+
+export const GOOGLE_CLIENT_ID = `${import.meta.env.VITE_GOOGLE_CLIENT_ID}`
 
 export const coinMarketApiHeader = {
   'X-CMC_PRO_API_KEY': 'b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c',
 }
-export const baseUrl = 'https://coinranking1.p.rapidapi.com'
+export const RAPID_API_URL = `https://${import.meta.env.VITE_X_RAPID_API_HOST}`
+
 export const optionTimeFilter = ['24h', '3h', '7d', '30d', '3m', '1y']
 export const optionTimeFilterGecko = {
   '24h': 1,
